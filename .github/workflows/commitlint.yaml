@@ -1,0 +1,30 @@
+name: Metadata
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, synchronize]
+
+jobs:
+  title_check:
+    runs-on: ubuntu-latest
+    name: Validate PR Title
+    permissions:
+      pull-requests: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
+
+      - name: Install commitlint
+        run: npm install --save-dev @commitlint/{config-conventional,cli}
+
+      - name: Lint PR title
+        env:
+          pull_request_title: ${{ github.event.pull_request.title }}
+        run: echo "$pull_request_title" | npx commitlint
