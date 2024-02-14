@@ -1,4 +1,4 @@
-# 🚀 UDS Software Factory
+# 🏭 UDS Software Factory
 
 This is the integration / wayfinding repository for the Unicorn Delivery Service (UDS) Software Factory created and offered by Defense Unicorns.  In its current state it is made up of the following UDS packages that are bundled together:
 
