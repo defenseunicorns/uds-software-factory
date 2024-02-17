@@ -1,0 +1,173 @@
+kind: UDSBundle
+metadata:
+  name: uds-k3d-swf-demo-bundle
+  description: A UDS bundle for deploying the UDS Software Factory on a development cluster
+  # x-release-please-start-version
+  version: 0.1.0
+  # x-release-please-end
+
+packages:
+  # - name: uds-k3d-dev
+  #   repository: ghcr.io/defenseunicorns/packages/uds-k3d
+  #   # renovate: datasource=github-tags depName=defenseunicorns/uds-k3d versioning=semver
+  #   ref: 0.3.1
+
+  # - name: init
+  #   repository: ghcr.io/defenseunicorns/packages/init
+  #   # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
+  #   ref: v0.32.3
+
+  # - name: uds-core #for now
+  #   repository: oci://ghcr.io/defenseunicorns/packages/uds/core
+  #   ref: "0.9.1-upstream"
+
+  - name: dev-minio
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
+    ref: 0.0.1
+
+  # - name: dev-postgres-mattermost
+  #   repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
+  #   ref: 0.0.1 
+  #   overrides:
+  #     postgres:
+  #       postgresql:
+  #         variables:
+  #           - name: NAME_OVERRIDE
+  #             description: "Override full name"
+  #             path: "fullnameOverride"
+  #             default: "postgresql-mattermost"
+
+  # - name: dev-postgres-sonarqube
+  #   repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
+  #   ref: 0.0.1 
+  #   overrides:
+  #     postgres:
+  #       postgresql:
+  #         variables:
+  #           - name: NAME_OVERRIDE
+  #             description: "Override full name"
+  #             path: "fullnameOverride"
+  #             default: "postgresql-sonarqube"
+
+  - name: dev-postgres-gitlab
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-postgres
+    ref: 0.0.1
+  
+  - name: dev-redis
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
+    ref: 0.0.1
+
+  - name: dev-secrets
+    path: ../../../
+    ref: 0.1.0
+
+  - name: gitlab
+    repository: ghcr.io/defenseunicorns/packages/uds/gitlab
+    # x-release-please-start-version
+    ref: 16.8.1-uds.4-upstream
+    # x-release-please-end
+    overrides:
+      gitlab:
+        gitlab:
+          variables:
+            - name: MIGRATIONS_RESOURCES
+              description: "Gitlab Migrations Resources"
+              path: "gitlab.migrations.resources"
+            - name: WEBSERVICE_REPLICAS
+              description: "Gitlab Webservice Min Replicas"
+              path: "gitlab.webservice.minReplicas"
+            - name: WEBSERVICE_RESOURCES
+              description: "Gitlab Webservice Resources"
+              path: "gitlab.webservice.resources"
+            - name: WORKHORSE_RESOURCES
+              description: "Gitlab Workhorse Resources"
+              path: "gitlab.workhorse.resources"
+            - name: SIDEKIQ_REPLICAS
+              description: "Gitlab Sidekiq Min Replicas"
+              path: "gitlab.sidekiq.minReplicas"
+            - name: SIDEKIQ_RESOURCES
+              description: "Gitlab Sidekiq Resources"
+              path: "gitlab.sidekiq.resources"
+            - name: REGISTRY_REPLICAS
+              description: "Gitlab Registry Min Replicas"
+              path: "registry.hpa.minReplicas"
+            - name: SHELL_REPLICAS
+              description: "Gitlab Shell Min Replicas"
+              path: "gitlab.gitlab-shell.minReplicas"
+
+  - name: gitlab-runner
+    repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
+    ref: 16.8.0-uds.0-upstream
+
+
+
+  
+
+
+
+  # - name: sonarqube
+  #   repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
+  #   # x-release-please-start-version
+  #   ref: 8.0.3-uds.4-upstream-ce
+  #   # x-release-please-end
+
+
+  # - name: dev-secrets-mattermost
+  #   path: ../
+  #   ref: 0.1.0
+  #   exports:
+  #   - name: ACCESS_KEY
+  #   - name: SECRET_KEY
+  #   - name: DB_PASSWORD
+
+  # - name: mattermost
+  #   path: ../
+  #   # x-release-please-start-version
+  #   ref: 9.4.1-uds.2-upstream
+  #   # x-release-please-end
+  #   imports:
+  #     - name: ACCESS_KEY
+  #       package: dev-secrets
+  #     - name: SECRET_KEY
+  #       package: dev-secrets
+  #     - name: DB_PASSWORD
+  #       package: dev-secrets
+  #   overrides:
+  #     mattermost:
+  #       uds-mattermost-config:
+  #         values:
+  #           - path: "objectStorage.secure"
+  #             value: "false"
+  #           - path: "objectStorage.endpoint"
+  #             value: "minio.dev-minio.svc.cluster.local:9000"
+  #           - path: "objectStorage.bucket"
+  #             value: "uds-mattermost-dev"
+  #           - path: "postgres.host"
+  #             value: "postgresql.dev-postgres.svc.cluster.local"
+  #           - path: "postgres.connectionOptions"
+  #             value: "?connect_timeout=10&sslmode=disable"
+  # - name: mattermost
+  #   repository: ghcr.io/defenseunicorns/packages/uds/mattermost
+  #   ref: 9.4.1-uds.2-registry1
+  #   overrides:
+  #     mattermost:
+  #       uds-mattermost-config:
+  #         variables:
+  #           - name: MATTERMOST_DB_ENDPOINT
+  #             path: "postgres.host"
+  #           - name: MATTERMOST_DB_PASSWORD
+  #             path: "postgres.password"
+  #           - name: MATTERMOST_BUCKET
+  #             path: "objectStorage.bucket"
+  #           - name: MATTERMOST_REGION
+  #             path: "objectStorage.region"
+  #           - name: MATTERMOST_S3_ENDPOINT
+  #             path: "objectStorage.endpoint"
+  #         # Enable plugin uploads for MM AI plugin
+  #         values:
+  #           - path: "config.enablePluginUploads"
+  #             value: "true"
+  #       mattermost-enterprise-edition:
+  #         variables:
+  #           - name: MATTERMOST_ROLE_ARN
+  #             path: "serviceAccount.annotations.irsa/role-arn"

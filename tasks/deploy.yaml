@@ -1,0 +1,6 @@
+tasks:
+  - name: test-bundle
+    actions:
+      - description: Deploy the UDS bundle with the package and its dependencies
+        cmd: UDS_CONFIG=bundles/k3d/dev/uds-config.yaml uds deploy bundles/k3d/dev/uds-bundle-*-${UDS_ARCH}-*.tar.zst --confirm --no-progress
+        #dir: bundles/k3d/dev

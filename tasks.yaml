@@ -1,0 +1,50 @@
+includes:
+  - cleanup: ./tasks/cleanup.yaml
+  - create: ./tasks/create.yaml
+  - deploy: ./tasks/deploy.yaml #https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/setup.yaml
+  - test: ./tasks/test.yaml
+
+tasks:
+  - name: default
+    description: Create K3D Cluster with istio + SWF
+    actions:
+      - task: create-test-bundle
+      - task: setup-cluster
+      - task: deploy-test-bundle
+
+  - name: setup-cluster
+    description: Deploy k3d cluster using uds-common-tasks
+    actions:
+      - task: setup:k3d-test-cluster
+  
+  - name: create-package
+    description: Create UDS Gitlab Package, No dependencies included
+    actions:
+      - task: create:dependency-package
+  
+  - name: create-test-bundle
+    description: Create UDS SWF bundle with dependencies
+    actions:
+      - task: create:swf-test-bundle
+  
+  - name: deploy-test-bundle
+    description: Deploy UDS SWF bundle with dependencies using uds-common-tasks
+    actions:
+      - task: deploy:test-bundle
+
+  - name: test-package
+    description: Run health checks and ingress tests
+    actions:
+      - task: test:health-check
+      - task: test:ingress
+
+  - name: cleanup
+    description: Destroy k3d Cluster
+    actions:
+      - task: cleanup:cluster
+
+  - name: cleanup-bundle
+    description: Remove the Deployed UDS Gitlab Bundle
+    actions:
+      - task: cleanup:bundle

@@ -1,0 +1,58 @@
+variables:
+  dev-postgres-sonarqube:
+    db_username: "sonarqube"
+    db_name: "sonarqubedb"
+  sonarqube:
+    sonarqube_db_endpoint: "postgresql.dev-postgres.svc.cluster.local"
+  dev-postgres-mattermost:
+    db_username: "mattermost"
+    db_name: "mattermost"
+  dev-minio:
+    buckets: |
+      - name: uds-gitlab-artifacts
+      - name: uds-gitlab-backups
+      - name: uds-gitlab-ci-secure-files
+      - name: uds-gitlab-dependency-proxy
+      - name: uds-gitlab-lfs
+      - name: uds-gitlab-mr-diffs
+      - name: uds-gitlab-packages
+      - name: uds-gitlab-pages
+      - name: uds-gitlab-terraform-state
+      - name: uds-gitlab-uploads
+      - name: uds-gitlab-registry
+      - name: uds-gitlab-tmp
+      - name: uds-mattermost-dev
+  dev-postgres-gitlab:
+    db_username: "gitlab"
+    db_name: "gitlabdb"
+  gitlab:
+    gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
+    gitlab_db_endpoint: "postgresql.dev-postgres.svc.cluster.local"
+    DISABLE_REGISTRY_REDIRECT: "true"
+    # # Overrides for scaled down cluster for local dev and CI
+    webservice_replicas: 1
+    webservice_resources:
+      limits:
+        memory: 2.5G
+      requests:
+        cpu: 300m
+        memory: 2.5G    
+    migrations_resources:
+      limits:
+        cpu: 500m
+        memory: 4G
+    workhorse_resources:
+        limits:
+          memory: 100M
+        requests:
+          cpu: 10m
+          memory: 10M
+    sidekiq_replicas: 1
+    sidekiq_resources:
+        limits:
+          memory: 1.5G
+        requests:
+          cpu: 50m
+          memory: 625M
+    registry_replicas: 1
+    shell_replicas: 1

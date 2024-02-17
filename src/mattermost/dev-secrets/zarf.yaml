@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: dev-secrets
+  version: "0.1.0"
+
+components:
+  - name: mattermost-minio-password
+    required: true
+    actions:
+      onDeploy:
+        before:
+          - cmd: kubectl get secret -n dev-minio minio --template='{{ index .data "rootUser" }}' | base64 -d
+            mute: true
+            setVariables:
+              - name: ACCESS_KEY
+                sensitive: true
+          - cmd: kubectl get secret -n dev-minio minio --template='{{ index .data "rootPassword" }}' | base64 -d
+            mute: true
+            setVariables:
+              - name: SECRET_KEY
+                sensitive: true
+  - name: mattermost-postgres-password
+    required: true
+    actions:
+      onDeploy:
+        before:
+          - cmd: kubectl get secret -n dev-postgres postgresql --template={{.data.password}} | base64 -d
+            mute: true
+            setVariables:
+              - name: DB_PASSWORD
+                sensitive: true

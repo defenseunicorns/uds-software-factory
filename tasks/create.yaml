@@ -1,0 +1,17 @@
+variables:
+  - name: FLAVOR
+    default: "registry1"
+
+tasks:
+  - name: swf-test-bundle
+    description: Create the UDS bundle with Gitlab and its dependencies
+    actions:
+      - task: dependency-package
+      - cmd: UDS_CONFIG=bundles/k3d/dev/uds-config.yaml uds create bundles/k3d/dev --confirm --no-progress --architecture=${UDS_ARCH}
+        # dir: bundles/k3d/dev
+
+  - name: dependency-package
+    description: Create the Minio, PostgreSQL, and Redis Dependency Zarf Packages
+    actions:
+      - cmd: zarf package create src/gitlab/dev-secrets --confirm --no-progress --architecture=${UDS_ARCH} --skip-sbom
+        # dir: 
