@@ -16,7 +16,7 @@ components:
             setVariables:
               - name: SECRET_KEY
                 sensitive: true
-          - cmd: kubectl get secret -n dev-minio minio --template='{{ index .data "rootUser" }}' | base64 -d
+          - cmd: uds zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootUser" }}' | base64 -d
             mute: true
             setVariables:
               - name: ACCESS_KEY
@@ -33,7 +33,7 @@ components:
     actions:
       onDeploy:
         before:
-          - cmd: kubectl get secret -n dev-postgres postgresql --template={{.data.password}} | base64 -d
+          - cmd: uds zarf tools kubectl get secret -n dev-postgres postgresql --template={{.data.password}} | base64 -d
             mute: true
             setVariables:
               - name: POSTGRES_DB_PASSWORD
@@ -50,7 +50,7 @@ components:
     actions:
       onDeploy:
         before:
-          - cmd: kubectl get secret -n dev-redis redis --template='{{ index .data "redis-password" }}' | base64 -d
+          - cmd: uds zarf tools kubectl get secret -n dev-redis redis --template='{{ index .data "redis-password" }}' | base64 -d
             mute: true
             setVariables:
               - name: REDIS_PASSWORD
