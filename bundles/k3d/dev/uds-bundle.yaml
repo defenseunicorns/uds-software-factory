@@ -97,7 +97,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 16.8.0-uds.0-upstream
+    ref: 16.8.0-uds.1-upstream
 
 
 
