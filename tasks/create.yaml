@@ -7,7 +7,7 @@ tasks:
     description: Create the UDS bundle with Gitlab and its dependencies
     actions:
       - task: dependency-package
-      - cmd: UDS_CONFIG=bundles/k3d/dev/uds-config.yaml ./uds create bundles/k3d/dev --confirm --no-progress --architecture=${UDS_ARCH}
+      - cmd: UDS_CONFIG=bundles/k3d/dev/uds-config.yaml uds create bundles/k3d/dev --confirm --no-progress --architecture=${UDS_ARCH}
         # dir: bundles/k3d/dev
 
   - name: dependency-package

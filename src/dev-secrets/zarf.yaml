@@ -27,24 +27,6 @@ components:
       - name: gitlab-minio
         files:
           - "minio-secret.yaml"
-
-  - name: gitlab-postgres-password
-    required: true
-    actions:
-      onDeploy:
-        before:
-          - cmd: uds zarf tools kubectl get secret -n dev-postgres postgresql --template={{.data.password}} | base64 -d
-            mute: true
-            setVariables:
-              - name: POSTGRES_DB_PASSWORD
-                sensitive: true
-  - name: gitlab-postgres
-    required: true
-    manifests:
-      - name: gitlab-postgres
-        namespace: gitlab
-        files:
-          - postgres-secret.yaml
   - name: redis-password
     required: true
     actions:
@@ -62,3 +44,13 @@ components:
         namespace: gitlab
         files:
           - redis-secret.yaml
+  - name: mattermost-postgres-password
+    required: true
+    actions:
+      onDeploy:
+        before:
+          - cmd: uds zarf tools kubectl get secret -n mattermost mattermost.mattermost.pg-cluster.credentials.postgresql.acid.zalan.do --template={{.data.password}} | base64 -d
+            mute: true
+            setVariables:
+              - name: DB_PASSWORD
+                sensitive: true

@@ -1,0 +1,18 @@
+includes:
+  - mm: https://raw.githubusercontent.com/defenseunicorns/uds-package-mattermost/main/tasks/test.yaml
+  - gl: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab/main/tasks/test.yaml
+  - sq: https://raw.githubusercontent.com/defenseunicorns/uds-package-sonarqube/main/tasks/test.yaml
+  - glr: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab-runner/main/tasks/test.yaml
+
+tasks:
+  - name: test-swf-bundle
+    description: Run health checks and ingress tests
+    actions:
+      - task: mm:health-check
+      - task: mm:ingress
+      - task: gl:health-check
+      - task: gl:ingress
+      - task: sq:health-check
+      - task: sq:ingress
+      - task: glr:glr-health-check
+
