@@ -77,10 +77,11 @@ sequenceDiagram
 ```
 
 ### User Deletion and Deprovisioning
-The integration of Keycloak with GitLab will also address user deletion and deprovisioning, ensuring that user access is managed effectively. This is the case where an user is removed from Keycloak, but the user still can access keycloak with PAT and SSH keys. This is a security risk and should be addressed. This is a critical requirement for security and compliance.
-
+The integration of Keycloak with GitLab will also address provisioning (user creation) and deprovisioning (user deactivation), ensuring that user access is managed effectively. Because users may access GitLab with PAT and SSH keys bypassing SSO, their account must be deactivated to disable all access. This is a security risk and should be addressed. This is a critical requirement for security and compliance.
 #### Considerations
-- **User Deletion**: When a user is deleted from Keycloak, their access to GitLab should be revoked, ensuring that user access is managed effectively.
+- **User Deactivation**: When a user is deleted from Keycloak or loses access to any Keycloak groups that grant access to GitLab, their GitLab user should be disabled ensuring that user access is managed effectively.
+- **User Deletion**: Users in GitLab may have important data, users temporarily losing access to GitLab via Keycloak should not have all their data immediately deleted. Automatic deletion will not be implemented at this time, a GitLab admin will manually delete GitLab user accounts.
+- **Provisioning**: Users will be autoprovisioned on first SSO login or may be automatically provisioned via Keycloak.
 - **Deprovisioning**: The deprovisioning process should be automated, ensuring that user access is revoked in a timely manner, reducing security risks.
 - **Security and Compliance**: This capability is critical for security and compliance, ensuring that user access is managed effectively and securely.
 - **Reliability and Scalability**: The deprovisioning process should be reliable and scalable, ensuring that user access is managed effectively as the organization grows. The message delivery should be reliable and cannot be lost as this can lead to security lapse.
@@ -89,7 +90,32 @@ The integration of Keycloak with GitLab will also address user deletion and depr
 #### Design
 Our design strategy focuses on enhancing security and compliance through an automated and reliable user deprovisioning process. This process is critical for maintaining secure access across various services including GitLab, Mattermost, and SonarQube. The design consists of three main components:
 
-1. **Keycloak Event Listener**: A custom event listener will be implemented within Keycloak to monitor and react to user deactivation or deletion events. This listener is the cornerstone of our event-driven architecture, ensuring that user status changes are captured without delay.
+#### 1. SCIM Integration for User Management
+**Objective:** Leverage SCIM for standardized user provisioning and deprovisioning without handling group information at this stage. This simplifies the initial implementation and focuses on individual user lifecycle management.
+
+**Key Steps:**
+- **SCIM Support in Keycloak:** If Keycloak does not natively support SCIM, consider using a plugin or a custom implementation that adds SCIM capabilities. The `mitodl/keycloak-scim` fork mentioned could be a starting point.
+- **User Provisioning:** Implement SCIM endpoints for creating and updating user accounts based on information received from the identity provider or SSO system.
+- **User Deprovisioning:** Implement SCIM endpoints for disabling or deleting user accounts when they are removed or deactivated in the identity provider.
+
+#### 2. NATS for Event Messaging
+**Objective:** Use NATS as the messaging system to handle events related to user provisioning and deprovisioning. NATS facilitates asynchronous communication between your SCIM implementation and other services, such as GitLab, that need to react to these user lifecycle events.
+
+**Key Steps:**
+- **Publish Events:** When a user is provisioned or deprovisioned through SCIM in Keycloak, publish an event to a NATS topic. This event should contain sufficient information to identify the user and the action (create, update, disable, delete).
+- **Subscribe to Events:** Services that need to manage user access based on provisioning events subscribe to the relevant NATS topics. For example, a service could listen for deprovisioning events to revoke access or clean up resources associated with a user.
+
+#### 3. Implementation Considerations
+- **Security:** Ensure secure communication between Keycloak, NATS, and other services. Use TLS for NATS and secure the SCIM endpoints with authentication and authorization mechanisms.
+- **Scalability:** NATS is highly scalable, but plan your deployment to handle the expected load, especially if you anticipate a large number of user provisioning and deprovisioning events.
+- **Monitoring and Logging:** Implement monitoring for the SCIM endpoints and NATS to track the success and failure of user provisioning events. Logging these events is crucial for auditing and troubleshooting.
+
+#### 4. Future Expansion
+- **Group Management:** Although not included in the initial implementation, plan for how you might add group management via SCIM in the future. This could involve extending your SCIM implementation to handle group-related endpoints and publishing group change events to NATS.
+- **Service Expansion:** As your architecture evolves, other services beyond GitLab might need to react to user provisioning events. Design your NATS topics and event payloads to be extensible, allowing for easy integration of additional services.
+
+##### Conclusion
+By focusing on SCIM for user provisioning and deprovisioning and leveraging NATS for event messaging, you can create a robust, scalable, and secure system for managing user lifecycles in a cloud-native environment. This approach provides a solid foundation for user management while allowing for future expansion to include group management and additional services.
 
 2. **NATS Messaging System**: Upon capturing a user status change event, the Keycloak event listener will publish a message to a NATS topic. NATS has been selected for its high reliability, scalability, and performance, making it an excellent choice for microservices architectures, especially those deployed on Kubernetes. Its features include:
    - **High Performance**: Ensuring high throughput and low latency, ideal for real-time applications.
@@ -157,6 +183,8 @@ This diagram highlights the flexibility and scalability of using NATS for event-
 #### Security between Services
 The security between services is a critical aspect of the proposed architecture. The communication between Keycloak, the event listener, NATS, and the various service listeners must be secure to ensure the integrity and confidentiality of user deprovisioning events. The following security measures will be implemented:
 - **TLS/SSL**: All communication between Keycloak, the event listener, NATS, and the service listeners will be encrypted using TLS/SSL to ensure data confidentiality and integrity. This will be achieved by utilizing istio for mutual TLS between services. This will  Strict mTLS will be enforced between services to ensure that only authorized entities can communicate with each other.
+
+
 
 - **Restricted Access**: Access to the event listener, NATS, and the service listeners will be restricted to authorized entities only using Kubernetes Network Policies and istio authorization policies.
 
