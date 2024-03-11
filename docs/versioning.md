@@ -1,6 +1,6 @@
 # SWF Versioning
 
-> :warning: **Note:** Packages are the only artifacts published from the UDS Software Factory repositories, as bundles are meant to be _created_, not consumed, by users.
+> :warning: **Note:** Packages are the only production release artifacts published from the UDS Software Factory repositories, as bundles are meant to be _created_, not consumed, by users.  Repos may publish bundles for demo purposes, but those are not intended for production consumption.
 
 ## Versioning
 
@@ -23,6 +23,12 @@ In practice, this results in the following for the second release of a `package`
 
 ## Releases
 
-Releases themselves are cut with [Release Please](https://github.com/googleapis/release-please) but due to the fact that we don't follow semantic versioning precisely, specific version numbers are manually bumped in PRs or via [empty commits](https://github.com/googleapis/release-please).
+Releases themselves are cut with [Release Please](https://github.com/googleapis/release-please), but due to the fact that we don't follow semantic versioning precisely, specific version numbers are manually bumped in the release please PRs or via [empty commits](https://github.com/googleapis/release-please).  Specific lines to update within `zarf.yaml` or `uds-bundle.yaml` files are controlled via the following:
 
-Once a release is cut, a GitHub action takes over and publishes the resulting package to `ghcr.io/defenseunicorns/packages` where it is available in Zarf and UDS CLI via the `defenseunicorns` and `🦄` shorthands.
+```yaml
+  # x-release-please-start-version
+  version: "0.2.1"
+  # x-release-please-end
+```
+
+Once a release is cut by merging a release-please PR, a GitHub action takes over and publishes the resulting package to `ghcr.io/defenseunicorns/packages` where it is available in Zarf and UDS CLI via the `defenseunicorns` and `🦄` shorthands.
