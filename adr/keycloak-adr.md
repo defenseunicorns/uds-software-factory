@@ -1,264 +1,139 @@
-#### Architectural Decision Record (ADR): Integration of Keycloak with GitLab for Authentication
+# ADR: Enhanced Integration of Keycloak with GitLab for Authentication and User Management
 
-#### Status
-Proposed
+**Date:** 2024-03-05
 
-#### Date
-2024-03-05
+**Status:** Proposed
 
+## Context
+The initiative to integrate Keycloak with GitLab is designed to streamline authentication mechanisms, enhance security, and improve user experience. This integration aims to refine login processes, bolster security protocols, and ensure compliance with Information Assurance (IA) standards. Utilizing Keycloak as the primary Identity and Access Management (IAM) solution alongside GitLab and leveraging OAuth2 for authentication consolidates user management and authentication, simplifies credential management, and enhances the security landscape.
 
-#### Introduction
-This ADR supports the further integration of Keycloak with GitLab to streamline authentication mechanisms, with the goal of enhancing security and user experience. The drive behind this initiative is to refine login processes, bolster security protocols, and ensure compliance with Information Assurance (IA) standards.
+### Authentication
+Keycloak will serve as GitLab's primary authentication provider, enabling users to log in using their Keycloak credentials. This will streamline the login process and provide a seamless user experience.
 
-**Objective**: Utilize Keycloak as the predominant Identity and Access Management (IAM) solution alongside GitLab, applying OAuth2 for authentication. This plan aims to consolidate user management and authentication, making credential management more straightforward and improving our security landscape.
+#### OAuth2
+**Pros:**
+- Standardized and widely supported, facilitating easier integration and adoption.
+- Simplifies the authentication flow, improving user experience.
+- Provides a secure method for token-based authentication and authorization.
 
-**Rationale**: The integration of authentication between Keycloak and GitLab is fundamental for facilitating seamless user access, elevating security via centralized oversight, and adhering to compliance standards. This commitment is built on our adherence to open authentication and authorization standards, such as OAuth2 and OpenID Connect (OIDC).
+**Cons:**
+- May not support all user management and provisioning features natively.
 
-```mermaid
-graph LR
-  A["User"] -->|1. Requests access to GitLab| C["GitLab"]
-  C -->|2. Redirects to Keycloak| B["Keycloak"]
-  B -->|3. Authenticates user| A
-  B -->|4. Sends authentication token to GitLab| C
-  C -->|5. Grants user access| A
+#### SAML Integration
+**Pros:**
+- Lets you automatically sync user groups between Keycloak and GitLab, making access control more accessible.
 
-  subgraph "Authentication Flow"
-    B["Keycloak (Identity Provider)"]
-    C["GitLab (Service Provider)"]
-    A["User (Requester)"]
-  end
-```
+**Cons:**
+- Setting it up can be complicated, so careful alignment between Keycloak and GitLab is needed.
+- To use all features, you might need a higher tier of GitLab, which could mean higher costs.
+- If you have a lot of users, you might need to pay for more expensive versions of Keycloak, which could be a bit of a hassle.
 
-#### Decision Process
-The decision to further integrate Keycloak with GitLab was informed by evaluating several key factors and prerequisites:
+### Provision Users
+Keycloak will provision users and manage user roles, groups, and permissions. This ensures user access is managed centrally and consistently across all applications and services.
 
-```mermaid
-graph TD
-    A[Start] --> B{License Requirements}
-    B -->|Available: GitLab Premium| C[Proceed with OAuth2/OIDC]
-    B -->|Not Available: GitLab Premium| D[Explore Alternatives]
-    C --> E{Is SAML Integration Needed?}
-    E -->|Yes| F[Defer SAML Integration to Future Phases]
-    E -->|No| G[Proceed with OAuth2/OIDC]
-    G --> H{Interest in Group Integration?}
-    H -->|Yes| I[Plan Group Integration for Future]
-    H -->|No| J[Continue Without Group Integration]
-    I --> K[Conclusion: Document in ADR]
-    J --> K[Conclusion: Document in ADR]
-```
+#### SCIM Integration
+**Pros:**
+- Easy to Mix Systems: SCIM is a common framework for sharing user info between different programs or online services, making them work smoothly.
+- Saves Time: It handles adding, updating, and removing user accounts by itself, which means less work for people managing these tasks.
+- Fewer Mistakes: Since it's automated, there's less chance someone will type something wrong or forget to update important info.
 
-- **SAML Integration**: Our initial focus is on OAuth2/OIDC, with SAML integration to be considered in later phases, allowing us to stay adaptive to technology advancements.
-- **License Requirements**: Presumes availability of GitLab Premium, vital for advanced authentication features, ensuring we can fully leverage GitLab's capabilities.
-- **RMF/Control Compliance**: Security and compliance are prioritized from the start, though comprehensive RMF documentation will be addressed progressively.
-- **Group Integration**: Future developments will explore Keycloak and GitLab group integration to enhance access control and permission management.
+**Cons:**
+- Can Be Tricky to Set Up: Getting SCIM to work just right with all your systems can be complicated.
+- Learning Curve: If you're not familiar with SCIM, it might take a while to get the hang of it.
 
-```mermaid
-sequenceDiagram
-    participant User as User
-    participant GitLab as GitLab
-    participant Keycloak as Keycloak
-    participant Groups as Keycloak Groups (Future)
+#### Manual Provisioning
+**Pros:**
+- Full control over the user provisioning process.
+- Can be implemented without additional development or integration efforts.
 
-    User->>+GitLab: 1. Request GitLab Access
-    GitLab->>+Keycloak: 2. Redirect for Authentication
-    Keycloak->>-User: 3. Authenticate & Authorize
-    User->>+Keycloak: 4. Enter Credentials
-    Keycloak->>-GitLab: 5. Provide Auth Token
-    GitLab->>+User: 6. Grant Access
+**Cons:**
+- Time-consuming and not scalable.
+- Prone to human error, potentially leading to security and compliance issues.
 
-    Note over GitLab,Keycloak: Integration via OAuth2/OIDC
+#### Custom Code
+**Pros:**
+- Flexibility: You can tailor the provisioning process to your exact needs, ensuring it fits your organization perfectly.
+- No exteranl depdency: You can do this with what GitLab already offers, no need for external OSS tools.
 
-    loop Future Group Synchronization
-        GitLab->>+Groups: Query Group Membership
-        Groups->>-GitLab: Respond with Group Membership
-    end
+**Cons:**
+- More Work: You'll have to write and maintain the code yourself, which can be a lot of work.
 
-    Note over GitLab,Groups: Planned Future Capability Enhancement
-```
+### Deprovision Users
+Keycloak will be used to de-provision users and manage user access rights, ensuring timely revocation of access when users leave the organization or change roles.
 
-### User Deletion and Deprovisioning
-The integration of Keycloak with GitLab will also address provisioning (user creation) and deprovisioning (user deactivation), ensuring that user access is managed effectively. Because users may access GitLab with PAT and SSH keys bypassing SSO, their account must be deactivated to disable all access. This is a security risk and should be addressed. This is a critical requirement for security and compliance.
-#### Considerations
-- **User Deactivation**: When a user is deleted from Keycloak or loses access to any Keycloak groups that grant access to GitLab, their GitLab user should be disabled ensuring that user access is managed effectively.
-- **User Deletion**: Users in GitLab may have important data, users temporarily losing access to GitLab via Keycloak should not have all their data immediately deleted. Automatic deletion will not be implemented at this time, a GitLab admin will manually delete GitLab user accounts.
-- **Provisioning**: Users will be autoprovisioned on first SSO login or may be automatically provisioned via Keycloak.
-- **Deprovisioning**: The deprovisioning process should be automated, ensuring that user access is revoked in a timely manner, reducing security risks.
-- **Security and Compliance**: This capability is critical for security and compliance, ensuring that user access is managed effectively and securely.
-- **Reliability and Scalability**: The deprovisioning process should be reliable and scalable, ensuring that user access is managed effectively as the organization grows. The message delivery should be reliable and cannot be lost as this can lead to security lapse.
-- **Audit and Reporting**: The deprovisioning process should be auditable and reportable, ensuring that user access is managed effectively and securely.
+#### Automated Deprovisioning via SCIM
+**Pros:**
+- Ensures Timely Revocation of Access: Automatically removes users' access rights as soon as their status changes, improving security.
+- Reduces Manual Workload: Lessens the burden on IT staff by handling the de-provisioning process automatically, minimizing the chance of oversight.
+Supports Real-Time Updates: It can integrate with broader system architectures to ensure updates are processed immediately, keeping user access rights current.
 
-#### Design
-Our design strategy focuses on enhancing security and compliance through an automated and reliable user deprovisioning process. This process is critical for maintaining secure access across various services including GitLab, Mattermost, and SonarQube. The design consists of three main components:
+**Cons:**
+- Requires Careful Configuration: Setting up SCIM to work correctly with GitLab and Keycloak requires careful planning and configuration.
+- Potential for Misconfiguration: Misconfigurations can lead to unauthorized access or the accidental removal of access rights, impacting operations and security.
+- Complexity: Integrating SCIM with existing systems can be complex.
 
-#### 1. SCIM Integration for User Management
-**Objective:** Leverage SCIM for standardized user provisioning and deprovisioning without handling group information at this stage. This simplifies the initial implementation and focuses on individual user lifecycle management.
+#### Manual Deprovisioning
+**Pros:**
+Direct Control Over the Process: This gives administrators complete oversight of when and how users are deprovisioned, ensuring no automated system can mistakenly alter access rights.
+- Simple to Implement: It doesn't require introducing new tools or technologies beyond what's already in use, making it straightforward to execute.
 
-**Key Steps:**
-- **SCIM Support in Keycloak:** If Keycloak does not natively support SCIM, consider using a plugin or a custom implementation that adds SCIM capabilities. The `mitodl/keycloak-scim` fork mentioned could be a starting point.
-- **User Provisioning:** Implement SCIM endpoints for creating and updating user accounts based on information received from the identity provider or SSO system.
-- **User Deprovisioning:** Implement SCIM endpoints for disabling or deleting user accounts when they are removed or deactivated in the identity provider.
+**Cons:**
+Labor-Intensive: Each de-provisioning event requires manual action, which can be time-consuming, especially for organizations with a high volume of user changes.
+- Prone to Delays: The manual process is susceptible to delays, which can lead to unauthorized access if users without access retain it due to oversight or backlog.
+- Not Scalable:
 
-#### 2. NATS for Event Messaging
-**Objective:** Use NATS as the messaging system to handle events related to user provisioning and deprovisioning. NATS facilitates asynchronous communication between your SCIM implementation and other services, such as GitLab, that need to react to these user lifecycle events.
+#### Custom Code
+**Pros:**
+- Flexibility: You can tailor the de-provisioning process to your exact needs, ensuring it fits your organization perfectly.    
 
-**Key Steps:**
-- **Publish Events:** When a user is provisioned or deprovisioned through SCIM in Keycloak, publish an event to a NATS topic. This event should contain sufficient information to identify the user and the action (create, update, disable, delete).
-- **Subscribe to Events:** Services that need to manage user access based on provisioning events subscribe to the relevant NATS topics. For example, a service could listen for deprovisioning events to revoke access or clean up resources associated with a user.
+**Cons:**
+- More Work: You'll have to write and maintain the code yourself, which can be a lot of work.
 
-#### 3. Implementation Considerations
-- **Security:** Ensure secure communication between Keycloak, NATS, and other services. Use TLS for NATS and secure the SCIM endpoints with authentication and authorization mechanisms.
-- **Scalability:** NATS is highly scalable, but plan your deployment to handle the expected load, especially if you anticipate a large number of user provisioning and deprovisioning events.
-- **Monitoring and Logging:** Implement monitoring for the SCIM endpoints and NATS to track the success and failure of user provisioning events. Logging these events is crucial for auditing and troubleshooting.
+#### GitLab Group Integration
 
-#### 4. Future Expansion
-- **Group Management:** Although not included in the initial implementation, plan for how you might add group management via SCIM in the future. This could involve extending your SCIM implementation to handle group-related endpoints and publishing group change events to NATS.
-- **Service Expansion:** As your architecture evolves, other services beyond GitLab might need to react to user provisioning events. Design your NATS topics and event payloads to be extensible, allowing for easy integration of additional services.
+#### Automated Group Management via Keycloak
+**Pros:**
+- Easier Access Management: Linking GitLab with Keycloak groups means when someone's group membership changes in Keycloak, it updates in GitLab too. This keeps access rights tight without extra effort.
+- Automatic Updates: Group memberships are updated automatically, saving a lot of manual work and ensuring no one is accidentally left in or out of a group.
+- Better Security: With automatic updates, you can be sure that everyone has the access they need and nothing more, keeping your projects and data safer.
 
-##### Conclusion
-By focusing on SCIM for user provisioning and deprovisioning and leveraging NATS for event messaging, you can create a robust, scalable, and secure system for managing user lifecycles in a cloud-native environment. This approach provides a solid foundation for user management while allowing for future expansion to include group management and additional services.
+**Cons:**
+- Requires Careful Configuration: Setting up Keycloak to work correctly with GitLab requires careful planning and configuration.
+- Learning Curve: 
+#### Manual Group Management
+**Pros:**
+You're in Charge: Hand-managing groups means you make all the calls about who's in what group, giving you tight control over project access.
 
-2. **NATS Messaging System**: Upon capturing a user status change event, the Keycloak event listener will publish a message to a NATS topic. NATS has been selected for its high reliability, scalability, and performance, making it an excellent choice for microservices architectures, especially those deployed on Kubernetes. Its features include:
-   - **High Performance**: Ensuring high throughput and low latency, ideal for real-time applications.
-   - **Fault Tolerance**: Through clustering, NATS achieves high availability, safeguarding against node failures.
-   - **Scalability**: Capable of handling a growing number of clients and messages, efficiently distributing messages across subscribers.
-   - **Security**: Supports TLS/SSL for secure communication between clients and servers.
+**Cons:**
+- Takes More Time: If you're doing this for a lot of people or if groups change often, it can consume a lot of time.
+- Easy to Make Mistakes: When juggling many group memberships, it's easy to miss something or mess up, which can lead to security slip-ups.
 
-3. **Service for API Updates**: A dedicated service will subscribe to the NATS topic to process messages related to user deactivation or deletion. This service will then interact with the APIs of GitLab, Mattermost, SonarQube, and other integrated services to revoke the user's access. This approach ensures a seamless and automated deprovisioning process across all services, enhancing our security posture.
+### Instance Admin Group
 
-This design not only automates the user deprovisioning process but also establishes an event-driven architecture that minimizes tight coupling between services. By leveraging NATS within a Kubernetes environment, we ensure that our architecture is both scalable and resilient, capable of adapting to the evolving needs of our infrastructure and services.
+#### Automated Assignment via Keycloak Roles
+**Pros:**
+- Streamlines the process of granting administrative privileges to designated users.
+- Reduces the risk of unauthorized access by tightly controlling the assignment of admin roles.
 
-```mermaid
-graph TD
-    A[Security Enhancement with Event-Driven Architecture] --> B[Decoupling Keycloak and GitLab]
-    A --> C[Asynchronous Communication & Queuing]
-    A --> D[Improved Fault Tolerance & Reliability]
-    A --> E[Guaranteed Delivery & Processing]
+**Cons:**
+- It requires careful configuration to map Keycloak roles accurately to GitLab admin privileges.
+- Potential for misconfiguration, leading to unintended access rights.
 
-    B --> B1[Eliminates Direct Dependencies]
-    B --> B2[Isolates System Components]
+#### Manual Assignment of Admin Privileges
+**Pros:**
+- Direct control over who is granted administrative access to the GitLab instance.
+- Simple to manage on a small scale without the need for additional integration.
 
-    C --> C1[No Immediate Need for Receiver Availability]
-    C --> C2[Messages Persisted Until Processed]
+**Cons:**
+- Labor-intensive, especially in larger organizations or those with frequent changes in administrative responsibilities.
+- Risk of oversight or delay in updating access rights, potentially impacting operations and security.
 
-    D --> D1[Service Downtime Does Not Result in Data Loss]
-    D --> D2[Independent Recovery Mechanisms]
+## Decision
+Keycloak will be integrated with GitLab to enhance authentication and user management capabilities. The following decisions have been made:
 
-    E --> E1[Retries Until Successful Processing]
-    E --> E2[Ensures User Deletion Events Are Handled]
-
-    B1 --> F[Reduced Security Risks]
-    C2 --> G[No Loss of Critical Security Events]
-    D2 --> H[Resilience Against System Failures]
-    E2 --> I[Compliance with Security Policies]
-
-    F --> J[Enhanced Overall Security Posture]
-    G --> J
-    H --> J
-    I --> J
-```
-The provided sequence diagram illustrates a scalable and decoupled architecture for handling user deprovisioning, leveraging NATS for centralized publish/subscribe messaging. This pattern ensures that when a user is deleted or deactivated in Keycloak, the event is published to NATS, from where it is distributed to various service listeners, including a GitLab Service Listener and an Audit Listener. The GitLab Service Listener is responsible for revoking the user's access in GitLab, while the Audit Listener updates the Admin UI to display the user deletion event. This architecture can be easily extended to include additional services by adding more listeners that subscribe to the relevant NATS topics for user status changes.
-```mermaid
-sequenceDiagram
-    participant Keycloak as "Keycloak"
-    participant EventListener as "Keycloak Event Listener"
-    participant NATS as "NATS Messaging System"
-    participant GitLabService as "GitLab Service Listener"
-    participant UIService as "Audit Listener"
-    participant AdminUI as "Admin UI"
-    participant OtherService as "Other Service Listener"
-
-    Keycloak->>EventListener: User Deletion/Deactivation
-    EventListener->>NATS: Publish User Status Change
-    NATS->>GitLabService: Notify User Deletion
-    NATS->>UIService: Update for UI Display
-    NATS->>OtherService: Notify User Deletion (Extendable)
-    GitLabService->>GitLab: Revoke User Access
-    UIService->>AdminUI: Display User Deletion Event
-    OtherService->>OtherSystem: Revoke User Access (Extendable)
-    Note over Keycloak,AdminUI: De-provisioning with Centralized Pub/Sub Messaging
-    Note over OtherService,OtherSystem: Similar pattern can be extended to other services
-```
-This diagram highlights the flexibility and scalability of using NATS for event-driven communication across different services within an organization's infrastructure. By adding more service listeners (e.g., "Other Service Listener") for additional systems (e.g., "OtherSystem"), this architecture allows for seamless integration and handling of user deprovisioning events across a wide array of services, ensuring a consistent and secure approach to access management and compliance.
-
-#### Security between Services
-The security between services is a critical aspect of the proposed architecture. The communication between Keycloak, the event listener, NATS, and the various service listeners must be secure to ensure the integrity and confidentiality of user deprovisioning events. The following security measures will be implemented:
-- **TLS/SSL**: All communication between Keycloak, the event listener, NATS, and the service listeners will be encrypted using TLS/SSL to ensure data confidentiality and integrity. This will be achieved by utilizing istio for mutual TLS between services. This will  Strict mTLS will be enforced between services to ensure that only authorized entities can communicate with each other.
-
-
-
-- **Restricted Access**: Access to the event listener, NATS, and the service listeners will be restricted to authorized entities only using Kubernetes Network Policies and istio authorization policies.
-
-#### Implications
-- **Security and Compliance**: Aims to heighten security and compliance standards, with an understanding that detailed RMF documentation and compliance will develop over time.
-- **User Experience**: Foresees significant improvements in user experience by offering streamlined access across services.
-- **License Management**: Emphasizes the critical role of GitLab Premium for accessing sophisticated authentication features.
-- **Future Enhancements**: Envisions upcoming developments, especially the integration of Keycloak with GitLab groups, to further refine access controls and permission management.
-
-### Audit trail
-The integration of Keycloak with GitLab will also address the need for an audit trail, ensuring that all user access and deprovisioning events are logged and auditable. This is a critical requirement for security and compliance.
-
-#### Considerations
-- **Audit Logging**: All user access and deprovisioning events should be logged and stored securely to ensure that they are auditable.
-- **Security and Compliance**: This capability is critical for security and compliance, ensuring that all user access and deprovisioning events are logged and auditable.
-- **Reliability and Scalability**: The audit logging process should be reliable and scalable, ensuring that all user access and deprovisioning events are logged and auditable as the organization grows.
-
-#### Design Overview
-The cornerstone of our design strategy is to fortify security and compliance measures through a robust and scalable audit logging framework. This framework is designed to meticulously record and securely preserve all user access and deprovisioning activities, thereby facilitating comprehensive auditability and detailed reporting. In its initial deployment, our focus will be on establishing three foundational components. Direct event capture via Keycloak's Service Provider Interface (SPI) and the utilization of the NATS system for creating an append-only log structure are earmarked for subsequent integration to enhance the audit log's reliability and authenticity. Furthermore, we plan to incorporate hash chaining within the append-only log to guarantee data immutability and offer a formidable barrier against data manipulation attempts. These advancements are anticipated to significantly augment the audit log's security posture in future iterations.
-
-```mermaid
-sequenceDiagram
-    participant User as "User"
-    participant Keycloak as "Keycloak"
-    participant GitLab as "GitLab"
-    participant NATS as "NATS Messaging System"
-    participant Storage as "Secure Log Storage"
-    participant AuditService as "Audit Log Service"
-
-    Keycloak->>NATS: User Login/Logout Events
-    GitLab->>NATS: Access & De-provisioning Events
-    NATS->>AuditService: Forward Events
-    AuditService->>Storage: Store in Immutable Log
-
-    Note over Keycloak, GitLab: Source of Audit Events
-    Note over NATS, Storage: Secure Transmission & Storage
-```
-
-- **Security Model Alignment**: If your design for user deprovisioning, audit trails, or secure logging aligns with the security model of TUF, which includes ensuring the integrity and authenticity of data, referencing go-tuf can provide additional context and validation for your approach.
-
-- **Immutable Log Integrity**: TUF's approach to securing software update systems includes mechanisms for ensuring that updates (or in your case, log entries) have not been tampered with. This is closely related to the concept of immutable logs with hash chaining, where each entry's integrity can be verified independently.
-
--Future Enhancements: If there are plans to explore or implement features that ensure the security of distributed data or updates within your system, referencing go-tuf could indicate a direction for future research and development efforts.
-
-## Strategy for Integration
-1. **OAuth2/OIDC Configuration**: Implement
-
- Keycloak as the OAuth2 provider for GitLab, focusing on secure and efficient authentication processes.
-2. **Comprehensive Testing**: Carry out thorough testing to ensure the authentication mechanism functions smoothly, prioritizing security and user satisfaction.
-3. **Security and Compliance Review**: Undertake an initial assessment to identify any potential vulnerabilities or compliance issues, aiming for ongoing improvement and adherence to security standards.
-
-#### Moving Forward
-- **Stakeholder Engagement**: Align the integration strategy and execution with stakeholder expectations and organizational goals, ensuring a collaborative and supported approach.
-- **Iterative Development**: Roll out the integration based on the strategy outlined, making adjustments based on feedback and discoveries, with scalability and future capabilities in mind.
-
-This ADR charts a strategic course for the enhanced integration of Keycloak with GitLab, addressing immediate needs while laying a foundation for future security and compliance advancements.
-
-#### References
-- [Requirement Clarifications ](https://github.com/defenseunicorns/uds-package-gitlab/issues/54#issuecomment-1977620707)
-- [OAuth2 and OpenID Connect](https://www.keycloak.org/docs/latest/server_admin/index.html#_oauth2)
-#### Additional References for GitLab and OAuth Authentication
-- **GitLab and OAuth2 Integration**: For a comprehensive guide on integrating GitLab with OAuth2 for authentication, refer to the [GitLab OAuth2 provider documentation](https://docs.gitlab.com/ee/integration/oauth_provider.html). This resource provides detailed instructions on setting up GitLab as an OAuth2 provider, enabling secure and efficient user authentication.
-- **Keycloak and OAuth2**: To understand how Keycloak can be configured as an OAuth2 authentication provider for various services, including GitLab, visit the [Keycloak OAuth2 documentation](https://www.keycloak.org/docs/latest/securing_apps/index.html#_oauth2). This documentation offers insights into the OAuth2 protocol, how Keycloak supports it, and the steps required to integrate Keycloak with services requiring OAuth2 authentication.
-
-#### Additional References for Keycloak Custom Event Listener
-For detailed guidance on creating and deploying a custom event listener in Keycloak, refer to the [Keycloak Custom Event Listener documentation](https://www.keycloak.org/docs/latest/server_development/index.html#_events). This resource provides comprehensive instructions on how to extend Keycloak's functionality through the development of custom event listeners, enabling tailored handling of authentication and user management events.
-
-#### The Update Framework (TUF) and go-tuf
-
-- **go-tuf (The Update Framework in Go)**: For insights into secure distribution and integrity verification mechanisms, go-tuf implements The Update Framework (TUF) in Go. TUF is designed to prevent various attacks on software update systems and can inspire approaches to ensuring the integrity of immutable logs with hash chaining. More information can be found in the [go-tuf GitHub repository](https://github.com/theupdateframework/go-tuf).
-
-#### nats.io references
-- [NATS Documentation](https://docs.nats.io/)
-- [NATS on Kubernetes](https://docs.nats.io/nats-on-kubernetes/nats-on-kubernetes)
-- [NATS Security](https://docs.nats.io/nats-on-kubernetes/nats-on-kubernetes)
-
-
+**_TBD_**
+1. **Authentication:** 
+2. **Provisioning Users:** 
+3. **Deprovisioning Users:**  
+4. **GitLab Group Integration:** 
+5. **Instance Admin Group:** 
