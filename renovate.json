@@ -1,0 +1,10 @@
+{
+    "extends": [
+      "github>defenseunicorns/uds-common//config/renovate.json5",
+      ":semanticCommits",
+      ":semanticPrefixFixDepsChoreOthers",
+      "group:all",
+      "replacements:all",
+      "workarounds:all"
+    ]
+}
