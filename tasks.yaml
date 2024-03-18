@@ -5,7 +5,6 @@ includes:
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/setup.yaml
   - dependencies: ./tasks/dependencies.yaml
-  - deploy: ./tasks/deploy.yaml #https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/deploy.yaml
   - test: ./tasks/test.yaml
 
 variables:
