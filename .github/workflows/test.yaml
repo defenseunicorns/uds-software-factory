@@ -38,7 +38,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream]
 
     steps:
       - name: Checkout repository
