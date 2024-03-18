@@ -1,50 +1,63 @@
 includes:
-  - cleanup: ./tasks/cleanup.yaml
-  - create: ./tasks/create.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.1/tasks/setup.yaml
+  - dependencies: ./tasks/dependencies.yaml
   - deploy: ./tasks/deploy.yaml #https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common-tasks/v0.1.2/tasks/setup.yaml
   - test: ./tasks/test.yaml
+
+variables:
+  - name: BUNDLE_PATH
+    default: bundles/k3d/dev
 
 tasks:
   - name: default
     description: Create K3D Cluster with istio + SWF
     actions:
-      - task: create-test-bundle
-      - task: setup-cluster
-      - task: deploy-test-bundle
-
-  - name: setup-cluster
-    description: Deploy k3d cluster using uds-common-tasks
-    actions:
+      - task: create-swf-ci-test-bundle
       - task: setup:k3d-test-cluster
-  
+      - task: deploy:test-bundle
+        with:
+          path: bundles/k3d/dev
+
+
+  - name: create-swf-ci-test-bundle
+    description: Create the UDS bundle with Gitlab and its dependencies
+    actions:
+      - task: dependencies:create
+      - task: create:test-bundle
+        with:
+          path: bundles/k3d/dev
+
   - name: create-package
     description: Create UDS Gitlab Package, No dependencies included
     actions:
-      - task: create:dependency-package
+      - task: create:dependency-packages
   
   - name: create-test-bundle
     description: Create UDS SWF bundle with dependencies
     actions:
-      - task: create:swf-test-bundle
-  
+      - task: create:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+
   - name: deploy-test-bundle
     description: Deploy UDS SWF bundle with dependencies using uds-common-tasks
     actions:
       - task: deploy:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+
+# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
   - name: test-package
-    description: Run health checks and ingress tests
+    description: Test the GitLab package from the current branch
     actions:
-      - task: test:health-check
-      - task: test:ingress
-
-  - name: cleanup
-    description: Destroy k3d Cluster
-    actions:
-      - task: cleanup:cluster
-
-  - name: cleanup-bundle
-    description: Remove the Deployed UDS Gitlab Bundle
-    actions:
-      - task: cleanup:bundle
+      - task: create-swf-ci-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+        with:
+          path: bundles/k3d/dev
+      - task: test:test-swf-bundle

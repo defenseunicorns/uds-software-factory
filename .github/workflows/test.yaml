@@ -1,0 +1,62 @@
+name: Test
+
+# This workflow is triggered on pull requests to the main branch.
+on:
+  pull_request:
+    branches: [main]
+    types: [milestoned, opened, edited, synchronize]  
+    paths-ignore:
+      - "**.md"
+      - "**.jpg"
+      - "**.png"
+      - "**.gif"
+      - "**.svg"
+      - "adr/**"
+      - "docs/**"
+      - ".gitignore"
+      - "renovate.json"
+      - ".release-please-config.json"
+      - "release-please-config.json"
+      - "oscal-component.yaml"
+      - "CODEOWNERS"
+      - "LICENSE"
+      - "CONTRIBUTING.md"
+      - "SECURITY.md"  
+
+# Abort prior jobs in the same workflow / PR
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  run-test:
+    name: Create and Deploy Flavor ${{ matrix.flavor }}
+    runs-on: uds-ubuntu-big-boy-8-core
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Environment setup
+        uses: defenseunicorns/uds-common/.github/actions/setup@442bae718050ea9a47254851a45632aabeb13b17
+        with:
+          username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
+          password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
+
+      - name: Test
+        uses: defenseunicorns/uds-common/.github/actions/test@442bae718050ea9a47254851a45632aabeb13b17
+        with:
+          flavor: ${{ matrix.flavor }}
+
+      - name: Save logs
+        if: always()
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@442bae718050ea9a47254851a45632aabeb13b17
+        with:
+          suffix: ${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}

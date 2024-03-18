@@ -1,0 +1,34 @@
+name: CI Docs Shim
+
+on:
+  pull_request:
+    paths:
+      - "**.md"
+      - "**.jpg"
+      - "**.png"
+      - "**.gif"
+      - "**.svg"
+      - "adr/**"
+      - "docs/**"
+      - ".gitignore"
+      - "renovate.json"
+      - ".release-please-config.json"
+      - "release-please-config.json"
+      - "oscal-component.yaml"
+      - "CODEOWNERS"
+      - "LICENSE"
+      - "CONTRIBUTING.md"
+      - "SECURITY.md"
+
+jobs:
+  run-test:
+    name: Create and Deploy Flavor ${{ matrix.flavor }}
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
+    steps:
+      - name: Shim for Deploy ${{ matrix.flavor }}
+        run: |
+          echo "Documentation-only change detected; marking Deploy ${{ matrix.flavor }} as successful."
