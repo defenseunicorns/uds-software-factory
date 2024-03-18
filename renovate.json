@@ -1,43 +1,11 @@
 {
-    "enabled": true,
-    "forkProcessing": "enabled",
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
       "github>defenseunicorns/uds-common//config/renovate.json5",
       ":semanticCommits",
-      ":semanticCommitTypeAll(chore)"
-    ],
-    "branchConcurrentLimit": 0,
-    "prConcurrentLimit": 0,
-    "prHourlyLimit": 0,
-    "separateMajorMinor": false,
-    "regexManagers":[
-      {
-        "depNameTemplate": "defenseunicorns/uds-core",
-        "fileMatch": ["README\\.md"],
-        "matchStrings": [
-          "- UDS Core: (?<currentValue>.*)"
-        ],
-        "datasourceTemplate": "github-tags",
-        "extractVersionTemplate": "^v(?<version>.*)$"
-      },
-      {
-        "depNameTemplate": "defenseunicorns/uds-cli",
-        "fileMatch": ["README\\.md"],
-        "matchStrings": [
-          "- UDS CLI: (?<currentValue>.*)"
-        ],
-        "datasourceTemplate": "github-tags",
-        "extractVersionTemplate": "^v(?<version>.*)$"
-      }
-    ],
-    "packageRules": [
-      { 
-        "matchFileNames": [".github/**"],
-        "excludePackageNames": ["defenseunicorns/uds-cli"],
-        "groupName": "githubactions",
-        "commitMessageTopic": "githubactions",
-        "pinDigests": true
-      }
+      ":semanticPrefixFixDepsChoreOthers",
+      "group:all",
+      "replacements:all",
+      "workarounds:all"
     ]
-  }
+}
+
