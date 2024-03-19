@@ -52,6 +52,8 @@ jobs:
 
       - name: Test
         uses: defenseunicorns/uds-common/.github/actions/test@275e839e80667938baf1c1dda0f543261ba57618
+        env: 
+          BUNDLE_PATH: "bundles/k3d/demo"
         with:
           flavor: ${{ matrix.flavor }}
 

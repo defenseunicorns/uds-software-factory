@@ -19,7 +19,7 @@ tasks:
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
-          path: bundles/k3d/dev
+          path: ${BUNDLE_PATH}
 
 
   - name: create-swf-ci-test-bundle
@@ -28,7 +28,7 @@ tasks:
       - task: dependencies:create
       - task: create:test-bundle
         with:
-          path: bundles/k3d/dev
+          path: ${BUNDLE_PATH}
 
   - name: create-package
     description: Create UDS Gitlab Package, No dependencies included
@@ -58,5 +58,5 @@ tasks:
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
-          path: bundles/k3d/dev
+          path: ${BUNDLE_PATH}
       - task: test:test-swf-bundle
