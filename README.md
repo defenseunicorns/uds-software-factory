@@ -9,6 +9,7 @@ This is the integration / wayfinding repository for the Unicorn Delivery Service
 
 This repo serves as an integration repository for testing, creating common [Architectural Decision Records](./adr), and tracking issues that have effects across the individual packages that make up Software Factory.
 
-Also note that the Software Factory team helps to manage the following shared UDS packages:
+Also note that the Software Factory team helps to manage the following shared UDS packages and repositories:
 
 - [Postgres Operator](https://github.com/defenseunicorns/uds-package-postgres-operator) - a Kubernetes operator to deploy PostgreSQL databases in a cluster
+- [UDS Common](https://github.com/defenseunicorns/uds-common) - a common repo to share actions, UDS tasks and more between package repositories
