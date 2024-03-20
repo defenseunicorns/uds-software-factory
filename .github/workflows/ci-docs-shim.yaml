@@ -22,12 +22,14 @@ on:
 
 jobs:
   run-test:
-    name: Create and Deploy Flavor ${{ matrix.flavor }}
-    runs-on: "ubuntu-latest"
-    timeout-minutes: 20
+    name: ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream]
+        type: [install]
+        bundle: ["demo", "dev"]
     steps:
       - name: Shim for Deploy ${{ matrix.flavor }}
         run: |

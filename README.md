@@ -13,3 +13,12 @@ Also note that the Software Factory team helps to manage the following shared UD
 
 - [Postgres Operator](https://github.com/defenseunicorns/uds-package-postgres-operator) - a Kubernetes operator to deploy PostgreSQL databases in a cluster
 - [UDS Common](https://github.com/defenseunicorns/uds-common) - a common repo to share actions, UDS tasks and more between package repositories
+
+## Bundles
+This repository publishes multiple bundles for dev, test and demo purposes. They are located in sub directories under `bundles`.
+
+### uds-k3d-swf-dev-bundle
+
+This is a bundle primarily for development that is located at `bundles/k3d/dev`. It requires an existing k3d cluster to deploy, which can be achieved by running `uds run  
+
+### uds-k3d-swf-demo-bundle
