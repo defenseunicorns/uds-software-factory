@@ -39,26 +39,30 @@ jobs:
     strategy:
       matrix:
         flavor: [upstream]
+        type: [install]
+        bundle_path: ["bundles/k3d/demo", "bundles/k3d/dev"]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@275e839e80667938baf1c1dda0f543261ba57618
+        uses: defenseunicorns/uds-common/.github/actions/setup@0db21901e025686908dde3ba09f615905116380e # v0.3.2
         with:
           username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
           password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
 
       - name: Test
-        uses: defenseunicorns/uds-common/.github/actions/test@275e839e80667938baf1c1dda0f543261ba57618
+        uses: defenseunicorns/uds-common/.github/actions/test@0db21901e025686908dde3ba09f615905116380e # v0.3.2
         env: 
           UDS_BUNDLE_PATH: "bundles/k3d/demo"
         with:
           flavor: ${{ matrix.flavor }}
+          type: ${{ matrix.type }}
+          options: "--set BUNDLE_PATH=${{ matrix.bundle_path }}"
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@275e839e80667938baf1c1dda0f543261ba57618 # v0.3.1
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@0db21901e025686908dde3ba09f615905116380e # v0.3.2
         with:
           suffix: ${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}
