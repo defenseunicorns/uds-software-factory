@@ -30,7 +30,6 @@ packages:
               description: "Configure postgres using CRs via the uds-postgres-config chart"
               path: postgresql
 
-  
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
     ref: 0.0.1
@@ -39,9 +38,9 @@ packages:
     path: ../../../
     ref: 0.1.0
     exports:
-    - name: ACCESS_KEY
-    - name: SECRET_KEY
-    - name: DB_PASSWORD
+      - name: ACCESS_KEY
+      - name: SECRET_KEY
+      - name: DB_PASSWORD
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
@@ -132,7 +131,7 @@ packages:
               default: "?connect_timeout=10"
             - name: MATTERMOST_DB_USERNAME
               path: "postgres.username"
-              default: "mattermost.mattermost" 
+              default: "mattermost.mattermost"
             - name: MATTERMOST_OBJECT_STORAGE_SECURE
               path: "objectStorage.secure"
               default: "false"

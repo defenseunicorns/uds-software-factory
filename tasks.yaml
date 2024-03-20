@@ -30,7 +30,7 @@ tasks:
       - task: create:test-bundle
         with:
           path: ${BUNDLE_PATH}
-  
+
   - name: create-test-bundle
     description: Create UDS SWF bundle with dependencies
     actions:

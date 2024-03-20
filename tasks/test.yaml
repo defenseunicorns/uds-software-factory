@@ -15,4 +15,3 @@ tasks:
       - task: sq:health-check
       - task: sq:ingress
       - task: glr:glr-health-check
-
