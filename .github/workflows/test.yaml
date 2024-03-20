@@ -33,14 +33,14 @@ permissions:
 
 jobs:
   run-test:
-    name: Create and Deploy Flavor ${{ matrix.flavor }}
+    name: ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
     runs-on: uds-swf-ubuntu-big-boy-16-core
     timeout-minutes: 40
     strategy:
       matrix:
         flavor: [upstream]
         type: [install]
-        bundle_path: ["bundles/k3d/demo", "bundles/k3d/dev"]
+        bundle: ["demo", "dev"]
 
     steps:
       - name: Checkout repository
@@ -57,7 +57,7 @@ jobs:
         with:
           flavor: ${{ matrix.flavor }}
           type: ${{ matrix.type }}
-          options: "--set BUNDLE_PATH=${{ matrix.bundle_path }}"
+          options: "--set BUNDLE_PATH=bundles/k3d/${{ matrix.bundle }}"
 
       - name: Save logs
         if: always()
