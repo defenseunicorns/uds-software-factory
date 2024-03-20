@@ -1,0 +1,39 @@
+includes:
+  - dependencies: ./dependencies.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/publish.yaml
+
+tasks:
+  - name: test-bundle
+    description: Build and publish the test bundles
+    actions:
+      - description: Create the ARM64 deps package
+        task: dependencies:create
+        with:
+          options: -a amd64
+
+      - description: Create the ARM64 deps package
+        task: dependencies:create
+        with:
+          options: -a arm64
+
+      - description: Create the amd64 bundle
+        task: create:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+          architecture: amd64
+
+      - description: Create the arm64 bundle
+        task: create:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+          architecture: arm64
+
+      - description: Publish the bundle
+        task: publish:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+          # x-release-please-start-version
+          version: "0.1.0"
+          # x-release-please-end
+
