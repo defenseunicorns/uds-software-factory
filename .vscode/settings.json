@@ -1,12 +1,4 @@
 {
-    "debug.javascript.terminalOptions": {
-      "enableTurboSourcemaps": true,
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "node_modules/kubernetes-fluent-client/**",
-        "node_modules/pepr/**"
-      ]
-    },
     "yaml.schemas": {
       "https://raw.githubusercontent.com/defenseunicorns/uds-cli/v0.9.0/uds.schema.json": [
         "**/uds-bundle.yaml"
