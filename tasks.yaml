@@ -26,7 +26,7 @@ tasks:
     actions:
       - task: dependencies:create
         with:
-          options: "-a ${UDS_ARCH}"
+          architecture: "${UDS_ARCH}"
       - task: create:test-bundle
         with:
           path: ${BUNDLE_PATH}
