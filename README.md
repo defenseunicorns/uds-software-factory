@@ -64,12 +64,12 @@ Alternatively, you can deploy the [uds-k3d-swf-dev bundle](./bundles/k3d/dev/REA
 
 > [!NOTE]: Apple users follow these [instructions](./docs/development.md) to properly set up your environment to deploy this bundle.
 
-When `k3d-swf-dev` you can have two options, build and deploy from source or deploy the artifacts from where they are hosted in the GHCR OCI registry.
+When `k3d-swf-dev` you can have two options, build and deploy from source or deploy the artifacts from where they are hosted in the ghcr OCI registry.
 
 To build and deploy from source you can utilize the UDS tasks in this repo by running:
 
 ```bash
-uds run
+    uds run
 ```
 
 Alternatively, you can deploy from OCI by running the following two commands:
