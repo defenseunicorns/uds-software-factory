@@ -57,7 +57,7 @@ jobs:
         with:
           flavor: ${{ matrix.flavor }}
           type: ${{ matrix.type }}
-          options: "--set BUNDLE_PATH=bundles/k3d/${{ matrix.bundle }}"
+          options: "--set BUNDLE_PATH=bundles/${{ matrix.bundle }}"
 
       - name: Save logs
         if: always()

@@ -9,7 +9,7 @@ includes:
 
 variables:
   - name: BUNDLE_PATH
-    default: bundles/k3d/dev
+    default: bundles/dev
 
 tasks:
   - name: default

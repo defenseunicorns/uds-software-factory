@@ -1,4 +1,4 @@
-# UDS Software Factory K3d Dev Bundle
+# UDS Software Factory Dev Bundle
 
 ## Bundle Applications
 

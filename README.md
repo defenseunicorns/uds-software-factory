@@ -16,7 +16,6 @@ Also note that the Software Factory team helps to manage the following shared UD
 
 ### tl;dr - [try it now](#quickstart)
 
-
 ## Bundles
 
 > [!NOTE]
@@ -24,15 +23,15 @@ Also note that the Software Factory team helps to manage the following shared UD
 
 This repository publishes multiple bundles for dev, test and demo purposes. They are located in sub-directories under `bundles`.
 
-### k3d-swf-dev
+### swf-dev
 
-This is a bundle primarily for development that is located at `bundles/k3d/dev`. It requires an existing k3d cluster to deploy.
+This is a bundle primarily for development that is located at `bundles/dev`. It requires an existing k3d cluster to deploy.
 
 This bundle requires ~ 8 CPUs and 28GB of memory available to run.
 
 ### k3d-swf-demo
 
-This bundle is a demo bundle of Software Factory deployed on top of full [UDS Core](https://github.com/defenseunicorns/uds-core). It includes the deployment of an underlying k3d cluster. The bundle definition is located at `bundles/k3d/demo`
+This bundle is a demo bundle of Software Factory deployed on top of full [UDS Core](https://github.com/defenseunicorns/uds-core). It includes the deployment of an underlying k3d cluster. The bundle definition is located at `bundles/k3d-demo`
 
 This is a fairly large bundle and requires `16 CPUs and 64GB of memory` available to run. It is best deployed on an adequately sized linux machine with Docker or equivalent installed. This is not currently tested on Mac due to resource limitations.
 
@@ -48,7 +47,7 @@ This is a fairly large bundle and requires `16 CPUs and 64GB of memory` availabl
 
 #### Quickstart
 
-If you want to try out UDS Software Factory, you can use the [uds-k3d-swf-demo bundle](./bundles/k3d/demo/README.md) to create a local k3d cluster with full UDS Core and Software Factory installed. Note the [requirements](#k3d-swf-demo) mentioned above.
+If you want to try out UDS Software Factory, you can use the [uds-k3d-swf-demo bundle](./bundles/k3d-demo/README.md) to create a local k3d cluster with full UDS Core and Software Factory installed. Note the [requirements](#k3d-swf-demo) mentioned above.
 
 To deploy this bundle run the following command:
 
@@ -60,11 +59,11 @@ uds deploy uds-k3d-swf-demo:0.1.0
 
 <!-- x-release-please-end -->
 
-Alternatively, you can deploy the [uds-k3d-swf-dev bundle](./bundles/k3d/dev/README.md), which is meant to be deployed on top of [k3d-core-slim-dev](https://github.com/defenseunicorns/uds-core/blob/main/bundles/k3d-slim-dev/README.md). This bundle includes all of Software Factory, but only utilizes part of the underlying uds-core baseline. This allows it to be run on a wider variety of hardware, particularly with local development in mind.
+Alternatively, you can deploy the [uds-k3d-swf-dev bundle](./bundles/dev/README.md), which is meant to be deployed on top of [k3d-core-slim-dev](https://github.com/defenseunicorns/uds-core/blob/main/bundles/k3d-slim-dev/README.md). This bundle includes all of Software Factory, but only utilizes part of the underlying uds-core baseline. This allows it to be run on a wider variety of hardware, particularly with local development in mind.
 
 > [!NOTE]: Apple users follow these [instructions](./docs/development.md) to properly set up your environment to deploy this bundle.
 
-When `k3d-swf-dev` you can have two options, build and deploy from source or deploy the artifacts from where they are hosted in the ghcr OCI registry.
+When `swf-dev` you can have two options, build and deploy from source or deploy the artifacts from where they are hosted in the ghcr OCI registry.
 
 To build and deploy from source you can utilize the UDS tasks in this repo by running:
 
@@ -80,10 +79,10 @@ Alternatively, you can deploy from OCI by running the following two commands:
     uds deploy k3d-core-slim-dev:0.16.1
     ```
 
-1. Run the below command to deploy the `k3d-swf-dev` bundle on top of the dev cluster:
+1. Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
 
     <!-- x-release-please-start-version -->
     ```bash
-    uds deploy uds-k3d-swf-dev:0.1.0
+    uds deploy swf-dev:0.1.0
     ```
     <!-- x-release-please-end -->

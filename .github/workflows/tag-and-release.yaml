@@ -30,7 +30,7 @@ jobs:
     strategy:
       matrix:
         flavor: [upstream, registry1]
-        bundle_path: ["bundles/k3d/demo", "bundles/k3d/dev"]
+        bundle_path: ["bundles/k3d-demo", "bundles/dev"]
 
     permissions:
       contents: read
