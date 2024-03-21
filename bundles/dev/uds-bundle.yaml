@@ -1,0 +1,135 @@
+kind: UDSBundle
+metadata:
+  name: swf-dev
+  description: A UDS bundle for deploying the UDS Software Factory on a development cluster
+  # x-release-please-start-version
+  version: 0.1.0
+  # x-release-please-end
+
+packages:
+
+  - name: dev-minio
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
+    ref: 0.0.1
+
+  # Namespaces are deployed prior to the packages to faciliate use of the postgres-operator cross namespace secret creation
+  - name: dev-namespaces
+    path: ../../
+    ref: 0.1.0
+
+  - name: postgres-operator
+    repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
+    ref: 1.10.1-uds.4-upstream
+    overrides:
+      postgres-operator:
+        uds-postgres-config:
+          variables:
+            - name: POSTGRESQL
+              description: "Configure postgres using CRs via the uds-postgres-config chart"
+              path: postgresql
+
+  - name: dev-redis
+    repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
+    ref: 0.0.1
+
+  - name: dev-secrets
+    path: ../../
+    ref: 0.1.0
+    exports:
+      - name: ACCESS_KEY
+      - name: SECRET_KEY
+      - name: DB_PASSWORD
+
+  - name: gitlab
+    repository: ghcr.io/defenseunicorns/packages/uds/gitlab
+    ref: 16.9.1-uds.1-upstream
+    overrides:
+      gitlab:
+        gitlab:
+          variables:
+            - name: MIGRATIONS_RESOURCES
+              description: "Gitlab Migrations Resources"
+              path: "gitlab.migrations.resources"
+            - name: WEBSERVICE_REPLICAS
+              description: "Gitlab Webservice Min Replicas"
+              path: "gitlab.webservice.minReplicas"
+            - name: WEBSERVICE_RESOURCES
+              description: "Gitlab Webservice Resources"
+              path: "gitlab.webservice.resources"
+            - name: WORKHORSE_RESOURCES
+              description: "Gitlab Workhorse Resources"
+              path: "gitlab.webservice.workhorse.resources"
+            - name: SIDEKIQ_REPLICAS
+              description: "Gitlab Sidekiq Min Replicas"
+              path: "gitlab.sidekiq.minReplicas"
+            - name: SIDEKIQ_RESOURCES
+              description: "Gitlab Sidekiq Resources"
+              path: "gitlab.sidekiq.resources"
+            - name: REGISTRY_REPLICAS
+              description: "Gitlab Registry Min Replicas"
+              path: "registry.hpa.minReplicas"
+            - name: SHELL_REPLICAS
+              description: "Gitlab Shell Min Replicas"
+              path: "gitlab.gitlab-shell.minReplicas"
+            - name: POSTGRES_USERNAME
+              description: "Gitlab Postgres Username"
+              path: "global.psql.username"
+              default: "gitlab.gitlab"
+            - name: POSTGRES_SECRET_REF
+              description: "Gitlab Postgres Password Secret Ref"
+              path: "global.psql.password.secret"
+              default: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
+
+  - name: gitlab-runner
+    repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
+    ref: 16.8.0-uds.1-upstream
+
+  - name: sonarqube
+    repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
+    ref: 8.0.3-uds.4-upstream-ce
+    overrides:
+      sonarqube:
+        sonarqube:
+          variables:
+            - name: SONARQUBE_POSTGRES_USERNAME
+              description: "Sonarqube Postgres Username"
+              path: "jdbcOverwrite.jdbcUsername"
+              default: "sonarqube.sonarqube"
+            - name: SONARQUBE_POSTGRES_SECRET_REF
+              description: "Sonarqube Postgres Password Secret Ref"
+              path: "jdbcOverwrite.jdbcSecretName"
+              default: "sonarqube.sonarqube.pg-cluster.credentials.postgresql.acid.zalan.do"
+
+
+  - name: mattermost
+    repository: ghcr.io/defenseunicorns/packages/uds/mattermost
+    ref: 9.4.1-uds.2-upstream
+    imports:
+      - name: ACCESS_KEY
+        package: dev-secrets
+      - name: SECRET_KEY
+        package: dev-secrets
+      - name: DB_PASSWORD
+        package: dev-secrets
+    overrides:
+      mattermost:
+        uds-mattermost-config:
+          variables:
+            - name: MATTERMOST_DB_ENDPOINT
+              path: "postgres.host"
+              default: "pg-cluster.postgres.svc.cluster.local"
+            - name: MATTERMOST_DB_CONNECTION_OPTIONS
+              path: "postgres.connectionOptions"
+              default: "?connect_timeout=10"
+            - name: MATTERMOST_DB_USERNAME
+              path: "postgres.username"
+              default: "mattermost.mattermost"
+            - name: MATTERMOST_OBJECT_STORAGE_SECURE
+              path: "objectStorage.secure"
+              default: "false"
+            - name: MATTERMOST_OBJECT_STORAGE_ENDPOINT
+              path: "objectStorage.endpoint"
+              default: "minio.dev-minio.svc.cluster.local:9000"
+            - name: MATTERMOST_OBJECT_STORAGE_BUCKET
+              path: "objectStorage.bucket"
+              default: "uds-mattermost-dev"

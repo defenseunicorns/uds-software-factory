@@ -1,0 +1,15 @@
+kind: ZarfPackageConfig
+metadata:
+  name: dev-namespaces
+  description: "create namespaces for cross-ns secret functionality of pg operator"
+  version: 0.1.0
+
+components:
+  - name: deploy-namespace-for-cross-ns-secrets-test
+    required: true
+    manifests:
+      - name: dev-namespaces
+        files:
+          - gitlab-ns.yaml
+          - mattermost-ns.yaml
+          - sonarqube-ns.yaml

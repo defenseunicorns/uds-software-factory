@@ -1,0 +1,66 @@
+name: Test
+
+# This workflow is triggered on pull requests to the main branch.
+on:
+  pull_request:
+    branches: [main]
+    types: [milestoned, opened, synchronize]
+    paths-ignore:
+      - "**.md"
+      - "**.jpg"
+      - "**.png"
+      - "**.gif"
+      - "**.svg"
+      - "adr/**"
+      - "docs/**"
+      - ".gitignore"
+      - "renovate.json"
+      - ".release-please-config.json"
+      - "release-please-config.json"
+      - "oscal-component.yaml"
+      - "CODEOWNERS"
+      - "LICENSE"
+      - "CONTRIBUTING.md"
+      - "SECURITY.md"
+
+# Abort prior jobs in the same workflow / PR
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  run-test:
+    name: ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
+    runs-on: uds-swf-ubuntu-big-boy-16-core
+    timeout-minutes: 40
+    strategy:
+      matrix:
+        flavor: [upstream]
+        type: [install]
+        bundle: ["k3d-demo", "dev"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Environment setup
+        uses: defenseunicorns/uds-common/.github/actions/setup@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        with:
+          username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
+          password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
+
+      - name: Test
+        uses: defenseunicorns/uds-common/.github/actions/test@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        with:
+          flavor: ${{ matrix.flavor }}
+          type: ${{ matrix.type }}
+          options: "--set BUNDLE_PATH=bundles/${{ matrix.bundle }}"
+
+      - name: Save logs
+        if: always()
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        with:
+          suffix: ${{ matrix.type }}-${{ matrix.bundle }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}

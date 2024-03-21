@@ -1,0 +1,62 @@
+name: Publish UDS Software Factory
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  tag-new-version:
+    name: Tag New Version
+    permissions: write-all
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-flag.outputs.release_created }}
+    steps:
+      - name: Create release tag
+        id: tag
+        uses: google-github-actions/release-please-action@a37ac6e4f6449ce8b3f7607e4d97d0146028dc0b # v4.1.0
+      - id: release-flag
+        run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
+
+  publish-package:
+    needs: tag-new-version
+    if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    name: Publish ${{ matrix.flavor }}
+    strategy:
+      matrix:
+        flavor: [upstream, registry1]
+        bundle_path: ["bundles/k3d-demo", "bundles/dev"]
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Environment setup
+        uses: defenseunicorns/uds-common/.github/actions/setup@0e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        with:
+          username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
+          password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
+
+      - name: Login to GHCR
+        uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3
+        with:
+          registry: ghcr.io
+          username: dummy
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Package
+        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH=${{ matrix.bundle_path }}
+
+      - name: Save logs
+        if: always()
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        with:
+          suffix: '${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'

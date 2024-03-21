@@ -1,0 +1,36 @@
+name: CI Docs Shim
+
+on:
+  pull_request:
+    paths:
+      - "**.md"
+      - "**.jpg"
+      - "**.png"
+      - "**.gif"
+      - "**.svg"
+      - "adr/**"
+      - "docs/**"
+      - ".gitignore"
+      - "renovate.json"
+      - ".release-please-config.json"
+      - "release-please-config.json"
+      - "oscal-component.yaml"
+      - "CODEOWNERS"
+      - "LICENSE"
+      - "CONTRIBUTING.md"
+      - "SECURITY.md"
+
+jobs:
+  run-test:
+    name: ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        flavor: [upstream]
+        type: [install]
+        bundle: ["k3d-demo", "dev"]
+    steps:
+      - name: Shim for ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
+        run: |
+          echo "Documentation-only change detected; marking ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }} as successful."

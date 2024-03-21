@@ -1,0 +1,42 @@
+includes:
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/setup.yaml
+  - dependencies: ./tasks/dependencies.yaml
+  - test: ./tasks/test.yaml
+
+variables:
+  - name: BUNDLE_PATH
+    default: bundles/dev
+
+tasks:
+  - name: default
+    description: Create K3D Cluster with istio + SWF
+    actions:
+      - task: create-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+
+  - name: create-test-bundle
+    description: Create UDS SWF bundle with dependencies
+    actions:
+      - task: dependencies:create
+      - task: create:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+
+# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
+
+  - name: test-package
+    description: Test the GitLab package from the current branch
+    actions:
+      - task: create-test-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+      - task: test:test-swf-bundle

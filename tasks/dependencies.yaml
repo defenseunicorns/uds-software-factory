@@ -1,0 +1,10 @@
+tasks:
+  - name: create
+    description: Create the Minio, PostgreSQL, and Redis Dependency Zarf Packages
+    inputs:
+      architecture:
+        description: architecture
+        default: ${UDS_ARCH}
+    actions:
+      - cmd: uds zarf package create src/dev-secrets --confirm --no-progress --skip-sbom -a ${{ .inputs.architecture }}
+      - cmd: uds zarf package create src/namespaces --confirm --no-progress --skip-sbom -a ${{ .inputs.architecture }}

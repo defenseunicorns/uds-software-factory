@@ -1,0 +1,34 @@
+name: Scan
+
+on:
+  # This workflow is triggered on pull requests to the main branch.
+  pull_request:
+    branches: [main]
+    types: [milestoned, opened, synchronize]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Lint
+    permissions:
+      contents: read # Allows reading the repo contents
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0
+
+      - name: Environment setup
+        uses: defenseunicorns/uds-common/.github/actions/setup@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
+        with:
+          username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+
+      - name: Install lint deps
+        run: |
+          uds run lint:deps
+
+      - name: Lint the repository
+        run: |
+          uds run lint:yaml
