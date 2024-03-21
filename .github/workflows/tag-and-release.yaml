@@ -53,7 +53,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml package --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH=${{ matrix.bundle_path }}
+        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH=${{ matrix.bundle_path }}
 
       - name: Save logs
         if: always()

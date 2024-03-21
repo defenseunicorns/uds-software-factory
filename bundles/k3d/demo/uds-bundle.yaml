@@ -9,12 +9,10 @@ metadata:
 packages:
   - name: uds-k3d-dev
     repository: ghcr.io/defenseunicorns/packages/uds-k3d
-    # renovate: datasource=github-tags depName=defenseunicorns/uds-k3d versioning=semver
     ref: 0.3.1
 
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
     ref: v0.32.3
 
   - name: uds-core #for now
@@ -32,9 +30,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    # x-release-please-start-version
     ref: 1.10.1-uds.4-upstream
-    # x-release-please-end
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -58,9 +54,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    # x-release-please-start-version
     ref: 16.9.1-uds.1-upstream
-    # x-release-please-end
     overrides:
       gitlab:
         gitlab:
@@ -104,9 +98,7 @@ packages:
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    # x-release-please-start-version
     ref: 8.0.3-uds.4-upstream-ce
-    # x-release-please-end
     overrides:
       sonarqube:
         sonarqube:
@@ -123,9 +115,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    # x-release-please-start-version
     ref: 9.4.1-uds.2-upstream
-    # x-release-please-end
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
