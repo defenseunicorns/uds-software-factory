@@ -31,6 +31,6 @@ jobs:
         type: [install]
         bundle: ["demo", "dev"]
     steps:
-      - name: Shim for Deploy ${{ matrix.flavor }}
+      - name: Shim for ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
         run: |
-          echo "Documentation-only change detected; marking Deploy ${{ matrix.flavor }} as successful."
+          echo "Documentation-only change detected; marking ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }} as successful."

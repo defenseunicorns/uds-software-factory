@@ -32,7 +32,7 @@ This bundle requires ~ 8 CPUs and 28GB of memory available to run.
 
 ### k3d-swf-demo
 
-This bundle is a demo bundle of Software Factory deployed on top of full UDS Core. It includes the deployment of an underlying k3d cluster. The bundle definition is located at `bundles/k3d/demo`
+This bundle is a demo bundle of Software Factory deployed on top of full [UDS Core](https://github.com/defenseunicorns/uds-core). It includes the deployment of an underlying k3d cluster. The bundle definition is located at `bundles/k3d/demo`
 
 This is a fairly large bundle and requires `16 CPUs and 64GB of memory` available to run. It is best deployed on an adequately sized linux machine with Docker or equivalent installed. This is not currently tested on Mac due to resource limitations.
 

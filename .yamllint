@@ -2,7 +2,6 @@ yaml-files:
   - '**/*.y*ml'
   - '.yamllint'
 
-# Ignore files from upstream
 ignore:
   - '**/.terraform/**'
   - '**/chart/templates**'

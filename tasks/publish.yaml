@@ -10,12 +10,12 @@ tasks:
       - description: Create the ARM64 deps package
         task: dependencies:create
         with:
-          options: -a amd64
+          architecture: amd64
 
       - description: Create the ARM64 deps package
         task: dependencies:create
         with:
-          options: -a arm64
+          architecture: arm64
 
       - description: Create the amd64 bundle
         task: create:test-bundle

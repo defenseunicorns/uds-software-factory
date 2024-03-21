@@ -11,7 +11,7 @@ components:
     actions:
       onDeploy:
         before:
-          - cmd: kubectl get secret -n dev-minio minio --template='{{ index .data "rootPassword" }}' | base64 -d
+          - cmd: uds zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootPassword" }}' | base64 -d
             mute: true
             setVariables:
               - name: SECRET_KEY

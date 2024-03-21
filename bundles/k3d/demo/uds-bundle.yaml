@@ -76,7 +76,7 @@ packages:
               path: "gitlab.webservice.resources"
             - name: WORKHORSE_RESOURCES
               description: "Gitlab Workhorse Resources"
-              path: "gitlab.workhorse.resources"
+              path: "gitlab.webservice.workhorse.resources"
             - name: SIDEKIQ_REPLICAS
               description: "Gitlab Sidekiq Min Replicas"
               path: "gitlab.sidekiq.minReplicas"

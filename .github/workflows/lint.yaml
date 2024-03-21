@@ -3,9 +3,8 @@ name: Scan
 on:
   # This workflow is triggered on pull requests to the main branch.
   pull_request:
-
-  # This allows other repositories to call this workflow in a reusable way
-  workflow_call:
+    branches: [main]
+    types: [milestoned, opened, synchronize]
 
 jobs:
   validate:
@@ -21,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@275e839e80667938baf1c1dda0f543261ba57618 # v0.3.1
+        uses: defenseunicorns/uds-common/.github/actions/setup@0e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
         with:
           username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}

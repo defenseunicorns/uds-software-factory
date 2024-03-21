@@ -22,7 +22,7 @@ tasks:
           path: ${BUNDLE_PATH}
 
   - name: create-swf-ci-test-bundle
-    description: Create the UDS bundle with Gitlab and its dependencies
+    description: Create UDS SWF bundle with dependencies
     actions:
       - task: dependencies:create
         with:

@@ -1,4 +1,4 @@
-name: Publish UDS Package Gitlab
+name: Publish UDS Software Factory
 
 on:
   push:
