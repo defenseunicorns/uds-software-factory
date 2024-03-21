@@ -14,7 +14,7 @@ packages:
 
   # Namespaces are deployed prior to the packages to faciliate use of the postgres-operator cross namespace secret creation
   - name: dev-namespaces
-    path: ../../../
+    path: ../../
     ref: 0.1.0
 
   - name: postgres-operator
@@ -33,7 +33,7 @@ packages:
     ref: 0.0.1
 
   - name: dev-secrets
-    path: ../../../
+    path: ../../
     ref: 0.1.0
     exports:
       - name: ACCESS_KEY
