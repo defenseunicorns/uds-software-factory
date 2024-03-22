@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/defenseunicorns/uds-software-factory/compare/v0.1.0...v0.1.1) (2024-03-22)
+
+
+### Miscellaneous
+
+* update bad sha in reference to setup action in publish step ([#33](https://github.com/defenseunicorns/uds-software-factory/issues/33)) ([aa85d32](https://github.com/defenseunicorns/uds-software-factory/commit/aa85d32c502d3f65fbcb6ee826be62bb7e30f3aa))
+
 ## 0.1.0 (2024-03-22)
 
 
