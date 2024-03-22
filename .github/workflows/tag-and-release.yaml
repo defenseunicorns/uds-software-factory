@@ -29,7 +29,7 @@ jobs:
     name: Publish ${{ matrix.bundle }} ${{ matrix.flavor }}
     strategy:
       matrix:
-        flavor: [upstream, registry1]
+        flavor: [upstream]
         bundle: ["k3d-demo", "dev"]
 
     permissions:
