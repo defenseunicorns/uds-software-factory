@@ -26,11 +26,11 @@ jobs:
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
     runs-on: ubuntu-latest
-    name: Publish ${{ matrix.flavor }}
+    name: Publish ${{ matrix.bundle }} ${{ matrix.flavor }}
     strategy:
       matrix:
         flavor: [upstream, registry1]
-        bundle_path: ["bundles/k3d-demo", "bundles/dev"]
+        bundle: ["k3d-demo", "dev"]
 
     permissions:
       contents: read
@@ -53,10 +53,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Package
-        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH=${{ matrix.bundle_path }}
+        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH="bundles/${{ matrix.bundle }}"
 
       - name: Save logs
         if: always()
         uses: defenseunicorns/uds-common/.github/actions/save-logs@e2ad99f7caba1b0d08856918db9385a431cfdbca # v0.3.3
         with:
-          suffix: '${{ matrix.bundle_path }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'
+          suffix: '${{ matrix.bundle }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'
