@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/defenseunicorns/uds-software-factory/compare/v0.1.2...v0.1.3) (2024-03-22)
+
+
+### Miscellaneous
+
+* update readme ([#38](https://github.com/defenseunicorns/uds-software-factory/issues/38)) ([b029a20](https://github.com/defenseunicorns/uds-software-factory/commit/b029a20518d4be5ea3fbb5184432724dd07463a9))
+
 ## [0.1.2](https://github.com/defenseunicorns/uds-software-factory/compare/v0.1.1...v0.1.2) (2024-03-22)
 
 
