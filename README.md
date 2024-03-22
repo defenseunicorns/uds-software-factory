@@ -27,7 +27,7 @@ This repository publishes multiple bundles for dev, test and demo purposes. They
 
 This is a bundle primarily for development that is located at `bundles/dev`. It requires an existing k3d cluster to deploy.
 
-This bundle requires ~ 8 CPUs and 28GB of memory available to run.
+This bundle requires ~ `8 CPUs and 28GB of memory` available to run.
 
 ### k3d-swf-demo
 
