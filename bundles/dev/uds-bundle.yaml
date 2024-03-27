@@ -10,7 +10,7 @@ packages:
 
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
-    ref: 0.0.1
+    ref: 0.0.2
 
   # Namespaces are deployed prior to the packages to faciliate use of the postgres-operator cross namespace secret creation
   - name: dev-namespaces
@@ -30,7 +30,7 @@ packages:
 
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
-    ref: 0.0.1
+    ref: 0.0.2
 
   - name: dev-secrets
     path: ../../
@@ -82,7 +82,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 16.8.0-uds.1-upstream
+    ref: 16.9.1-uds.1-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
