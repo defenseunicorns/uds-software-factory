@@ -31,15 +31,28 @@ Keycloak will serve as GitLab's primary authentication provider, enabling users 
 ### Provision Users
 Keycloak will provision users and manage user roles, groups, and permissions. This ensures user access is managed centrally and consistently across all applications and services.
 
+This may be done automatically on the first SSO login by the user or automated (Keycloak data periodically/realtime pushed to GitLab).
+
+Note: Supporting pushed users is helpful to GitLab users, because this allows other users within the GitLab environment to begin interacting with the new user before their first login.
+
+#### Automatic provisioning on first SSO login
+**Pros:**
+- Common standard SSO integration method
+- The new GitLab user account is created on demand, no provisioning delay for the new user to login.
+**Cons:**
+- New user accounts don't exist in GitLab before the new user's first login. This prevents other users in GitLab from interacting with the new user (assigning tasks, @ mentions, etc) before their first login.
+
 #### SCIM Integration
+
+Note: Using SCIM integration in GitLab requires using SAML for authentication. See [Configure SCIM for self-managed GitLab instances](https://docs.gitlab.com/ee/administration/settings/scim_setup.html) documentation.
+
 **Pros:**
 - Easy to Mix Systems: SCIM is a common framework for sharing user info between different programs or online services, making them work smoothly.
 - Saves Time: It handles adding, updating, and removing user accounts by itself, which means less work for people managing these tasks.
 - Fewer Mistakes: Since it's automated, there's less chance someone will type something wrong or forget to update important info.
 
 **Cons:**
-- Can Be Tricky to Set Up: Getting SCIM to work just right with all your systems can be complicated.
-- Learning Curve: If you're not familiar with SCIM, it might take a while to get the hang of it.
+- Keycloak does not natively support SCIM. There are some open source plugins to add support, but they would need review.
 
 #### Manual Provisioning
 **Pros:**
@@ -59,15 +72,21 @@ Keycloak will provision users and manage user roles, groups, and permissions. Th
 - More Work: You'll have to write and maintain the code yourself, which can be a lot of work.
 
 ### Deprovision Users
-Keycloak will be used to de-provision users and manage user access rights, ensuring timely revocation of access when users leave the organization or change roles.
+Users need to be deprovisioned (GitLab user account disabled or deleted) promptly from GitLab when they lose access via Keycloak (Keycloak user account disabled/deleted or removed from a group that gives GitLab access).
+
+Note: it possible to authenticate to GitLab with Personal Access Tokens (PATs) and SSH keys, these bypass SSO because the user does not login with a browser. It is critical to promptly deactivate or delete users from GitLab to terminate access.
+
+Note: deleted and deactivated users do not consume a license. GitLab bills per user active in the past 30 days(?). To minimize cost, users should be deactivated promptly.
 
 #### Automated Deprovisioning via SCIM
+
 **Pros:**
 - Ensures Timely Revocation of Access: Automatically removes users' access rights as soon as their status changes, improving security.
 - Reduces Manual Workload: Lessens the burden on IT staff by handling the de-provisioning process automatically, minimizing the chance of oversight.
-Supports Real-Time Updates: It can integrate with broader system architectures to ensure updates are processed immediately, keeping user access rights current.
+- Supports Real-Time Updates: It can integrate with broader system architectures to ensure updates are processed immediately, keeping user access rights current.
 
 **Cons:**
+- Keycloak does not natively support SCIM. There are some open source plugins to add support, but they would need review.
 - Requires Careful Configuration: Setting up SCIM to work correctly with GitLab and Keycloak requires careful planning and configuration.
 - Potential for Misconfiguration: Misconfigurations can lead to unauthorized access or the accidental removal of access rights, impacting operations and security.
 - Complexity: Integrating SCIM with existing systems can be complex.
@@ -91,6 +110,8 @@ Labor-Intensive: Each de-provisioning event requires manual action, which can be
 
 #### GitLab Group Integration
 
+Within GitLab, groups are often used to control users' access to groups of repositories. Groups can be manually configured by a GitLab group owner, manually by a GitLab instance admin or automatically from SAML groups. GitLab does not currently support SCIM groups.
+
 #### Automated Group Management via Keycloak
 **Pros:**
 - Easier Access Management: Linking GitLab with Keycloak groups means when someone's group membership changes in Keycloak, it updates in GitLab too. This keeps access rights tight without extra effort.
@@ -98,19 +119,21 @@ Labor-Intensive: Each de-provisioning event requires manual action, which can be
 - Better Security: With automatic updates, you can be sure that everyone has the access they need and nothing more, keeping your projects and data safer.
 
 **Cons:**
+- Requires administering groups from Keycloak instead of GitLab. This may be more complex and not all users may have Keycloak group admin access. (However, this may scale better to large numbers of groups.)
 - Requires Careful Configuration: Setting up Keycloak to work correctly with GitLab requires careful planning and configuration.
-- Learning Curve: 
+- Learning Curve: more complex to administer groups from Keycloak instead of GitLab. Another admin tool to learn and some complexity from not using GitLab directly.
+
 #### Manual Group Management
 **Pros:**
-You're in Charge: Hand-managing groups means you make all the calls about who's in what group, giving you tight control over project access.
-
+- Simple to set up, likely works well for small GitLab installations
+- You're in Charge: Hand-managing groups means you make all the calls about who's in what group, giving you tight control over project access.
 **Cons:**
-- Takes More Time: If you're doing this for a lot of people or if groups change often, it can consume a lot of time.
-- Easy to Make Mistakes: When juggling many group memberships, it's easy to miss something or mess up, which can lead to security slip-ups.
+- No integration with Keycloak groups required, less complexity
 
 ### Instance Admin Group
 
 #### Automated Assignment via Keycloak Roles
+Note: requires using SAML authentication. See [SAML - Administrator groups](https://docs.gitlab.com/ee/integration/saml.html#administrator-groups) GitLab documentation.
 **Pros:**
 - Streamlines the process of granting administrative privileges to designated users.
 - Reduces the risk of unauthorized access by tightly controlling the assignment of admin roles.
