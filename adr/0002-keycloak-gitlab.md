@@ -128,6 +128,7 @@ Within GitLab, groups are often used to control users' access to groups of repos
 **Pros:**
 - Simple to set up, likely works well for small GitLab installations
 - You're in Charge: Hand-managing groups means you make all the calls about who's in what group, giving you tight control over project access.
+
 **Cons:**
 - No integration with Keycloak groups required, less complexity
 
