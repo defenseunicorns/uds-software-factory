@@ -155,9 +155,8 @@ Note: requires using SAML authentication. See [SAML - Administrator groups](http
 ## Decision
 Keycloak will be integrated with GitLab to enhance authentication and user management capabilities. The following decisions have been made:
 
-**_TBD_**
-1. **Authentication:** 
-2. **Provisioning Users:** 
-3. **Deprovisioning Users:**  
-4. **GitLab Group Integration:** 
-5. **Instance Admin Group:** 
+1. **Authentication:** Use SAML. Select SAML instead of OIDC to support SAML group integration and SCIM in the future.
+2. **Provisioning Users:** Automatic provisioning on first SSO login, users will only be created after their first login.  Long term, explore a user provisioning solution for all of UDS such as adding SCIM support to Keycloak.
+3. **Deprovisioning Users:**  Short term, use manual provisioning and document a procedure for GitLab instance administrators. Long term, explore a user provisioning solution for all of UDS such as adding SCIM support to Keycloak.
+4. **GitLab Group Integration:** Manual group creation should be supported. Additionally, test SAML Group Sync which should work with Keycloak.
+5. **Instance Admin Group:** Manual admin creation should be supported. Additionally, test GitLab SAML Administrator groups which should work with Keycloak.
