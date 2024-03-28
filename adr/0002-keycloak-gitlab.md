@@ -135,7 +135,9 @@ Within GitLab, groups are often used to control users' access to groups of repos
 ### Instance Admin Group
 
 #### Automated Assignment via Keycloak Roles
-Note: requires using SAML authentication. See [SAML - Administrator groups](https://docs.gitlab.com/ee/integration/saml.html#administrator-groups) GitLab documentation.
+Note: requires using SAML authentication. See [SAML - Administrator groups]
+(https://docs.gitlab.com/ee/integration/saml.html#administrator-groups) GitLab documentation.
+
 **Pros:**
 - Streamlines the process of granting administrative privileges to designated users.
 - Reduces the risk of unauthorized access by tightly controlling the assignment of admin roles.
