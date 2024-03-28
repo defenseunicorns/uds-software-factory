@@ -39,6 +39,7 @@ Note: Supporting pushed users is helpful to GitLab users, because this allows ot
 **Pros:**
 - Common standard SSO integration method
 - The new GitLab user account is created on demand, no provisioning delay for the new user to login.
+
 **Cons:**
 - New user accounts don't exist in GitLab before the new user's first login. This prevents other users in GitLab from interacting with the new user (assigning tasks, @ mentions, etc) before their first login.
 
