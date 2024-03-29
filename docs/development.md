@@ -9,3 +9,28 @@ To set up an appropriately configured colima VM you can run the following comman
 ```bash
 colima start --cpu 8 --memory 28 --disk 50 --vm-type vz  --vz-rosetta --arch aarch64 --profile uds
 ```
+
+Additionally, some settings need to be configuredon the host to facilatate a successful deployment of Sonarqube:
+
+```bash
+colima ssh --profile uds
+sudo sysctl -w fs.file-max=131072
+sudo sysctl -w vm.max_map_count=524288
+exit
+```
+
+
+## Linux users
+
+Depending on your linux distrobution and how it is configured you may need to run the following steps to be able to properly deploy SWF and/or UDS Core:
+
+```bash
+sudo sysctl -w vm.max_map_count=1524288
+sudo sysctl -w fs.file-max=1000000
+ulimit -n 1000000
+ulimit -u 8192
+sudo sysctl --load
+sudo swapoff -a
+sudo sysctl fs.inotify.max_user_instances=8192
+sudo sysctl -p
+```

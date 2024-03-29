@@ -1,11 +1,12 @@
 includes:
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
   - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/pull.yaml
+  - pull: ./tasks/pull.yaml #https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/pull.yaml
   - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/deploy.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/setup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
+
 
 variables:
   - name: BUNDLE_PATH
@@ -29,10 +30,20 @@ tasks:
         with:
           path: ${BUNDLE_PATH}
 
+  - name: create-swf-latest-release-bundle
+    description: Create UDS Gitlab bundle with dependencies based on the latest release
+    actions:
+      - task: pull:latest-package-release
+        with:
+          spoof_release: "true"
+          path: bundles/demo
+      - task: dependencies:create
+      - task: create:test-bundle
+
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
   - name: test-package
-    description: Test the GitLab package from the current branch
+    description: Test the SWF bundle from the current branch
     actions:
       - task: create-test-bundle
       - task: setup:k3d-test-cluster
@@ -40,3 +51,19 @@ tasks:
         with:
           path: ${BUNDLE_PATH}
       - task: test:test-swf-bundle
+
+
+  - name: test-upgrade
+    description: Test an upgrade from the latest released bundle to the current branch
+    actions:
+      - task: create-swf-latest-release-bundle
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+        with:
+          path: bundles/demo
+      - task: create-test-bundle
+      - task: deploy:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+      - task: test:health-check
+      - task: test:ingress
