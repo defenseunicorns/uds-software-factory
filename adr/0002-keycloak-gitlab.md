@@ -5,7 +5,7 @@
 **Status:** Proposed
 
 ## Context
-The initiative to integrate Keycloak with GitLab is designed to streamline authentication mechanisms, enhance security, and improve user experience. This integration aims to refine login processes, bolster security protocols, and ensure compliance with Information Assurance (IA) standards. Utilizing Keycloak as the primary Identity and Access Management (IAM) solution alongside GitLab and leveraging OAuth2 for authentication consolidates user management and authentication, simplifies credential management, and enhances the security landscape.
+The initiative to integrate Keycloak with GitLab aims to streamline authentication mechanisms, bolster security measures, and enhance the user experience. This integration is focused on refining the login process, enhancing security protocols, and ensuring compliance with Information Assurance (IA) standards. By leveraging Keycloak as the primary Identity and Access Management (IAM) solution in conjunction with GitLab and adopting SAML for authentication, this approach centralizes user management and authentication, simplifies the management of credentials, and strengthens the overall security framework.
 
 ### Authentication
 Keycloak will serve as GitLab's primary authentication provider, enabling users to log in using their Keycloak credentials. This will streamline the login process and provide a seamless user experience.
@@ -67,7 +67,7 @@ Note: Using SCIM integration in GitLab requires using SAML for authentication. S
 #### Custom Code
 **Pros:**
 - Flexibility: You can tailor the provisioning process to your exact needs, ensuring it fits your organization perfectly.
-- No exteranl depdency: You can do this with what GitLab already offers, no need for external OSS tools.
+- No exteranl dependency: You can do this with what GitLab already offers, no need for external OSS tools.
 
 **Cons:**
 - More Work: You'll have to write and maintain the code yourself, which can be a lot of work.
@@ -75,7 +75,7 @@ Note: Using SCIM integration in GitLab requires using SAML for authentication. S
 ### Deprovision Users
 Users need to be deprovisioned (GitLab user account disabled or deleted) promptly from GitLab when they lose access via Keycloak (Keycloak user account disabled/deleted or removed from a group that gives GitLab access).
 
-Note: it possible to authenticate to GitLab with Personal Access Tokens (PATs) and SSH keys, these bypass SSO because the user does not login with a browser. It is critical to promptly deactivate or delete users from GitLab to terminate access.
+Note: it is possible to authenticate to GitLab with Personal Access Tokens (PATs) and SSH keys, these bypass SSO because the user does not login with a browser. It is critical to promptly deactivate or delete users from GitLab to terminate access.
 
 Note: deleted and deactivated users do not consume a license. GitLab bills per user active in the past 30 days(?). To minimize cost, users should be deactivated promptly.
 
@@ -127,8 +127,7 @@ Within GitLab, groups are often used to control users' access to groups of repos
 #### Manual Group Management
 **Pros:**
 - Simple to set up, likely works well for small GitLab installations
-- You're in Charge: Hand-managing groups means you make all the calls about who's in what group, giving you tight control over project access.
-
+- We are in Charge: Hand-managing groups means you make all the calls about who's in what group, giving you tight control over project access.
 **Cons:**
 - No integration with Keycloak groups required, less complexity
 
@@ -160,6 +159,6 @@ Keycloak will be integrated with GitLab to enhance authentication and user manag
 
 1. **Authentication:** Use SAML. Select SAML instead of OIDC to support SAML group integration and SCIM in the future.
 2. **Provisioning Users:** Automatic provisioning on first SSO login, users will only be created after their first login.  Long term, explore a user provisioning solution for all of UDS such as adding SCIM support to Keycloak.
-3. **Deprovisioning Users:**  Short term, use manual provisioning and document a procedure for GitLab instance administrators. Long term, explore a user provisioning solution for all of UDS such as adding SCIM support to Keycloak.
+3. **Deprovisioning Users:**  Short term, use manual deprovisioning and document a procedure for GitLab instance administrators. Long term, explore a user deprovisioning solution for all of UDS such as adding SCIM support to Keycloak.
 4. **GitLab Group Integration:** Manual group creation should be supported. Additionally, test SAML Group Sync which should work with Keycloak.
 5. **Instance Admin Group:** Manual admin creation should be supported. Additionally, test GitLab SAML Administrator groups which should work with Keycloak.
