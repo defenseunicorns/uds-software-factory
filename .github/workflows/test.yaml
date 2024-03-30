@@ -42,7 +42,7 @@ jobs:
         type: [install, upgrade ]
         bundle: ["k3d-demo", "dev"]
         exclude:
-          - bundle: demo
+          - bundle: k3d-demo
             type: upgrade
             flavor: upstream
     steps:
