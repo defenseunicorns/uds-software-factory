@@ -23,7 +23,7 @@ tasks:
         setVariables:
           - name: LATEST_VERSION
       - description: Pull the latest bundle release
-        cmd: ./uds pull oci://${TARGET_REPO}/bundles${BUNDLE_NAME}:${LATEST_VERSION} --no-progress -o ${{ .inputs.path }}
+        cmd: ./uds pull oci://${TARGET_REPO}/bundles/${BUNDLE_NAME}:${LATEST_VERSION} --no-progress -o ${{ .inputs.path }}
       # TODO (@WSTARR): This is currently needed to get around the chicken+egg condition when release please updates the version in GH
       - description: Spoof the latest release to the current version
         cmd: |

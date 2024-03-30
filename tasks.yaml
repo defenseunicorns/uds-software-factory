@@ -31,14 +31,33 @@ tasks:
           path: ${BUNDLE_PATH}
 
   - name: create-swf-latest-release-bundle
-    description: Create UDS Gitlab bundle with dependencies based on the latest release
+    description: Create UDS bundle with dependencies based on the latest release
     actions:
       - task: pull:latest-bundle-release
         with:
           spoof_release: "true"
           path: bundles/k3d-demo
-      - task: dependencies:create
-      - task: create:test-bundle
+      # - task: dependencies:create
+      # - task: create:test-bundle
+
+
+  - name: test-upgrade-local
+    description: Test an upgrade from the latest released bundle to the current branch
+    actions:
+      - task: pull:latest-bundle-release
+        with:
+          spoof_release: "true"
+          path: bundles/k3d-dev
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
+        with:
+          path: bundles/k3d-dev
+      - task: create-test-bundle
+      - task: deploy:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+      - task: test:test-swf-bundle
+      - task: test:ingress
 
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
