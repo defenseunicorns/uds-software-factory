@@ -28,7 +28,7 @@ tasks:
       - description: Spoof the latest release to the current version
         cmd: |
           if [ ${{ .inputs.spoof_release }} != "false" ]; then
-            CURRENT_VERSION=$(cat {{ .inputs.path }}/uds-bundle.yaml | yq .metadata.version)
-            CURRENT_PKG_NAME=$(cat {{ .inputs.path }}/uds-bundle.yaml | yq .metadata.name)
-            test -f {{ .inputs.path }}/uds-bundle-${CURRENT_PKG_NAME}-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst || mv {{ .inputs.path }}/uds-bundle-${CURRENT_PKG_NAME}-${UDS_ARCH}-*.tar.zst {{ .inputs.path }}/uds-bundle-${CURRENT_PKG_NAME}-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst
+            CURRENT_VERSION=$(cat ${{ .inputs.path }}/uds-bundle.yaml | yq .metadata.version)
+            CURRENT_PKG_NAME=$(cat ${{ .inputs.path }}/uds-bundle.yaml | yq .metadata.name)
+            test -f ${{ .inputs.path }}/uds-bundle-${CURRENT_PKG_NAME}-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst || mv ${{ .inputs.path }}/uds-bundle-${CURRENT_PKG_NAME}-${UDS_ARCH}-*.tar.zst ${{ .inputs.path }}/uds-bundle-${CURRENT_PKG_NAME}-${UDS_ARCH}-${CURRENT_VERSION}.tar.zst
           fi
