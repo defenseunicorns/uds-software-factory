@@ -39,7 +39,7 @@ jobs:
     strategy:
       matrix:
         flavor: [upstream]
-        type: [install, upgrade ]
+        type: [install, upgrade]
         bundle: ["k3d-demo", "dev"]
         exclude:
           - bundle: k3d-demo
