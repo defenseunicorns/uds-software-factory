@@ -60,7 +60,7 @@ tasks:
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
-          path: bundles/demo
+          path: bundles/k3d-demo
       - task: create-test-bundle
       - task: deploy:test-bundle
         with:
