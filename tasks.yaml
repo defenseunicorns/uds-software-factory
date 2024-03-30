@@ -33,7 +33,7 @@ tasks:
   - name: create-swf-latest-release-bundle
     description: Create UDS Gitlab bundle with dependencies based on the latest release
     actions:
-      - task: pull:latest-package-release
+      - task: pull:latest-bundle-release
         with:
           spoof_release: "true"
           path: bundles/demo
