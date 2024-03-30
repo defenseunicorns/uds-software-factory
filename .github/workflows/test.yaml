@@ -43,7 +43,7 @@ jobs:
         bundle: ["k3d-demo", "dev"]
         exclude:
           - bundle: demo
-            test_type: upgrade
+            type: upgrade
     steps:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
