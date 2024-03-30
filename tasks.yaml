@@ -65,5 +65,5 @@ tasks:
       - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
-      - task: test:health-check
+      - task: test:test-swf-bundle
       - task: test:ingress
