@@ -39,11 +39,10 @@ jobs:
     strategy:
       matrix:
         flavor: [upstream]
-        type: [install]
+        type: [install, upgrade ]
         bundle: ["k3d-demo", "dev"]
-        include:
-          - bundle: dev
-            flavor: upstream
+        exclude:
+          - bundle: demo
             test_type: upgrade
     steps:
       - name: Checkout repository
