@@ -36,7 +36,7 @@ tasks:
       - task: pull:latest-bundle-release
         with:
           spoof_release: "true"
-          path: bundles/demo
+          path: bundles/k3d-demo
       - task: dependencies:create
       - task: create:test-bundle
 
@@ -57,7 +57,6 @@ tasks:
     description: Test an upgrade from the latest released bundle to the current branch
     actions:
       - task: create-swf-latest-release-bundle
-      - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
           path: bundles/k3d-demo
