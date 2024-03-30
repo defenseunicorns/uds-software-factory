@@ -19,7 +19,7 @@ tasks:
         setVariables:
           - name: BUNDLE_NAME
       - description: Get latest tag version from OCI
-        cmd: ./uds zarf tools registry ls ${TARGET_REPO}/bundles/${BUNDLE_NAME} | grep ${FLAVOR} | sort -V | tail -1
+        cmd: ./uds zarf tools registry ls ${TARGET_REPO}/bundles/${BUNDLE_NAME} | sort -V | tail -1
         setVariables:
           - name: LATEST_VERSION
       - description: Pull the latest bundle release
