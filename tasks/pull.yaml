@@ -1,3 +1,9 @@
+variables:
+  - name: FLAVOR
+    default: upstream
+  - name: TARGET_REPO
+    default: ghcr.io/defenseunicorns/packages/uds
+
 tasks:
   - name: latest-bundle-release
     inputs:
