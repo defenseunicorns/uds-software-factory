@@ -35,6 +35,7 @@ variables:
   sonarqube:
     sonarqube_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
   gitlab:
+    GITLAB_SSO_ENABLED: false
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
     gitlab_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"

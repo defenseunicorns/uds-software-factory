@@ -1,9 +1,9 @@
 includes:
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/lint.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/lint.yaml
   - pull: ./tasks/pull.yaml #https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.3/tasks/setup.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.9/tasks/setup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
 
@@ -14,7 +14,7 @@ variables:
 
 tasks:
   - name: default
-    description: Create K3D Cluster with istio + SWF
+    description: Build and deploy SWF on UDS k3d-slim-dev
     actions:
       - task: create-test-bundle
       - task: setup:k3d-test-cluster
@@ -37,12 +37,9 @@ tasks:
         with:
           spoof_release: "true"
           path: bundles/k3d-demo
-      # - task: dependencies:create
-      # - task: create:test-bundle
-
 
   - name: test-upgrade-local
-    description: Test an upgrade from the latest released bundle to the current branch
+    description: Test an upgrade from the latest released bundle to the current branch only using the dev bundles
     actions:
       - task: pull:latest-bundle-release
         with:
@@ -52,12 +49,13 @@ tasks:
       - task: deploy:test-bundle
         with:
           path: bundles/dev
+      - task: test:test-swf-bundle
       - task: create-test-bundle
       - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
+          options: "--packages=gitlab,gitlab-runner,sonarqube,mattermost,dev-secrets"
       - task: test:test-swf-bundle
-      - task: test:ingress
 
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
@@ -83,5 +81,5 @@ tasks:
       - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
+          options: "--packages=gitlab,gitlab-runner,sonarqube,mattermost,dev-secrets"
       - task: test:test-swf-bundle
-      - task: test:ingress

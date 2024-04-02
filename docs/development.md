@@ -7,18 +7,17 @@ If deploying on an Apple Silicon Mac you can use colima, an open source alternat
 To set up an appropriately configured colima VM you can run the following command:
 
 ```bash
-colima start --cpu 8 --memory 28 --disk 50 --vm-type vz  --vz-rosetta --arch aarch64 --profile uds
+colima start --cpu 10 --memory 28 --disk 50 --vm-type vz  --vz-rosetta --arch aarch64 --profile uds
 ```
 
-Additionally, some settings need to be configuredon the host to facilatate a successful deployment of Sonarqube:
+Additionally, some settings need to be configured on the host to facilitate a successful deployment of Sonarqube:
 
 ```bash
 colima ssh --profile uds
-sudo sysctl -w fs.file-max=131072
-sudo sysctl -w vm.max_map_count=524288
+sudo sysctl -w vm.max_map_count=1524288
+sudo sysctl -w fs.file-max=1000000
 exit
 ```
-
 
 ## Linux users
 
