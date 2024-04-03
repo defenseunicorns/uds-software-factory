@@ -27,7 +27,7 @@ This repository publishes multiple bundles for dev, test and demo purposes. They
 
 This is a bundle primarily for development that is located at `bundles/dev`. It requires an existing k3d cluster to deploy.
 
-This bundle requires ~ `8 CPUs and 28GB of memory` available to run.
+This bundle requires ~ `9 CPUs and 28GB of memory` available to run.
 
 ### k3d-swf-demo
 
@@ -43,7 +43,7 @@ This is a fairly large bundle and requires `16 CPUs and 64GB of memory` availabl
 
 - [K3D](https://k3d.io/) for dev & test environments or any [CNCF Certified Kubernetes Cluster](https://www.cncf.io/training/certification/software-conformance/#logos) for production environments.
 <!-- renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver -->
-- [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) v0.9.4 or later
+- [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) v0.10.2 or later
 
 #### Quickstart
 
@@ -76,7 +76,7 @@ Alternatively, you can deploy from OCI by running the following two commands:
 1. Run the below command to deploy the `k3d-core-slim-dev` bundle:
 
     ```bash
-    uds deploy k3d-core-slim-dev:0.16.1
+    uds deploy k3d-core-slim-dev:0.18.0
     ```
 
 1. Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:

@@ -47,6 +47,13 @@ variables:
       requests:
         cpu: 300m
         memory: 2.5G
+    toolbox_resources:
+      limits:
+        cpu: 2000m
+        memory: 3584M
+      requests:
+        cpu: 500m
+        memory: 1000M
     migrations_resources:
       limits:
         cpu: 500m

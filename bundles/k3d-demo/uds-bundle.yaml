@@ -60,6 +60,19 @@ packages:
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
     ref: 0.0.1
+    overrides:
+      redis:
+        redis:
+          variables:
+            - name: REDIS_RESOURCES
+              path: "master.resources"
+              default:
+                limits:
+                  cpu: 100m
+                  memory: 300Mi
+                requests:
+                  cpu: 100m
+                  memory: 300Mi
 
   - name: dev-secrets
     path: ../../
@@ -118,6 +131,16 @@ packages:
                 requests:
                   cpu: 10m
                   memory: 10M
+            - name: TOOLBOX_RESOURCES
+              description: "Gitlab Toolbox Resources"
+              path: "gitlab.toolbox.resources"
+              default:
+                limits:
+                  cpu: 2000m
+                  memory: 3584M
+                requests:
+                  cpu: 500m
+                  memory: 1000M
             - name: SIDEKIQ_REPLICAS
               description: "Gitlab Sidekiq Min Replicas"
               path: "gitlab.sidekiq.minReplicas"
@@ -224,3 +247,12 @@ packages:
             - name: MATTERMOST_OBJECT_STORAGE_BUCKET
               path: "objectStorage.bucket"
               default: "uds-mattermost-dev"
+            - name: MATTERMOST_RESOURCES
+              path: "resources"
+              default:
+                limits:
+                  cpu: 100m
+                  memory: 300Mi
+                requests:
+                  cpu: 100m
+                  memory: 300Mi
