@@ -35,6 +35,7 @@ variables:
   sonarqube:
     sonarqube_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
   gitlab:
+    GITLAB_SSO_ENABLED: false
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
     gitlab_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"
@@ -46,6 +47,13 @@ variables:
       requests:
         cpu: 300m
         memory: 2.5G
+    toolbox_resources:
+      limits:
+        cpu: 2000m
+        memory: 3584M
+      requests:
+        cpu: 500m
+        memory: 1000M
     migrations_resources:
       limits:
         cpu: 500m

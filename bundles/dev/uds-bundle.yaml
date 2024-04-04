@@ -11,6 +11,28 @@ packages:
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 0.0.1
+    overrides:
+      minio:
+        minio:
+          variables:
+            - name: MINIO
+              description: "Configure minio buckets"
+              path: buckets
+              default:
+                - name: uds-gitlab-artifacts
+                - name: uds-gitlab-backups
+                - name: uds-gitlab-ci-secure-files
+                - name: uds-gitlab-dependency-proxy
+                - name: uds-gitlab-lfs
+                - name: uds-gitlab-mr-diffs
+                - name: uds-gitlab-packages
+                - name: uds-gitlab-pages
+                - name: uds-gitlab-terraform-state
+                - name: uds-gitlab-uploads
+                - name: uds-gitlab-registry
+                - name: uds-gitlab-tmp
+                - name: uds-mattermost-dev
+
 
   # Namespaces are deployed prior to the packages to faciliate use of the postgres-operator cross namespace secret creation
   - name: dev-namespaces
@@ -27,10 +49,40 @@ packages:
             - name: POSTGRESQL
               description: "Configure postgres using CRs via the uds-postgres-config chart"
               path: postgresql
+              default:
+                enabled: true
+                teamId: "uds"
+                volume:
+                  size: "10Gi"
+                numberOfInstances: 2
+                users:
+                  gitlab.gitlab: []
+                  sonarqube.sonarqube: []
+                  mattermost.mattermost: []
+                databases:
+                  gitlabdb: gitlab.gitlab
+                  mattermost: mattermost.mattermost
+                  sonarqubedb: sonarqube.sonarqube
+                version: "13"
+                ingress:
+                  remoteGenerated: Anywhere
 
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
     ref: 0.0.1
+    overrides:
+      redis:
+        redis:
+          variables:
+            - name: REDIS_RESOURCES
+              path: "master.resources"
+              default:
+                limits:
+                  cpu: 100m
+                  memory: 300Mi
+                requests:
+                  cpu: 100m
+                  memory: 300Mi
 
   - name: dev-secrets
     path: ../../
@@ -42,35 +94,88 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 16.9.1-uds.1-upstream
+    ref: 16.10.1-uds.1-upstream
     overrides:
       gitlab:
+        uds-gitlab-config:
+          variables:
+            - name: GITLAB_SSO_ENABLED
+              description: "Boolean to enable or disable sso things"
+              path: "sso"
+        uds-gitlab-sso:
+          variables:
+            - name: GITLAB_SSO_ENABLED
+              description: "Boolean to enable or disable sso things"
+              path: "sso"
         gitlab:
           variables:
+            - name: GITLAB_SSO_ENABLED
+              description: "Boolean to enable or disable sso things"
+              path: "global.appConfig.omniauth.enabled"
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
               path: "gitlab.migrations.resources"
+              default:
+                limits:
+                  cpu: 500m
+                  memory: 4G
             - name: WEBSERVICE_REPLICAS
               description: "Gitlab Webservice Min Replicas"
               path: "gitlab.webservice.minReplicas"
+              default: 1
             - name: WEBSERVICE_RESOURCES
               description: "Gitlab Webservice Resources"
               path: "gitlab.webservice.resources"
+              default:
+                limits:
+                  memory: 2.5G
+                requests:
+                  cpu: 300m
+                  memory: 2.5G
             - name: WORKHORSE_RESOURCES
               description: "Gitlab Workhorse Resources"
               path: "gitlab.webservice.workhorse.resources"
+              default:
+                limits:
+                  memory: 100M
+                requests:
+                  cpu: 10m
+                  memory: 10M
+            - name: TOOLBOX_RESOURCES
+              description: "Gitlab Toolbox Resources"
+              path: "gitlab.toolbox.resources"
+              default:
+                limits:
+                  cpu: 2000m
+                  memory: 3584M
+                requests:
+                  cpu: 500m
+                  memory: 1000M
             - name: SIDEKIQ_REPLICAS
               description: "Gitlab Sidekiq Min Replicas"
               path: "gitlab.sidekiq.minReplicas"
+              default: 1
             - name: SIDEKIQ_RESOURCES
               description: "Gitlab Sidekiq Resources"
               path: "gitlab.sidekiq.resources"
+              default:
+                limits:
+                  memory: 1.5G
+                requests:
+                  cpu: 50m
+                  memory: 625M
             - name: REGISTRY_REPLICAS
               description: "Gitlab Registry Min Replicas"
               path: "registry.hpa.minReplicas"
+              default: 1
+            - name: DISABLE_REGISTRY_REDIRECT
+              description: "Gitlab Registry Disable Redirect"
+              path: "registry.storage.redirect.disable"
+              default: "true"
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
+              default: 1
             - name: POSTGRES_USERNAME
               description: "Gitlab Postgres Username"
               path: "global.psql.username"
@@ -79,10 +184,22 @@ packages:
               description: "Gitlab Postgres Password Secret Ref"
               path: "global.psql.password.secret"
               default: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
+            - name: POSTGRES_ENDPOINT
+              description: "Gitlab Postgres endpoint"
+              path: "global.psql.host"
+              default: "pg-cluster.postgres.svc.cluster.local"
+            - name: REDIS_ENDPOINT
+              description: "Gitlab Redis endpoint"
+              path: "global.redis.host"
+              default: "redis-master.dev-redis.svc.cluster.local"
+            - name: REDIS_SCHEME
+              description: "Gitlab Redis SCHEME"
+              path: "global.redis.scheme"
+              default: "redis"
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 16.8.0-uds.1-upstream
+    ref: 16.10.0-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
@@ -99,11 +216,18 @@ packages:
               description: "Sonarqube Postgres Password Secret Ref"
               path: "jdbcOverwrite.jdbcSecretName"
               default: "sonarqube.sonarqube.pg-cluster.credentials.postgresql.acid.zalan.do"
-
+            - name: SONARQUBE_POSTGRES_CONNECTION_STRING
+              description: "Sonarqube Postgres DB Endpoint"
+              path: "jdbcOverwrite.jdbcUrl"
+              default: "jdbc:postgresql://pg-cluster.postgres.svc.cluster.local:5432/sonarqubedb"
+            - name: SONARQUBE_POSTGRES_ENDPOINT
+              description: "Sonarqube Postgres DB Endpoint"
+              path: "postgresql.postgresqlServer"
+              default: "pg-cluster.postgres.svc.cluster.local"
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.4.1-uds.2-upstream
+    ref: 9.6.1-uds.0-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
@@ -133,3 +257,12 @@ packages:
             - name: MATTERMOST_OBJECT_STORAGE_BUCKET
               path: "objectStorage.bucket"
               default: "uds-mattermost-dev"
+            - name: MATTERMOST_RESOURCES
+              path: "resources"
+              default:
+                limits:
+                  cpu: 100m
+                  memory: 300Mi
+                requests:
+                  cpu: 100m
+                  memory: 300Mi

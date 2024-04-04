@@ -6,5 +6,5 @@ tasks:
         description: architecture
         default: ${UDS_ARCH}
     actions:
-      - cmd: uds zarf package create src/dev-secrets --confirm --no-progress --skip-sbom -a ${{ .inputs.architecture }}
-      - cmd: uds zarf package create src/namespaces --confirm --no-progress --skip-sbom -a ${{ .inputs.architecture }}
+      - cmd: ./uds zarf package create src/dev-secrets --confirm --no-progress --skip-sbom -a ${{ .inputs.architecture }}
+      - cmd: ./uds zarf package create src/namespaces --confirm --no-progress --skip-sbom -a ${{ .inputs.architecture }}

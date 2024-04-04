@@ -1,8 +1,8 @@
 includes:
-  - mm: https://raw.githubusercontent.com/defenseunicorns/uds-package-mattermost/v9.4.1-uds.3/tasks/test.yaml
-  - gl: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab/v16.9.2-uds.0/tasks/test.yaml
+  - mm: https://raw.githubusercontent.com/defenseunicorns/uds-package-mattermost/v9.4.1-uds.2/tasks/test.yaml
+  - gl: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab/v16.10.1-uds.0/tasks/test.yaml
   - sq: https://raw.githubusercontent.com/defenseunicorns/uds-package-sonarqube/v8.0.3-uds.6/tasks/test.yaml
-  - glr: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab-runner/v16.9.1-uds.2/tasks/test.yaml
+  - glr: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab-runner/v16.10.0-uds.0/tasks/test.yaml
 
 tasks:
   - name: test-swf-bundle
@@ -14,4 +14,3 @@ tasks:
       - task: gl:ingress
       - task: sq:health-check
       - task: sq:ingress
-      - task: glr:glr-health-check

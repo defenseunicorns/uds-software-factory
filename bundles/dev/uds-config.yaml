@@ -35,11 +35,19 @@ variables:
   sonarqube:
     sonarqube_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
   gitlab:
+    GITLAB_SSO_ENABLED: false
     gitlab_redis_endpoint: "redis-master.dev-redis.svc.cluster.local"
     gitlab_db_endpoint: "pg-cluster.postgres.svc.cluster.local"
     DISABLE_REGISTRY_REDIRECT: "true"
     # # Overrides for scaled down cluster for local dev and CI
     webservice_replicas: 1
+    toolbox_resources:
+      limits:
+        cpu: 2000m
+        memory: 3584M
+      requests:
+        cpu: 500m
+        memory: 1000M
     webservice_resources:
       limits:
         memory: 2.5G

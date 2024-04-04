@@ -11,12 +11,12 @@ components:
     actions:
       onDeploy:
         before:
-          - cmd: uds zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootPassword" }}' | base64 -d
+          - cmd: ./zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootPassword" }}' | base64 -d
             mute: true
             setVariables:
               - name: SECRET_KEY
                 sensitive: true
-          - cmd: uds zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootUser" }}' | base64 -d
+          - cmd: ./zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootUser" }}' | base64 -d
             mute: true
             setVariables:
               - name: ACCESS_KEY
@@ -32,7 +32,7 @@ components:
     actions:
       onDeploy:
         before:
-          - cmd: uds zarf tools kubectl get secret -n dev-redis redis --template='{{ index .data "redis-password" }}' | base64 -d
+          - cmd: ./zarf tools kubectl get secret -n dev-redis redis --template='{{ index .data "redis-password" }}' | base64 -d
             mute: true
             setVariables:
               - name: REDIS_PASSWORD
@@ -49,7 +49,7 @@ components:
     actions:
       onDeploy:
         before:
-          - cmd: uds zarf tools kubectl get secret -n mattermost mattermost.mattermost.pg-cluster.credentials.postgresql.acid.zalan.do --template={{.data.password}} | base64 -d
+          - cmd: ./zarf tools kubectl get secret -n mattermost mattermost.mattermost.pg-cluster.credentials.postgresql.acid.zalan.do --template={{.data.password}} | base64 -d
             mute: true
             setVariables:
               - name: DB_PASSWORD
