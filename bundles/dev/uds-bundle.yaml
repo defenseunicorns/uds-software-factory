@@ -10,7 +10,7 @@ packages:
 
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
-    ref: 0.0.1
+    ref: 0.0.2
     overrides:
       minio:
         minio:
@@ -69,7 +69,7 @@ packages:
 
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
-    ref: 0.0.1
+    ref: 0.0.2
     overrides:
       redis:
         redis:
@@ -94,7 +94,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 16.10.1-uds.1-upstream
+    ref: 16.11.1-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -199,7 +199,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 16.10.0-uds.0-upstream
+    ref: 16.11.0-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
@@ -227,7 +227,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.6.1-uds.0-upstream
+    ref: 9.7.2-uds.0-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
