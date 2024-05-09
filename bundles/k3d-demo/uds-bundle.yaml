@@ -91,12 +91,7 @@ packages:
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
-              path: "sso"
-        uds-gitlab-sso:
-          variables:
-            - name: GITLAB_SSO_ENABLED
-              description: "Boolean to enable or disable sso things"
-              path: "sso"
+              path: "sso.enabled"
         gitlab:
           variables:
             - name: GITLAB_SSO_ENABLED
