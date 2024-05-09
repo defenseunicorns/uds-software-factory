@@ -42,8 +42,9 @@ jobs:
       - name: Environment setup
         uses: defenseunicorns/uds-common/.github/actions/setup@b2e8b25930c953ef893e7c787fe350f0d8679ee2 # v0.4.2
         with:
-          username: ${{secrets.IRON_BANK_ROBOT_USERNAME}}
-          password: ${{secrets.IRON_BANK_ROBOT_PASSWORD}}
+          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
+          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to GHCR
         uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3
