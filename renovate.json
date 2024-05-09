@@ -6,6 +6,31 @@
       "group:all",
       "replacements:all",
       "workarounds:all"
+    ],
+    "packageRules": [
+      {
+        "groupName": "SWF Support Dependencies",
+        "labels": ["support-deps"],
+        "commitMessageTopic": "support-deps",
+        "packagePatterns": ["*"]
+      },
+      {
+        "groupName": "SWF Bundle Dependencies",
+        "labels": ["bundle-deps"],
+        "commitMessageTopic": "bundle-deps",
+        "matchDatasources": ["docker", "helm", "git-tags", "github-tags"]
+      }
+    ],
+    "regexManagers":[
+      {
+        "depNameTemplate": "defenseunicorns/uds-core",
+        "fileMatch": ["README\\.md"],
+        "matchStrings": [
+          "k3d-core-slim-dev:(?<currentValue>.*)"
+        ],
+        "datasourceTemplate": "github-tags",
+        "extractVersionTemplate": "^v(?<version>.*)$"
+      }
     ]
 }
 

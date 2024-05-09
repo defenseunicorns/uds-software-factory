@@ -16,8 +16,8 @@ packages:
     ref: v0.33.1
 
   - name: uds-core #for now
-    repository: oci://ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.18.0-upstream"
+    repository: ghcr.io/defenseunicorns/packages/uds/core
+    ref: "0.21.1-upstream"
 
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio

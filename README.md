@@ -76,7 +76,7 @@ Alternatively, you can deploy from OCI by running the following two commands:
 1. Run the below command to deploy the `k3d-core-slim-dev` bundle:
 
     ```bash
-    uds deploy k3d-core-slim-dev:0.18.0
+    uds deploy k3d-core-slim-dev:0.21.1
     ```
 
 1. Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:

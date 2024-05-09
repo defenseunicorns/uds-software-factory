@@ -21,7 +21,7 @@ exit
 
 ## Linux users
 
-Depending on your linux distrobution and how it is configured you may need to run the following steps to be able to properly deploy SWF and/or UDS Core:
+Depending on your linux distribution and how it is configured you may need to run the following steps to be able to properly deploy SWF and/or UDS Core:
 
 ```bash
 sudo sysctl -w vm.max_map_count=1524288
