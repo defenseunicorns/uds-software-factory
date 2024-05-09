@@ -154,6 +154,15 @@ packages:
                 requests:
                   cpu: 50m
                   memory: 625M
+            - name: PAGES_RESOURCES
+              description: "GitLab Pages Resources"
+              path: "gitlab.gitlab-pages.resources"
+              default:
+                limits:
+                  memory: 1.5G
+                requests:
+                  cpu: 50m
+                  memory: 625M
             - name: REGISTRY_REPLICAS
               description: "Gitlab Registry Min Replicas"
               path: "registry.hpa.minReplicas"
