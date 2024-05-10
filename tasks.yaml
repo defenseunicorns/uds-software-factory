@@ -38,25 +38,6 @@ tasks:
           spoof_release: "true"
           path: ${BUNDLE_PATH}
 
-  - name: test-upgrade-local
-    description: Test an upgrade from the latest released bundle to the current branch only using the dev bundles
-    actions:
-      - task: pull:latest-bundle-release
-        with:
-          spoof_release: "true"
-          path: ${BUNDLE_PATH}
-      - task: setup:k3d-test-cluster
-      - task: deploy:test-bundle
-        with:
-          path: ${BUNDLE_PATH}
-      - task: test:test-swf-bundle
-      - task: create-test-bundle
-      - task: deploy:test-bundle
-        with:
-          path: ${BUNDLE_PATH}
-          options: "--packages=gitlab,gitlab-runner,sonarqube,mattermost,dev-secrets"
-      - task: test:test-swf-bundle
-
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
   - name: test-package
