@@ -36,7 +36,7 @@ tasks:
       - task: pull:latest-bundle-release
         with:
           spoof_release: "true"
-          path: bundles/k3d-demo
+          path: ${BUNDLE_PATH}
 
   - name: test-upgrade-local
     description: Test an upgrade from the latest released bundle to the current branch only using the dev bundles
@@ -44,11 +44,11 @@ tasks:
       - task: pull:latest-bundle-release
         with:
           spoof_release: "true"
-          path: bundles/dev
+          path: ${BUNDLE_PATH}
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
-          path: bundles/dev
+          path: ${BUNDLE_PATH}
       - task: test:test-swf-bundle
       - task: create-test-bundle
       - task: deploy:test-bundle
@@ -76,7 +76,7 @@ tasks:
       - task: create-swf-latest-release-bundle
       - task: deploy:test-bundle
         with:
-          path: bundles/k3d-demo
+          path: ${BUNDLE_PATH}
       - task: create-test-bundle
       - task: deploy:test-bundle
         with:
