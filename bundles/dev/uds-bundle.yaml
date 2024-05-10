@@ -90,7 +90,6 @@ packages:
     exports:
       - name: ACCESS_KEY
       - name: SECRET_KEY
-      - name: DB_PASSWORD
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
@@ -207,7 +206,7 @@ packages:
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 8.0.3-uds.4-upstream-ce
+    ref: 9.9.2-uds.0-upstream
     overrides:
       sonarqube:
         sonarqube:
@@ -231,13 +230,11 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.7.2-uds.0-upstream
+    ref: 9.7.2-uds.1-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
       - name: SECRET_KEY
-        package: dev-secrets
-      - name: DB_PASSWORD
         package: dev-secrets
     overrides:
       mattermost:
