@@ -54,7 +54,7 @@ To deploy this bundle run the following command:
 <!-- x-release-please-start-version -->
 
 ```bash
-uds deploy uds-k3d-swf-demo:0.2.0
+uds deploy k3d-swf-demo:0.2.0
 ```
 
 <!-- x-release-please-end -->
