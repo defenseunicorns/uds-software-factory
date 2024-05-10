@@ -30,6 +30,10 @@ jobs:
         flavor: [upstream]
         type: [install, upgrade]
         bundle: ["k3d-demo", "dev"]
+        exclude:
+          - bundle: k3d-demo
+            type: upgrade
+            flavor: upstream
     steps:
       - name: Shim for ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
         run: |
