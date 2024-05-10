@@ -7,6 +7,7 @@
       "replacements:all",
       "workarounds:all"
     ],
+    "schedule": ["after 7am and before 9am every weekday"],
     "packageRules": [
       {
         "groupName": "SWF Support Dependencies",
