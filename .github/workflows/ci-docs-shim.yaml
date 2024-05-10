@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         flavor: [upstream]
-        type: [install]
+        type: [install, upgrade]
         bundle: ["k3d-demo", "dev"]
     steps:
       - name: Shim for ${{ matrix.type }} ${{ matrix.bundle }} ${{ matrix.flavor }}
