@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/defenseunicorns/uds-software-factory/compare/v0.1.3...v0.2.0) (2024-05-10)
+
+
+### Features
+
+* add upgrade tests and upgrade packages ([#44](https://github.com/defenseunicorns/uds-software-factory/issues/44)) ([02bab65](https://github.com/defenseunicorns/uds-software-factory/commit/02bab6547e3de814097e6b13f066e108bf7d9d8f))
+
+
+### Miscellaneous
+
+* **deps:** update all dependencies ([#42](https://github.com/defenseunicorns/uds-software-factory/issues/42)) ([9bac28c](https://github.com/defenseunicorns/uds-software-factory/commit/9bac28c92f25ff374666c112386235552e3a290d))
+
 ## [0.1.3](https://github.com/defenseunicorns/uds-software-factory/compare/v0.1.2...v0.1.3) (2024-03-22)
 
 
