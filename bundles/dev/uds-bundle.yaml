@@ -240,6 +240,14 @@ packages:
       mattermost:
         uds-mattermost-config:
           variables:
+            - name: MATTERMOST_CUSTOM_NETPOLS
+              path: "custom"
+              default: |
+                - direction: Egress
+                  selector:
+                    app.kubernetes.io/name: mattermost-enterprise-edition
+                  remoteGenerated: Anywhere
+                  description: Keycloak Egress
             - name: MATTERMOST_DB_ENDPOINT
               path: "postgres.host"
               default: "pg-cluster.postgres.svc.cluster.local"
