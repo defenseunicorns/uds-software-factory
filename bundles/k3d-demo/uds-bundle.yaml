@@ -9,19 +9,19 @@ metadata:
 packages:
   - name: uds-k3d-dev
     repository: ghcr.io/defenseunicorns/packages/uds-k3d
-    ref: 0.3.1
+    ref: 0.6.0
 
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    ref: v0.32.3
+    ref: v0.33.1
 
   - name: uds-core #for now
-    repository: oci://ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.18.0-upstream"
+    repository: ghcr.io/defenseunicorns/packages/uds/core
+    ref: "0.21.1-upstream"
 
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
-    ref: 0.0.1
+    ref: 0.0.2
 
   # Namespaces are deployed prior to the packages to faciliate use of the postgres-operator cross namespace secret creation
   - name: dev-namespaces
@@ -59,7 +59,7 @@ packages:
 
   - name: dev-redis
     repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
-    ref: 0.0.1
+    ref: 0.0.2
     overrides:
       redis:
         redis:
@@ -80,23 +80,17 @@ packages:
     exports:
       - name: ACCESS_KEY
       - name: SECRET_KEY
-      - name: DB_PASSWORD
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 16.10.1-uds.1-upstream
+    ref: 16.11.1-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
-              path: "sso"
-        uds-gitlab-sso:
-          variables:
-            - name: GITLAB_SSO_ENABLED
-              description: "Boolean to enable or disable sso things"
-              path: "sso"
+              path: "sso.enabled"
         gitlab:
           variables:
             - name: GITLAB_SSO_ENABLED
@@ -154,6 +148,15 @@ packages:
                 requests:
                   cpu: 50m
                   memory: 625M
+            - name: PAGES_RESOURCES
+              description: "GitLab Pages Resources"
+              path: "gitlab.gitlab-pages.resources"
+              default:
+                limits:
+                  memory: 1.5G
+                requests:
+                  cpu: 50m
+                  memory: 625M
             - name: REGISTRY_REPLICAS
               description: "Gitlab Registry Min Replicas"
               path: "registry.hpa.minReplicas"
@@ -189,11 +192,11 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 16.10.0-uds.0-upstream
+    ref: 16.11.0-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 8.0.3-uds.4-upstream-ce
+    ref: 9.9.2-uds.0-upstream
     overrides:
       sonarqube:
         sonarqube:
@@ -217,13 +220,11 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.6.1-uds.0-upstream
+    ref: 9.7.2-uds.1-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
       - name: SECRET_KEY
-        package: dev-secrets
-      - name: DB_PASSWORD
         package: dev-secrets
     overrides:
       mattermost:

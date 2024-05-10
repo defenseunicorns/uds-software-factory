@@ -1,3 +1,4 @@
+# TODO (@WSTARR): We can remove this after the next bundle update
 variables:
   postgres-operator:
     postgresql:

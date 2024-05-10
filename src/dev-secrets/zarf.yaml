@@ -4,7 +4,6 @@ metadata:
   name: dev-secrets
   version: "0.1.0"
 
-
 components:
   - name: minio-password
     required: true
@@ -44,13 +43,3 @@ components:
         namespace: gitlab
         files:
           - redis-secret.yaml
-  - name: mattermost-postgres-password
-    required: true
-    actions:
-      onDeploy:
-        before:
-          - cmd: ./zarf tools kubectl get secret -n mattermost mattermost.mattermost.pg-cluster.credentials.postgresql.acid.zalan.do --template={{.data.password}} | base64 -d
-            mute: true
-            setVariables:
-              - name: DB_PASSWORD
-                sensitive: true

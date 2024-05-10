@@ -1,12 +1,11 @@
 includes:
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.3.10/tasks/setup.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.2/tasks/create.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.2/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.2/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.2/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.2/tasks/setup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-
 
 variables:
   - name: BUNDLE_PATH
@@ -36,26 +35,7 @@ tasks:
       - task: pull:latest-bundle-release
         with:
           spoof_release: "true"
-          path: bundles/k3d-demo
-
-  - name: test-upgrade-local
-    description: Test an upgrade from the latest released bundle to the current branch only using the dev bundles
-    actions:
-      - task: pull:latest-bundle-release
-        with:
-          spoof_release: "true"
-          path: bundles/dev
-      - task: setup:k3d-test-cluster
-      - task: deploy:test-bundle
-        with:
-          path: bundles/dev
-      - task: test:test-swf-bundle
-      - task: create-test-bundle
-      - task: deploy:test-bundle
-        with:
           path: ${BUNDLE_PATH}
-          options: "--packages=gitlab,gitlab-runner,sonarqube,mattermost,dev-secrets"
-      - task: test:test-swf-bundle
 
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
 
@@ -69,14 +49,14 @@ tasks:
           path: ${BUNDLE_PATH}
       - task: test:test-swf-bundle
 
-
   - name: test-upgrade
     description: Test an upgrade from the latest released bundle to the current branch
     actions:
       - task: create-swf-latest-release-bundle
+      - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
-          path: bundles/k3d-demo
+          path: ${BUNDLE_PATH}
       - task: create-test-bundle
       - task: deploy:test-bundle
         with:
