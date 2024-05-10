@@ -54,7 +54,7 @@ To deploy this bundle run the following command:
 <!-- x-release-please-start-version -->
 
 ```bash
-uds deploy uds-k3d-swf-demo:0.1.3
+uds deploy uds-k3d-swf-demo:0.2.0
 ```
 
 <!-- x-release-please-end -->
@@ -83,6 +83,6 @@ Alternatively, you can deploy from OCI by running the following two commands:
 
     <!-- x-release-please-start-version -->
     ```bash
-    uds deploy swf-dev:0.1.3
+    uds deploy swf-dev:0.2.0
     ```
     <!-- x-release-please-end -->
