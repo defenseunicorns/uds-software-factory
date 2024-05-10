@@ -7,7 +7,6 @@ includes:
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
 
-
 variables:
   - name: BUNDLE_PATH
     default: bundles/dev
@@ -49,7 +48,6 @@ tasks:
         with:
           path: ${BUNDLE_PATH}
       - task: test:test-swf-bundle
-
 
   - name: test-upgrade
     description: Test an upgrade from the latest released bundle to the current branch
