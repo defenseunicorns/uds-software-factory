@@ -9,15 +9,15 @@ metadata:
 packages:
   - name: uds-k3d-dev
     repository: ghcr.io/defenseunicorns/packages/uds-k3d
-    ref: 0.6.0
+    ref: 0.7.0
 
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    ref: v0.33.1
+    ref: v0.34.0
 
   - name: uds-core #for now
     repository: ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.21.1-upstream"
+    ref: "0.22.0-upstream"
 
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
@@ -83,7 +83,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 16.11.1-uds.1-upstream
+    ref: 17.0.1-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -192,11 +192,11 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 16.11.0-uds.0-upstream
+    ref: 17.0.0-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 9.9.2-uds.0-upstream
+    ref: 9.9.5-uds.0-upstream
     overrides:
       sonarqube:
         sonarqube:
