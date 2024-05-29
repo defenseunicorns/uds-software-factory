@@ -63,6 +63,10 @@ jobs:
           type: ${{ matrix.type }}
           options: "--set BUNDLE_PATH=bundles/${{ matrix.bundle }}"
 
+      - name: Debug Output
+        if: ${{ always() }}
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@6e6f60bef00842dffbde8409b466256e5a478e78 # v0.4.4
+
       - name: Save logs
         if: always()
         uses: defenseunicorns/uds-common/.github/actions/save-logs@6e6f60bef00842dffbde8409b466256e5a478e78 # v0.4.4
