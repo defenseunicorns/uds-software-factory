@@ -31,6 +31,15 @@
         ],
         "datasourceTemplate": "github-tags",
         "extractVersionTemplate": "^v(?<version>.*)$"
+      },
+      {
+        "depNameTemplate": "defenseunicorns/uds-cli",
+        "fileMatch": ["README\\.md"],
+        "matchStrings": [
+          "UDS CLI[^\\s]*(?<currentValue>[^\\s]*)"
+        ],
+        "datasourceTemplate": "github-tags",
+        "extractVersionTemplate": "^v(?<version>.*)$"
       }
     ]
 }

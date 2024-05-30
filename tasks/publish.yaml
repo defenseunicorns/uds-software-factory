@@ -1,7 +1,7 @@
 includes:
   - dependencies: ./dependencies.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.2/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.2/tasks/publish.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.4/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.4/tasks/publish.yaml
 
 tasks:
   - name: test-bundle
