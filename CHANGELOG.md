@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.1](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.0...v0.2.1) (2024-05-30)
+
+
+### Miscellaneous
+
+* **deps:** update swf bundle dependencies ([#48](https://github.com/defenseunicorns/uds-software-factory/issues/48)) ([0d3b1f5](https://github.com/defenseunicorns/uds-software-factory/commit/0d3b1f5ab491dd96842aeb4f0eb26030f59038db))
+* remove unecessary configuration options ([#51](https://github.com/defenseunicorns/uds-software-factory/issues/51)) ([0542b9a](https://github.com/defenseunicorns/uds-software-factory/commit/0542b9a49315ed1b9f2c2d8a60f601bf7e018e44))
+* throttle renovate updates to daily ([#49](https://github.com/defenseunicorns/uds-software-factory/issues/49)) ([bcf594f](https://github.com/defenseunicorns/uds-software-factory/commit/bcf594faaf43183bece31d46dd693014ded288c8))
+
 ## [0.2.0](https://github.com/defenseunicorns/uds-software-factory/compare/v0.1.3...v0.2.0) (2024-05-10)
 
 
