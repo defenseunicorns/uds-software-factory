@@ -1,6 +1,6 @@
 # Networking
 
-Software Factory applications are configured by default to assume they will connect to the internal dependencies that are used for testing (see examples such as `minio`, `redis` and `postgres` in a given `bundle/uds-bundle.yaml`). This is intentional, so as to not create overly permissive network policies by default. For example, there is not a default setup of egress anywhere for pods that may need to connect to external storage.
+Software Factory applications are configured by default to assume they will connect to the internal dependencies that are used for testing (see examples such as `storage`, `redis` and `postgres` in a given `bundle/uds-bundle.yaml`). This is intentional, so as to not create overly permissive network policies by default. For example, there is not a default setup of egress anywhere for pods that may need to connect to external storage.
 
 > [!IMPORTANT]
 > If you are using different internal services, cloud services or a mix you **MUST** configure values in the given config chart accordingly via bundle overrides. A couple of example are provided below.
