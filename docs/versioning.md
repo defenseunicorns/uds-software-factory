@@ -1,4 +1,4 @@
-# SWF Versioning
+# Versioning
 
 > :warning: **Note:** Packages are the only production release artifacts published from the UDS Software Factory repositories, as bundles are meant to be _created_, not consumed, by users.  Repos may publish bundles for demo purposes, but those are not intended for production consumption though will loosely follow standard semantic versioning.
 

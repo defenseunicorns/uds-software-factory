@@ -1,4 +1,4 @@
-# SWF Testing
+# Testing
 
 Currently we test the UDS Software Factory at two different levels, the overall `bundle`, and the individual `package`.  Each level has different tests that it performs in order to save time while still ensuring that the necessary configurations are covered.
 

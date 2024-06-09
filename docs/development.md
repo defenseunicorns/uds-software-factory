@@ -1,4 +1,4 @@
-# Software Factory Development Quickstart
+# Development Quickstart
 
 ## Apple Silicon Mac Users
 
