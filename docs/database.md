@@ -19,7 +19,7 @@ postgresql:
         gitlabdb: gitlab.gitlab
     version: "13"
     ingress:
-        remoteGenerated: Anywhere
+        - remoteGenerated: Anywhere
 ```
 
 Within your bundle you are free to make this a `value` or a `variable` override of the `uds-postgres-config` chart within the `postgres-operator` component as desired.
@@ -36,14 +36,12 @@ To configure this database within an application you usually will need the secre
 > [!TIP]
 > You can find a practical example of how this is configured within a bundle inside of the `bundles/k3d-demo` bundle where the [Postgres Operator is included](https://github.com/defenseunicorns/uds-software-factory/blob/5c7f9fea76ec074a17555109fc55f733e3d27747/bundles/k3d-demo/uds-bundle.yaml#L39) and where it is [configured to work with applications](https://github.com/defenseunicorns/uds-software-factory/blob/5c7f9fea76ec074a17555109fc55f733e3d27747/bundles/k3d-demo/uds-bundle.yaml#L180).
 
-## AWS Relational Database Service (RDS)
+## External Database Provider (Username/Password)
 
-If you are in AWS you can configure your applications to connect to RDS to provide a database.  This connection can be provided in one of two ways: 
+In order to connect to a database with a username and password you first need to wire up the `postgres.password` key in the UDS config chart to create the required secret reference.  Then, depending on your application, will need to wire in the `username`, `endpoint` and any other connection information as the application requires.  This is a similar process to the configuration for the Postgres Operator above just providing the values needed for your database service.
 
-### Raw Username / Password / Endpoint
+## AWS IAM Roles for Service Accounts (IRSA)
 
-<!-- TODO: (@WSTARR) Should we allow for configuration similar to https://github.com/defenseunicorns/uds-package-mattermost/blob/main/chart/values.yaml#L11 so that we don't need to pre-create secrets for GL / SQ? -->
+Software Factory Packages also support IAM Roles for Service Accounts to connect to the Relational Database Service (RDS).  This is done by enabling IRSA on your cluster and creating IAM Roles for Kubernetes Service Accounts to assume.  You can see a guide for how to [setup IRSA on EKS within the AWS documentation](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/setting-up-enable-IAM.html).
 
-### IAM Roles for Service Accounts (IRSA)
-
-<!-- TODO: (@WSTARR) Fill out this section -->
+Wiring this into an application is app specific (and will be documented in that app's `configuration.md` file) but generally involves instructing the app to use IAM roles and then annotating the Service Accounts with the correct Amazon Resource Name (ARN) corresponding to the role you want it to assume.
