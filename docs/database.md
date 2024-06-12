@@ -8,18 +8,18 @@ If your environment requires an in-cluster solution, you can make use of the [UD
 
 ```yaml
 postgresql:
-    enabled: true
-    teamId: "uds"
-    volume:
-        size: "10Gi"
-    numberOfInstances: 2
-    users:
-        gitlab.gitlab: []
-    databases:
-        gitlabdb: gitlab.gitlab
-    version: "13"
-    ingress:
-        - remoteGenerated: Anywhere
+  enabled: true
+  teamId: "uds"
+  volume:
+    size: "10Gi"
+  numberOfInstances: 2
+  users:
+    gitlab.gitlab: []
+  databases:
+    gitlabdb: gitlab.gitlab
+  version: "13"
+  ingress:
+    - remoteGenerated: Anywhere
 ```
 
 Within your bundle you are free to make this a `value` or a `variable` override of the `uds-postgres-config` chart within the `postgres-operator` component as desired.
