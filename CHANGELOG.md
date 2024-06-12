@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.1...v0.2.2) (2024-06-07)
+
+
+### Bug Fixes
+
+* update uds-core keycloak overrides for demo bundle ([#60](https://github.com/defenseunicorns/uds-software-factory/issues/60)) ([5c7f9fe](https://github.com/defenseunicorns/uds-software-factory/commit/5c7f9fea76ec074a17555109fc55f733e3d27747))
+
 ## [0.2.1](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.0...v0.2.1) (2024-05-30)
 
 
