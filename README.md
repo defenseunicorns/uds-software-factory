@@ -6,13 +6,14 @@ This is the integration / wayfinding repository for the Unicorn Delivery Service
 - [GitLab Runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) - a Continuous Integration runner that integrates with GitLab
 - [Mattermost](https://github.com/defenseunicorns/uds-package-mattermost) - an open-source, self-hostable online chat service
 - [SonarQube](https://github.com/defenseunicorns/uds-package-sonarqube) - an open-source platform developed by SonarSource for continuous inspection of code quality
+- [Coder](https://github.com/defenseunicorns/uds-package-coder) (:warning: alpha) - a cloud IDE solution for developing software without local tooling
 
 This repo serves as an integration repository for testing, creating common [Architectural Decision Records](./adr), and tracking issues that have effects across the individual packages that make up Software Factory.
 
 Also note that the Software Factory team helps to manage the following shared UDS packages and repositories:
 
 - [Postgres Operator](https://github.com/defenseunicorns/uds-package-postgres-operator) - a Kubernetes operator to deploy PostgreSQL databases in a cluster
-- [Valkey](https://github.com/defenseunicorns/uds-package-valkey) - a Redis-alternative that can be deployed in a cluster (intended for use with GitLab)
+- [Valkey](https://github.com/defenseunicorns/uds-package-valkey) (:warning: alpha) - a Redis-alternative that can be deployed in a cluster (intended for use with GitLab)
 - [UDS Common](https://github.com/defenseunicorns/uds-common) - a common repo to share actions, UDS tasks and more between package repositories
 
 ### tl;dr - [try it now](#quickstart-demo-bundle)
