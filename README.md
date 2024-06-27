@@ -6,7 +6,6 @@ This is the integration / wayfinding repository for the Unicorn Delivery Service
 - [GitLab Runner](https://github.com/defenseunicorns/uds-package-gitlab-runner) - a Continuous Integration runner that integrates with GitLab
 - [Mattermost](https://github.com/defenseunicorns/uds-package-mattermost) - an open-source, self-hostable online chat service
 - [SonarQube](https://github.com/defenseunicorns/uds-package-sonarqube) - an open-source platform developed by SonarSource for continuous inspection of code quality
-- ⚠️ (alpha) [Coder](https://github.com/defenseunicorns/uds-package-coder) - a cloud IDE solution for developing software without local tooling
 
 This repo serves as an integration repository for testing, creating common [Architectural Decision Records](./adr), and tracking issues that have effects across the individual packages that make up Software Factory.
 
