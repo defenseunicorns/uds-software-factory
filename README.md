@@ -12,7 +12,7 @@ This repo serves as an integration repository for testing, creating common [Arch
 Also note that the Software Factory team helps to manage the following shared UDS packages and repositories:
 
 - [Postgres Operator](https://github.com/defenseunicorns/uds-package-postgres-operator) - a Kubernetes operator to deploy PostgreSQL databases in a cluster
-- [Valkey](https://github.com/defenseunicorns/uds-package-valkey) - a Redis-alternative that can be deployed in a cluster (intended for use with GitLab)
+- ⚠️ (alpha) [Valkey](https://github.com/defenseunicorns/uds-package-valkey) - a Redis-alternative that can be deployed in a cluster (intended for use with GitLab)
 - [UDS Common](https://github.com/defenseunicorns/uds-common) - a common repo to share actions, UDS tasks and more between package repositories
 
 ### tl;dr - [try it now](#quickstart-demo-bundle)
