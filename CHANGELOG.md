@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.3](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.2...v0.2.3) (2024-06-27)
+
+
+### Miscellaneous
+
+* add alpha warning to Valkey package ([#73](https://github.com/defenseunicorns/uds-software-factory/issues/73)) ([5203f50](https://github.com/defenseunicorns/uds-software-factory/commit/5203f50310ba088f7ad99e5bcbfd18a99e561ec6))
+* add docs for databases and networking configuration for apps ([#62](https://github.com/defenseunicorns/uds-software-factory/issues/62)) ([8651574](https://github.com/defenseunicorns/uds-software-factory/commit/8651574405509ee34995ed51bc3b59a9771ada11))
+* add valkey to our official repositories on the README ([#71](https://github.com/defenseunicorns/uds-software-factory/issues/71)) ([f5d7450](https://github.com/defenseunicorns/uds-software-factory/commit/f5d745082e050c544d39d3bf2d04ae18caa4c492))
+
 ## [0.2.2](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.1...v0.2.2) (2024-06-07)
 
 
