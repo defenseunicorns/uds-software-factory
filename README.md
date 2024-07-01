@@ -12,6 +12,7 @@ This repo serves as an integration repository for testing, creating common [Arch
 Also note that the Software Factory team helps to manage the following shared UDS packages and repositories:
 
 - [Postgres Operator](https://github.com/defenseunicorns/uds-package-postgres-operator) - a Kubernetes operator to deploy PostgreSQL databases in a cluster
+- ⚠️ (alpha) [Valkey](https://github.com/defenseunicorns/uds-package-valkey) - a Redis-alternative that can be deployed in a cluster (intended for use with GitLab)
 - [UDS Common](https://github.com/defenseunicorns/uds-common) - a common repo to share actions, UDS tasks and more between package repositories
 
 ### tl;dr - [try it now](#quickstart-demo-bundle)
@@ -55,7 +56,7 @@ To deploy this bundle run the following command:
 <!-- x-release-please-start-version -->
 
 ```bash
-uds deploy k3d-swf-demo:0.2.1
+uds deploy k3d-swf-demo:0.2.2
 ```
 
 <!-- x-release-please-end -->
@@ -95,6 +96,6 @@ Alternatively, you can deploy from OCI by running the following two commands:
 
     <!-- x-release-please-start-version -->
     ```bash
-    uds deploy swf-dev:0.2.1
+    uds deploy swf-dev:0.2.2
     ```
     <!-- x-release-please-end -->
