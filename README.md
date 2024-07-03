@@ -99,3 +99,7 @@ Alternatively, you can deploy from OCI by running the following two commands:
     uds deploy swf-dev:0.2.2
     ```
     <!-- x-release-please-end -->
+
+## Development
+
+When developing this package it is ideal to utilize the json schemas for UDS Bundles, Zarf Packages and Maru Tasks. This involves configuring your IDE to provide schema validation for the respective files used by each application. For guidance on how to set up this schema validation, please refer to the [guide](https://github.com/defenseunicorns/uds-common/blob/main/docs/development-ide-configuration.md) in uds-common.
