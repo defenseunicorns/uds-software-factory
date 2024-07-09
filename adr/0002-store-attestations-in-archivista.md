@@ -24,6 +24,6 @@ We could configure Witness to produce json files to the filesystem and store the
 
 ## Consequences
 
-We will need to create and maintain a new uds package for Archivista: [uds-package-archivista](https://github.com/defenseunicorns/uds-package-archivista).
+We will need to create and maintain a new UDS package for Archivista: [uds-package-archivista](https://github.com/defenseunicorns/uds-package-archivista).
 
 Archivista stores the attestations in an S3 compatible blob storage and the metadata in an RDBMS (MySQL or Postgres). We will need to test backup and restore mechanisms for both of these.
