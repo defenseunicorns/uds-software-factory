@@ -1,4 +1,4 @@
-# 1. Store In-Toto Build Attestations in Archivista
+# 1. Store In-Toto Attestations in Archivista
 
 Date: 2024-07-09
 
