@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-During execution of Software Factory pipelines, we will be generating [in-toto attestations](https://github.com/in-toto/attestation) using [Witness](https://github.com/in-toto/witness) for the artifacts that are produced. We need to a location to store these attestations so that they can later be retrieved and used to verify an artifact against policies.
+During execution of Software Factory pipelines, we will be generating [in-toto attestations](https://github.com/in-toto/attestation) using [Witness](https://github.com/in-toto/witness) for the artifacts that are produced. We need a location to store these attestations so that they can later be retrieved and used to verify an artifact against policies.
 
 ## Decision
 
