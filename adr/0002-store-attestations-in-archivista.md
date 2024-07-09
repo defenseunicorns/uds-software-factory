@@ -14,7 +14,7 @@ During execution of Software Factory pipelines, we will be generating [in-toto a
 
 We will use [Archivista](https://github.com/in-toto/archivista) to store the attestations. Archivista is also an in-toto project and integrates easily with Witness to store, retrieve, and verify attestations. 
 
-In addition, Archivista maintains a graph of metadata for the attestations, allowing attestations to be associated to all build artifacts that are produced during a build that is attested by Witness. All that is needed to run a verification is an artifact and the Witness cli, and the other data will be automatically retrieved from Archivista.
+In addition, Archivista maintains a graph of metadata for the attestations, allowing attestations to be associated to all build artifacts. All that is needed to run a verification is an artifact and the Witness CLI, and the other data will be automatically retrieved from Archivista.
 
 Policies can also be stored in Archivista, though this feature set isn't as mature yet.
 
