@@ -25,11 +25,13 @@ jobs:
   publish-package:
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
-    runs-on: uds-swf-ubuntu-big-boy-4-core
-    name: Publish ${{ matrix.bundle }} ${{ matrix.flavor }}
+    # TODO: (@WSTARR) since we don't run the tests on arm currently we don't need to use the 16 core
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-16-core' }}
+    name: Publish ${{ matrix.bundle }} ${{ matrix.flavor }} ${{ matrix.architecture }}
     strategy:
       matrix:
         flavor: [upstream]
+        architecture: [amd64, arm64]
         bundle: ["k3d-demo", "dev"]
 
     permissions:
@@ -53,11 +55,22 @@ jobs:
           username: dummy
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish Package
-        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH="bundles/${{ matrix.bundle }}"
+      - name: Build Bundle
+        run: uds run -f tasks/publish.yaml build-bundle --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Test Bundle
+        if: ${{ runner.arch != 'ARM64' }}
+        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }}
+
+      - name: Publish Bundle
+        run: uds run -f tasks/publish.yaml publish-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH="bundles/${{ matrix.bundle }}"
+
+      - name: Debug Output
+        if: ${{ always() }}
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
 
       - name: Save logs
         if: always()
         uses: defenseunicorns/uds-common/.github/actions/save-logs@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
         with:
-          suffix: '${{ matrix.bundle }}-${{ matrix.flavor }}-${{ github.run_id }}-${{ github.run_attempt }}'
+          suffix: '${{ matrix.bundle }}-${{ matrix.flavor }}-${{ matrix.architecture }}-${{ github.run_id }}-${{ github.run_attempt }}'
