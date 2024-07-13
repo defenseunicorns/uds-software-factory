@@ -13,11 +13,11 @@ packages:
 
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    ref: v0.34.0
+    ref: v0.36.0
 
   - name: uds-core #for now
     repository: ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.22.0-upstream"
+    ref: "0.24.0-upstream"
     overrides:
       keycloak:
         keycloak:
@@ -91,7 +91,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.0.1-uds.1-upstream
+    ref: 17.1.1-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -228,7 +228,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.7.2-uds.1-upstream
+    ref: 9.8.1-uds.1-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets

@@ -93,7 +93,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.0.1-uds.1-upstream
+    ref: 17.1.1-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -230,7 +230,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.7.2-uds.1-upstream
+    ref: 9.8.1-uds.1-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
