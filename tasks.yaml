@@ -61,5 +61,4 @@ tasks:
       - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
-          options: "--packages=gitlab,gitlab-runner,sonarqube,mattermost,dev-secrets"
       - task: test:test-swf-bundle
