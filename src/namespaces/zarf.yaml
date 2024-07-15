@@ -13,3 +13,10 @@ components:
           - gitlab-ns.yaml
           - mattermost-ns.yaml
           - sonarqube-ns.yaml
+  - name: gitlab-shim-valkey
+    required: true
+    actions:
+      onDeploy:
+        before:
+          - cmd: ./zarf tools kubectl annotate --overwrite secret -n gitlab gitlab-redis meta.helm.sh/release-name=uds-valkey-config || true
+          - cmd: ./zarf tools kubectl annotate --overwrite secret -n gitlab gitlab-redis meta.helm.sh/release-namespace=valkey || true

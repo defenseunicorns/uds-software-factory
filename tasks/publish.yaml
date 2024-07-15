@@ -1,36 +1,31 @@
 includes:
   - dependencies: ./dependencies.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.4/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.4.4/tasks/publish.yaml
+  - test: ./tasks/test.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.8.0/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.8.0/tasks/publish.yaml
 
 tasks:
-  - name: test-bundle
-    description: Build and publish the test bundles
+  - name: build-bundle
+    description: Build the bundle
     actions:
-      - description: Create the ARM64 deps package
-        task: dependencies:create
-        with:
-          architecture: amd64
-
-      - description: Create the ARM64 deps package
-        task: dependencies:create
-        with:
-          architecture: arm64
-
-      - description: Create the amd64 bundle
-        task: create:test-bundle
+      - task: dependencies:create
+      - task: create:test-bundle
         with:
           path: ${BUNDLE_PATH}
-          architecture: amd64
 
-      - description: Create the arm64 bundle
-        task: create:test-bundle
+  - name: test-bundle
+    description: Test the built bundle
+    actions:
+      - task: setup:k3d-test-cluster
+      - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
-          architecture: arm64
+      - task: test:test-swf-bundle
 
-      - description: Publish the bundle
-        task: publish:test-bundle
+  - name: publish-bundle
+    description: Publish the bundle
+    actions:
+      - task: publish:test-bundle
         with:
           path: ${BUNDLE_PATH}
           # x-release-please-start-version
