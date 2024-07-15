@@ -13,11 +13,11 @@ packages:
 
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    ref: v0.34.0
+    ref: v0.36.0
 
   - name: uds-core
     repository: ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.22.0-upstream"
+    ref: "0.24.0-upstream"
     overrides:
       keycloak:
         keycloak:
@@ -30,15 +30,36 @@ packages:
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 0.0.2
+    overrides:
+      minio:
+        minio:
+          variables:
+            - name: MINIO
+              description: "Configure minio buckets"
+              path: buckets
+              default:
+                - name: uds-gitlab-artifacts
+                - name: uds-gitlab-backups
+                - name: uds-gitlab-ci-secure-files
+                - name: uds-gitlab-dependency-proxy
+                - name: uds-gitlab-lfs
+                - name: uds-gitlab-mr-diffs
+                - name: uds-gitlab-packages
+                - name: uds-gitlab-pages
+                - name: uds-gitlab-terraform-state
+                - name: uds-gitlab-uploads
+                - name: uds-gitlab-registry
+                - name: uds-gitlab-tmp
+                - name: uds-mattermost-dev
 
-  # Namespaces are deployed prior to the packages to faciliate use of the postgres-operator cross namespace secret creation
+  # Namespaces are deployed prior to the packages to facilitate use of the postgres-operator cross namespace secret creation
   - name: dev-namespaces
     path: ../../
     ref: 0.1.0
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.10.1-uds.4-upstream
+    ref: 1.12.2-uds.1-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -58,21 +79,38 @@ packages:
                   mattermost.mattermost: []
                 databases:
                   gitlabdb: gitlab.gitlab
-                  mattermost: mattermost.mattermost
                   sonarqubedb: sonarqube.sonarqube
-                version: "13"
+                  mattermost: mattermost.mattermost
+                version: "14"
                 ingress:
-                  remoteGenerated: Anywhere
+                  - remoteNamespace: gitlab
+                  - remoteNamespace: sonarqube
+                  - remoteNamespace: mattermost
 
-
-  - name: dev-redis
-    repository: ghcr.io/defenseunicorns/packages/uds/dev-redis
-    ref: 0.0.2
+  - name: valkey
+    repository: ghcr.io/defenseunicorns/packages/uds/valkey
+    ref: 7.2.5-uds.1-upstream
     overrides:
-      redis:
-        redis:
+      valkey:
+        uds-valkey-config:
+          values:
+            - path: custom
+              value:
+                - direction: Ingress
+                  selector:
+                    app.kubernetes.io/name: valkey
+                  remoteNamespace: gitlab
+                  port: 6379
+                  description: "Ingress from GitLab"
+            - path: copyPassword
+              value:
+                enabled: true
+                namespace: gitlab
+                secretName: gitlab-redis
+                secretKey: password
+        valkey:
           variables:
-            - name: REDIS_RESOURCES
+            - name: VALKEY_RESOURCES
               path: "master.resources"
               default:
                 limits:
@@ -91,7 +129,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.0.1-uds.1-upstream
+    ref: 17.1.1-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -100,6 +138,15 @@ packages:
               description: "Boolean to enable or disable sso things"
               path: "sso.enabled"
         gitlab:
+          values:
+            - path: global.psql.host
+              value: pg-cluster.postgres.svc.cluster.local
+            - path: "global.psql.username"
+              value: "gitlab.gitlab"
+            - path: "global.psql.password.secret"
+              value: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
+            - path: global.redis.host
+              value: valkey-master.valkey.svc.cluster.local
           variables:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
@@ -177,58 +224,38 @@ packages:
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
               default: 1
-            - name: POSTGRES_USERNAME
-              description: "Gitlab Postgres Username"
-              path: "global.psql.username"
-              default: "gitlab.gitlab"
-            - name: POSTGRES_SECRET_REF
-              description: "Gitlab Postgres Password Secret Ref"
-              path: "global.psql.password.secret"
-              default: "gitlab.gitlab.pg-cluster.credentials.postgresql.acid.zalan.do"
-            - name: POSTGRES_ENDPOINT
-              description: "Gitlab Postgres endpoint"
-              path: "global.psql.host"
-              default: "pg-cluster.postgres.svc.cluster.local"
-            - name: REDIS_ENDPOINT
-              description: "Gitlab Redis endpoint"
-              path: "global.redis.host"
-              default: "redis-master.dev-redis.svc.cluster.local"
-            - name: REDIS_SCHEME
-              description: "Gitlab Redis SCHEME"
-              path: "global.redis.scheme"
-              default: "redis"
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.0.0-uds.0-upstream
+    ref: 17.0.0-uds.1-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 9.9.5-uds.0-upstream
+    ref: 9.9.5-uds.1-upstream
     overrides:
       sonarqube:
         sonarqube:
+          values:
+            - path: "jdbcOverwrite.jdbcSecretName"
+              value: "sonarqube.sonarqube.pg-cluster.credentials.postgresql.acid.zalan.do"
+            - path: "jdbcOverwrite.jdbcUsername"
+              value: "sonarqube.sonarqube"
+            - path: "jdbcOverwrite.jdbcUrl"
+              value: "jdbc:postgresql://pg-cluster.postgres.svc.cluster.local:5432/sonarqubedb"
           variables:
-            - name: SONARQUBE_POSTGRES_USERNAME
-              description: "Sonarqube Postgres Username"
-              path: "jdbcOverwrite.jdbcUsername"
-              default: "sonarqube.sonarqube"
-            - name: SONARQUBE_POSTGRES_SECRET_REF
-              description: "Sonarqube Postgres Password Secret Ref"
-              path: "jdbcOverwrite.jdbcSecretName"
-              default: "sonarqube.sonarqube.pg-cluster.credentials.postgresql.acid.zalan.do"
-            - name: SONARQUBE_POSTGRES_CONNECTION_STRING
-              description: "Sonarqube Postgres DB Endpoint"
-              path: "jdbcOverwrite.jdbcUrl"
-              default: "jdbc:postgresql://pg-cluster.postgres.svc.cluster.local:5432/sonarqubedb"
-            - name: SONARQUBE_POSTGRES_ENDPOINT
-              description: "Sonarqube Postgres DB Endpoint"
-              path: "postgresql.postgresqlServer"
-              default: "pg-cluster.postgres.svc.cluster.local"
+            - name: SONARQUBE_RESOURCES
+              path: "resources"
+              default:
+                limits:
+                  cpu: 800m
+                  memory: 6144M
+                requests:
+                  cpu: 400m
+                  memory: 2048M
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.7.2-uds.1-upstream
+    ref: 9.9.1-uds.0-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
@@ -237,25 +264,20 @@ packages:
     overrides:
       mattermost:
         uds-mattermost-config:
+          values:
+            - path: "objectStorage.secure"
+              value: "false"
+            - path: "objectStorage.endpoint"
+              value: "minio.dev-minio.svc.cluster.local:9000"
+            - path: "objectStorage.bucket"
+              value: "uds-mattermost-dev"
+            - path: "postgres.host"
+              value: "pg-cluster.postgres.svc.cluster.local"
+            - path: "postgres.connectionOptions"
+              value: "?connect_timeout=10"
+            - path: "postgres.username"
+              value: "mattermost.mattermost"
           variables:
-            - name: MATTERMOST_DB_ENDPOINT
-              path: "postgres.host"
-              default: "pg-cluster.postgres.svc.cluster.local"
-            - name: MATTERMOST_DB_CONNECTION_OPTIONS
-              path: "postgres.connectionOptions"
-              default: "?connect_timeout=10"
-            - name: MATTERMOST_DB_USERNAME
-              path: "postgres.username"
-              default: "mattermost.mattermost"
-            - name: MATTERMOST_OBJECT_STORAGE_SECURE
-              path: "objectStorage.secure"
-              default: "false"
-            - name: MATTERMOST_OBJECT_STORAGE_ENDPOINT
-              path: "objectStorage.endpoint"
-              default: "minio.dev-minio.svc.cluster.local:9000"
-            - name: MATTERMOST_OBJECT_STORAGE_BUCKET
-              path: "objectStorage.bucket"
-              default: "uds-mattermost-dev"
             - name: MATTERMOST_RESOURCES
               path: "resources"
               default:

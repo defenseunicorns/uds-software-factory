@@ -89,7 +89,7 @@ Alternatively, you can deploy from OCI by running the following two commands:
 > [!NOTE]: You can append `--set INSECURE_ADMIN_PASSWORD_GENERATION=true` to the below command to enable a default keycloak admin. This is useful for development and testing of the SWF stack and enables the ability to run `uds run setup:create-doug-user` to create a user to test with using the username `doug` and the password `unicorn123!@#`.
 
     ```bash
-    uds deploy k3d-core-slim-dev:0.22.0
+    uds deploy k3d-core-slim-dev:0.24.0
     ```
 
 1. Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
