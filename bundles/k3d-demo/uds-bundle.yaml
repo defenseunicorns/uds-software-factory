@@ -15,7 +15,7 @@ packages:
     repository: ghcr.io/defenseunicorns/packages/init
     ref: v0.36.0
 
-  - name: uds-core #for now
+  - name: uds-core
     repository: ghcr.io/defenseunicorns/packages/uds/core
     ref: "0.24.0-upstream"
     overrides:
