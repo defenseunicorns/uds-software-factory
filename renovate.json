@@ -40,6 +40,14 @@
         ],
         "datasourceTemplate": "github-tags",
         "extractVersionTemplate": "^v(?<version>.*)$"
+      },
+      {
+        "fileMatch": [".*(\\.ya?ml|\\.json)$"],
+        "matchStrings": [
+            "https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/(?<currentValue>[^\\/]+)"
+        ],
+        "versioningTemplate": "regex:^v?(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?(-uds\\.(?<build>\\d))?(-(?<compatibility>\\w+)?)?(.*?)?$",
+        "datasourceTemplate": "github-tags"
       }
     ]
 }
