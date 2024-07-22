@@ -42,14 +42,14 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
+        uses: defenseunicorns/uds-common/.github/actions/setup@a7549ad75a9bbd8e71ce2236ec17c1e33ec4df61 # v0.8.1
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to GHCR
-        uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3
         with:
           registry: ghcr.io
           username: dummy
@@ -67,10 +67,10 @@ jobs:
 
       - name: Debug Output
         if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@a7549ad75a9bbd8e71ce2236ec17c1e33ec4df61 # v0.8.1
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@172a905901cb9bd76d096d2850bf31af5c5a4fa1 # v0.8.0
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@a7549ad75a9bbd8e71ce2236ec17c1e33ec4df61 # v0.8.1
         with:
           suffix: '${{ matrix.bundle }}-${{ matrix.flavor }}-${{ matrix.architecture }}-${{ github.run_id }}-${{ github.run_attempt }}'
