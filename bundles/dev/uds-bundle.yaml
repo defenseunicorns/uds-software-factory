@@ -70,7 +70,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 7.2.5-uds.1-upstream
+    ref: 7.2.5-uds.2-upstream
     overrides:
       valkey:
         uds-valkey-config:
@@ -110,7 +110,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.1.1-uds.1-upstream
+    ref: 17.1.2-uds.0-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -132,6 +132,14 @@ packages:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
               path: "global.appConfig.omniauth.enabled"
+            - name: GITLAB_PAGES_ENABLED
+              description: "Boolean to enable or disable sso things"
+              path: "global.pages.enabled"
+              default: true
+            - name: DISABLE_REGISTRY_REDIRECT
+              description: "Gitlab Registry Disable Redirect"
+              path: "registry.storage.redirect.disable"
+              default: true
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
               path: "gitlab.migrations.resources"
@@ -197,10 +205,6 @@ packages:
               description: "Gitlab Registry Min Replicas"
               path: "registry.hpa.minReplicas"
               default: 1
-            - name: DISABLE_REGISTRY_REDIRECT
-              description: "Gitlab Registry Disable Redirect"
-              path: "registry.storage.redirect.disable"
-              default: "true"
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
