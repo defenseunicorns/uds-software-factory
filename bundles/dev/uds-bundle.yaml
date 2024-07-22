@@ -132,6 +132,14 @@ packages:
             - name: GITLAB_SSO_ENABLED
               description: "Boolean to enable or disable sso things"
               path: "global.appConfig.omniauth.enabled"
+            - name: GITLAB_PAGES_ENABLED
+              description: "Boolean to enable or disable sso things"
+              path: "global.pages.enabled"
+              default: true
+            - name: DISABLE_REGISTRY_REDIRECT
+              description: "Gitlab Registry Disable Redirect"
+              path: "registry.storage.redirect.disable"
+              default: true
             - name: MIGRATIONS_RESOURCES
               description: "Gitlab Migrations Resources"
               path: "gitlab.migrations.resources"
@@ -197,10 +205,6 @@ packages:
               description: "Gitlab Registry Min Replicas"
               path: "registry.hpa.minReplicas"
               default: 1
-            - name: DISABLE_REGISTRY_REDIRECT
-              description: "Gitlab Registry Disable Redirect"
-              path: "registry.storage.redirect.disable"
-              default: "true"
             - name: SHELL_REPLICAS
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
