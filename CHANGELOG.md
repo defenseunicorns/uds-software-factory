@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.3](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.2...v0.2.3) (2024-07-22)
+
+
+### Miscellaneous
+
+* add alpha warning to Valkey package ([#73](https://github.com/defenseunicorns/uds-software-factory/issues/73)) ([5203f50](https://github.com/defenseunicorns/uds-software-factory/commit/5203f50310ba088f7ad99e5bcbfd18a99e561ec6))
+* add docs for databases and networking configuration for apps ([#62](https://github.com/defenseunicorns/uds-software-factory/issues/62)) ([8651574](https://github.com/defenseunicorns/uds-software-factory/commit/8651574405509ee34995ed51bc3b59a9771ada11))
+* add valkey to our official repositories on the README ([#71](https://github.com/defenseunicorns/uds-software-factory/issues/71)) ([f5d7450](https://github.com/defenseunicorns/uds-software-factory/commit/f5d745082e050c544d39d3bf2d04ae18caa4c492))
+* adr for build attestations ([#76](https://github.com/defenseunicorns/uds-software-factory/issues/76)) ([8891e9f](https://github.com/defenseunicorns/uds-software-factory/commit/8891e9fd9a57df8bb4b5289c138c49396470eaa5))
+* **deps:** update swf bundle dependencies ([#53](https://github.com/defenseunicorns/uds-software-factory/issues/53)) ([6d9fe10](https://github.com/defenseunicorns/uds-software-factory/commit/6d9fe10931d78a57705d2c193038d2d625ec136b))
+* **deps:** update swf bundle dependencies ([#78](https://github.com/defenseunicorns/uds-software-factory/issues/78)) ([6684e97](https://github.com/defenseunicorns/uds-software-factory/commit/6684e972aad60513e50eab8a2f3ef1e1eb0ac9ea))
+* remove irrelevant comment ([#77](https://github.com/defenseunicorns/uds-software-factory/issues/77)) ([11774e8](https://github.com/defenseunicorns/uds-software-factory/commit/11774e893f22bd94821cd47f8f32fae34cae3599))
+* update license ([#65](https://github.com/defenseunicorns/uds-software-factory/issues/65)) ([0e692b4](https://github.com/defenseunicorns/uds-software-factory/commit/0e692b4e10a8795eb8a4a7dbb8519c5bc4e1afa9))
+
 ## [0.2.2](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.1...v0.2.2) (2024-06-07)
 
 
