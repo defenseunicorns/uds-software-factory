@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.3...v0.2.4) (2024-07-23)
+
+
+### Miscellaneous
+
+* fix bundle path variable on release ([#79](https://github.com/defenseunicorns/uds-software-factory/issues/79)) ([c2ac312](https://github.com/defenseunicorns/uds-software-factory/commit/c2ac3128771a78fc89bdd6341308641068de4c47))
+
 ## [0.2.3](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.2...v0.2.3) (2024-07-22)
 
 

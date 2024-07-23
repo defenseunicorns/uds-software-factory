@@ -56,11 +56,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Bundle
-        run: uds run -f tasks/publish.yaml build-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml build-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH="bundles/${{ matrix.bundle }}"
 
       - name: Test Bundle
         if: ${{ runner.arch != 'ARM64' }}
-        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }}
+        run: uds run -f tasks/publish.yaml test-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH="bundles/${{ matrix.bundle }}"
 
       - name: Publish Bundle
         run: uds run -f tasks/publish.yaml publish-bundle --set FLAVOR=${{ matrix.flavor }} --set BUNDLE_PATH="bundles/${{ matrix.bundle }}"
