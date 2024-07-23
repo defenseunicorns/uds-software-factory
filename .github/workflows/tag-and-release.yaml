@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@a7549ad75a9bbd8e71ce2236ec17c1e33ec4df61 # v0.8.1
+        uses: defenseunicorns/uds-common/.github/actions/setup@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
         with:
           registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
           registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
@@ -67,10 +67,10 @@ jobs:
 
       - name: Debug Output
         if: ${{ always() }}
-        uses: defenseunicorns/uds-common/.github/actions/debug-output@a7549ad75a9bbd8e71ce2236ec17c1e33ec4df61 # v0.8.1
+        uses: defenseunicorns/uds-common/.github/actions/debug-output@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
 
       - name: Save logs
         if: always()
-        uses: defenseunicorns/uds-common/.github/actions/save-logs@a7549ad75a9bbd8e71ce2236ec17c1e33ec4df61 # v0.8.1
+        uses: defenseunicorns/uds-common/.github/actions/save-logs@91515ef86914334356c35ffb4b2c2c5fb4d19174 # v0.9.0
         with:
           suffix: '${{ matrix.bundle }}-${{ matrix.flavor }}-${{ matrix.architecture }}-${{ github.run_id }}-${{ github.run_attempt }}'
