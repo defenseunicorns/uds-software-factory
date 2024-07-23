@@ -3,6 +3,8 @@ includes:
   - test: ./tasks/test.yaml
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.8.1/tasks/create.yaml
   - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.8.1/tasks/publish.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.8.1/tasks/setup.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.8.1/tasks/deploy.yaml
 
 tasks:
   - name: build-bundle
