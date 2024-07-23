@@ -14,6 +14,7 @@
 * **deps:** update swf bundle dependencies ([#78](https://github.com/defenseunicorns/uds-software-factory/issues/78)) ([6684e97](https://github.com/defenseunicorns/uds-software-factory/commit/6684e972aad60513e50eab8a2f3ef1e1eb0ac9ea))
 * **deps:** update swf bundle dependencies ([#83](https://github.com/defenseunicorns/uds-software-factory/issues/83)) ([4552e0f](https://github.com/defenseunicorns/uds-software-factory/commit/4552e0fcd854578a2844f09c3bc0ca4a572d07b5))
 * fix bundle path variable on release ([#79](https://github.com/defenseunicorns/uds-software-factory/issues/79)) ([c2ac312](https://github.com/defenseunicorns/uds-software-factory/commit/c2ac3128771a78fc89bdd6341308641068de4c47))
+* fix test task include on publish ([#84](https://github.com/defenseunicorns/uds-software-factory/issues/84)) ([425e4a5](https://github.com/defenseunicorns/uds-software-factory/commit/425e4a5543418ad50a8103eb4fca13e66cc77f33))
 * remove irrelevant comment ([#77](https://github.com/defenseunicorns/uds-software-factory/issues/77)) ([11774e8](https://github.com/defenseunicorns/uds-software-factory/commit/11774e893f22bd94821cd47f8f32fae34cae3599))
 * update license ([#65](https://github.com/defenseunicorns/uds-software-factory/issues/65)) ([0e692b4](https://github.com/defenseunicorns/uds-software-factory/commit/0e692b4e10a8795eb8a4a7dbb8519c5bc4e1afa9))
 
