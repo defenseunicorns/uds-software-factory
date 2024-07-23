@@ -1,6 +1,6 @@
 includes:
   - dependencies: ./dependencies.yaml
-  - test: ./tasks/test.yaml
+  - test: ./test.yaml
   - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.9.0/tasks/create.yaml
   - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.9.0/tasks/publish.yaml
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.9.0/tasks/setup.yaml
