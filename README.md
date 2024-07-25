@@ -78,13 +78,17 @@ Alternatively, you can deploy the [uds-k3d-swf-dev bundle](./bundles/dev/README.
 
 For `swf-dev` you have two options, build and deploy from source or deploy the artifacts from where they are hosted in the `ghcr.io` OCI registry.
 
-1. To build and deploy from source you can utilize the UDS tasks in this repo by running:
+##### Deploy from Source
+
+To build and deploy from source you can utilize the UDS tasks in this repo by running:
 
 ```bash
 uds run
 ```
 
-2. _Alternatively_, you can deploy from OCI by running the following two commands:
+##### Deploy from Artifacts
+
+_Alternatively_, you can deploy from OCI by running the following two commands:
 
 Run the below command to deploy the `k3d-core-slim-dev` bundle:
 
