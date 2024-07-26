@@ -19,8 +19,8 @@ Also note that the Software Factory team helps to manage the following shared UD
 
 ## Bundles
 
-> [!NOTE]
-> These UDS Bundles are intended for dev and test environments and should not be used for production. They can however serve as examples to create custom bundles.
+> [!CAUTION]
+> These UDS Bundles are intended for dev, test and demo environments and should _not_ be used for production. They can however serve as examples to create custom bundles.
 
 This repository publishes multiple bundles for dev, test and demo purposes. They are located in sub-directories under `bundles`.
 
@@ -47,7 +47,8 @@ If you have the resources for it locally (see above), you can deploy the full So
 - [Docker Compatible Runtime](https://docs.docker.com/engine/) necessary for running `k3d`.
 - [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) v0.10.4 or later
 
-> [!NOTE]: Apple users follow these [instructions](./docs/development.md) to properly set up your environment to deploy this bundle.
+> [!NOTE]
+> Apple users follow these [instructions](./docs/development.md) to properly set up your environment to deploy this bundle.
 
 #### Deployment
 
@@ -70,35 +71,41 @@ Alternatively, you can deploy the [uds-k3d-swf-dev bundle](./bundles/dev/README.
 - [K3D](https://k3d.io/) for dev & test environments or any [CNCF Certified Kubernetes Cluster](https://www.cncf.io/training/certification/software-conformance/#logos) for production environments.
 - [UDS CLI](https://github.com/defenseunicorns/uds-cli?tab=readme-ov-file#install) v0.10.4 or later
 
-> [!NOTE]: Apple users follow these [instructions](./docs/development.md) to properly set up your environment to deploy this bundle.
+> [!NOTE]
+> Apple users follow these [instructions](./docs/development.md) to properly set up your environment to deploy this bundle.
 
 #### Deployment
 
-For `swf-dev` you have two options, build and deploy from source or deploy the artifacts from where they are hosted in the ghcr OCI registry.
+For `swf-dev` you have two options, build and deploy from source or deploy the artifacts from where they are hosted in the `ghcr.io` OCI registry.
+
+##### 1. Deploy from Source
 
 To build and deploy from source you can utilize the UDS tasks in this repo by running:
 
 ```bash
-    uds run
+uds run
 ```
 
-Alternatively, you can deploy from OCI by running the following two commands:
+##### 2. Deploy from Artifacts
 
-1. Run the below command to deploy the `k3d-core-slim-dev` bundle:
+_Alternatively_, you can deploy from OCI by running the following two commands:
 
-> [!NOTE]: You can append `--set INSECURE_ADMIN_PASSWORD_GENERATION=true` to the below command to enable a default keycloak admin. This is useful for development and testing of the SWF stack and enables the ability to run `uds run setup:create-doug-user` to create a user to test with using the username `doug` and the password `unicorn123!@#UN`.
+Run the below command to deploy the `k3d-core-slim-dev` bundle:
 
-    ```bash
-    uds deploy k3d-core-slim-dev:0.24.1
-    ```
+> [!TIP]
+> You can append `--set INSECURE_ADMIN_PASSWORD_GENERATION=true` to the below command to enable a default keycloak admin. This is useful for development and testing of the SWF stack and enables the ability to run `uds run setup:create-doug-user` to create a user to test with using the username `doug` and the password `unicorn123!@#UN`.
 
-1. Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
+```bash
+uds deploy k3d-core-slim-dev:0.24.1
+```
 
-    <!-- x-release-please-start-version -->
-    ```bash
-    uds deploy swf-dev:0.2.3
-    ```
-    <!-- x-release-please-end -->
+Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
+
+<!-- x-release-please-start-version -->
+```bash
+uds deploy swf-dev:0.2.3
+```
+<!-- x-release-please-end -->
 
 ## Development
 
