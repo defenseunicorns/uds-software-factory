@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.4](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.3...v0.2.4) (2024-08-01)
+
+
+### Miscellaneous
+
+* **deps:** update bundle-deps to v3.25.15 ([#86](https://github.com/defenseunicorns/uds-software-factory/issues/86)) ([1ac8afe](https://github.com/defenseunicorns/uds-software-factory/commit/1ac8afe7522b2905be1cca2c5ce594e96bfb565b))
+* **deps:** update swf bundle dependencies ([#89](https://github.com/defenseunicorns/uds-software-factory/issues/89)) ([847f99c](https://github.com/defenseunicorns/uds-software-factory/commit/847f99c71e6f1f96baca5a7ccc51327a4d697ce5))
+* improve the formatting on the README ([#87](https://github.com/defenseunicorns/uds-software-factory/issues/87)) ([64e9fcb](https://github.com/defenseunicorns/uds-software-factory/commit/64e9fcbc0026b415ffb3e2d90026d7de84c470d3))
+
 ## [0.2.3](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.2...v0.2.3) (2024-07-23)
 
 
