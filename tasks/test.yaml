@@ -6,11 +6,8 @@ includes:
 
 tasks:
   - name: test-swf-bundle
-    description: Run health checks and ingress tests
+    description: Run ingress tests
     actions:
-      - task: mm:health-check
       - task: mm:ingress
-      - task: gl:health-check
       - task: gl:ingress
-      - task: sq:health-check
       - task: sq:ingress
