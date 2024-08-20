@@ -110,7 +110,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.2.1-uds.0-upstream
+    ref: 17.2.2-uds.0-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -216,7 +216,7 @@ packages:
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 10.6.0-uds.0-upstream
+    ref: 10.6.0-uds.1-upstream
     overrides:
       sonarqube:
         sonarqube:
@@ -240,7 +240,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.10.1-uds.0-upstream
+    ref: 9.10.1-uds.1-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
