@@ -96,7 +96,7 @@ Run the below command to deploy the `k3d-core-slim-dev` bundle:
 > You can append `--set INSECURE_ADMIN_PASSWORD_GENERATION=true` to the below command to enable a default keycloak admin. This is useful for development and testing of the SWF stack and enables the ability to run `uds run setup:create-doug-user` to create a user to test with using the username `doug` and the password `unicorn123!@#UN`.
 
 ```bash
-uds deploy k3d-core-slim-dev:0.25.2
+uds deploy k3d-core-slim-dev:0.26.1
 ```
 
 Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
