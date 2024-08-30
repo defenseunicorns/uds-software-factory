@@ -40,7 +40,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.12.2-uds.2-upstream
+    ref: 1.13.0-uds.0-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -110,7 +110,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.2.2-uds.0-upstream
+    ref: 17.2.4-uds.0-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -212,7 +212,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.1.0-uds.1-upstream
+    ref: 17.2.1-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
@@ -240,7 +240,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.10.1-uds.1-upstream
+    ref: 9.11.1-uds.0-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
