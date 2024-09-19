@@ -18,6 +18,9 @@ packages:
   - name: uds-core
     repository: ghcr.io/defenseunicorns/packages/uds/core
     ref: "0.27.3-upstream"
+    optionalComponents:
+      - metrics-server
+      - uds-runtime
     overrides:
       keycloak:
         keycloak:
