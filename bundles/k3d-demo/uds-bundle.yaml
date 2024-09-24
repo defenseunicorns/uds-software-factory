@@ -132,7 +132,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.2.7-uds.0-upstream
+    ref: 17.2.7-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -234,7 +234,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.2.1-uds.1-upstream
+    ref: 17.2.1-uds.2-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube

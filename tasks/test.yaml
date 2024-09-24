@@ -1,8 +1,8 @@
 includes:
   - mm: https://raw.githubusercontent.com/defenseunicorns/uds-package-mattermost/v9.11.1-uds.0/tasks/test.yaml
-  - gl: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab/v17.2.7-uds.0/tasks/test.yaml
+  - gl: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab/v17.2.7-uds.1/tasks/test.yaml
   - sq: https://raw.githubusercontent.com/defenseunicorns/uds-package-sonarqube/v10.6.0-uds.1/tasks/test.yaml
-  - glr: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab-runner/v17.2.1-uds.1/tasks/test.yaml
+  - glr: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab-runner/v17.2.1-uds.2/tasks/test.yaml
 
 tasks:
   - name: test-swf-bundle
