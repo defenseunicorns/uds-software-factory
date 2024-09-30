@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.8](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.7...v0.2.8) (2024-09-30)
+
+
+### Bug Fixes
+
+* increase gitlab webservice mem limit to recommended min ([#102](https://github.com/defenseunicorns/uds-software-factory/issues/102)) ([17e1ad4](https://github.com/defenseunicorns/uds-software-factory/commit/17e1ad46e8061a5a135c18155e44315caf90726c))
+
+
+### Miscellaneous
+
+* **deps:** update swf bundle dependencies ([#100](https://github.com/defenseunicorns/uds-software-factory/issues/100)) ([5f6dbc7](https://github.com/defenseunicorns/uds-software-factory/commit/5f6dbc7c4a5fd942e3c73a5019ecbb66f2c82983))
+
 ## [0.2.7](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.6...v0.2.7) (2024-09-20)
 
 
