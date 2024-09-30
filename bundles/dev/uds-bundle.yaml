@@ -156,7 +156,7 @@ packages:
               path: "gitlab.webservice.resources"
               default:
                 limits:
-                  memory: 2.5G
+                  memory: 3.5G
                 requests:
                   cpu: 300m
                   memory: 2.5G
