@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.6...v0.2.7) (2024-09-20)
+
+
+### Miscellaneous
+
+* **deps:** update to `uds-core` v0.27.3, `gitlab` v17.2.7-uds.0 and `gitlab-runner` v17.2.1-uds.1 ([#97](https://github.com/defenseunicorns/uds-software-factory/issues/97)) ([801ad60](https://github.com/defenseunicorns/uds-software-factory/commit/801ad60f86e0cecb846fb89ed440960f36cf70e7))
+
 ## [0.2.6](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.5...v0.2.6) (2024-08-30)
 
 

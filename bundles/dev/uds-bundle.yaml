@@ -3,7 +3,7 @@ metadata:
   name: swf-dev
   description: A UDS bundle for deploying the UDS Software Factory on a development cluster
   # x-release-please-start-version
-  version: 0.2.6
+  version: 0.2.7
   # x-release-please-end
 
 packages:
@@ -40,7 +40,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.13.0-uds.0-upstream
+    ref: 1.13.0-uds.1-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -110,7 +110,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.2.4-uds.0-upstream
+    ref: 17.2.7-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -156,7 +156,7 @@ packages:
               path: "gitlab.webservice.resources"
               default:
                 limits:
-                  memory: 2.5G
+                  memory: 3.5G
                 requests:
                   cpu: 300m
                   memory: 2.5G
@@ -212,7 +212,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.2.1-uds.0-upstream
+    ref: 17.2.1-uds.2-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube

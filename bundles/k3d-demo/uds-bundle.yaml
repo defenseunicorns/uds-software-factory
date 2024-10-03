@@ -3,13 +3,13 @@ metadata:
   name: k3d-swf-demo
   description: A UDS bundle for deploying the UDS Software Factory with full uds-core on a development cluster
   # x-release-please-start-version
-  version: 0.2.6
+  version: 0.2.7
   # x-release-please-end
 
 packages:
   - name: uds-k3d-dev
     repository: ghcr.io/defenseunicorns/packages/uds-k3d
-    ref: 0.8.0
+    ref: 0.9.0
 
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
@@ -17,7 +17,10 @@ packages:
 
   - name: uds-core
     repository: ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.26.1-upstream"
+    ref: "0.27.3-upstream"
+    optionalComponents:
+      - metrics-server
+      - uds-runtime
     overrides:
       keycloak:
         keycloak:
@@ -59,7 +62,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.13.0-uds.0-upstream
+    ref: 1.13.0-uds.1-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -129,7 +132,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.2.4-uds.0-upstream
+    ref: 17.2.7-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -175,7 +178,7 @@ packages:
               path: "gitlab.webservice.resources"
               default:
                 limits:
-                  memory: 2.5G
+                  memory: 3.5G
                 requests:
                   cpu: 300m
                   memory: 2.5G
@@ -231,7 +234,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.2.1-uds.0-upstream
+    ref: 17.2.1-uds.2-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
