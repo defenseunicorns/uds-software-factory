@@ -50,4 +50,5 @@ jobs:
       type: ${{ matrix.type }}
       runsOn: uds-swf-ubuntu-big-boy-16-core
       options: --set BUNDLE_PATH=bundles/${{ matrix.flavor }}
+      timeout: 40
     secrets: inherit # Inherits all secrets from the parent workflow.
