@@ -53,6 +53,7 @@ tasks:
       - task: upgrade:create-latest-tag-bundle
         with:
           dep_commands: ./uds run dependencies:create
+          bundle_path: ${BUNDLE_PATH}
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
