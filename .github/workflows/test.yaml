@@ -68,7 +68,7 @@ jobs:
         shell: bash
 
       - name: Test
-        run: uds run actions:test-deploy --set TYPE="${{ matrix.type }}" --set BUNDLE_PATH=bundles/${{ matrix.bundle }}"
+        run: uds run actions:test-deploy --set TYPE="${{ matrix.type }}" --set BUNDLE_PATH="bundles/${{ matrix.bundle }}"
         shell: bash
 
       - name: Debug Output
