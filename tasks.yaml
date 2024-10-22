@@ -13,7 +13,6 @@ includes:
   - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/actions.yaml
   - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/badge.yaml
   - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/upgrade.yaml
-  - compliance: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/compliance.yaml
 
 variables:
   - name: BUNDLE_PATH
