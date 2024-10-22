@@ -36,15 +36,45 @@ jobs:
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
     strategy:
       matrix:
-        flavor: [k3d-demo, dev]
+        bundle: [k3d-demo, dev]
         architecture: [amd64, arm64]
-        exclude:
-          - flavor: k3d-demo
-            type: upgrade
-    uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@c52077c870a576d01f169f96d74d1b393c6488ba # v1.1.2
-    with:
-      flavor: ${{ matrix.flavor }}
-      runsOn: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-16-core' }}
-      options: --set BUNDLE_PATH=bundles/${{ matrix.flavor }}
-      timeout: 80
-    secrets: inherit # Inherits all secrets from the parent workflow.
+    runs-on: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-16-core' }}
+    timeout-minutes: 80
+
+    steps:
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
+
+      - name: Install UDS CLI
+        uses: defenseunicorns/setup-uds@b987a32bac3baeb67bfb08f5e1544e2f9076ee8a # v1.0.0
+        with:
+          # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
+          version: v0.18.0
+
+      - name: Environment setup
+        run: |
+            uds run actions:setup-environment \
+            --set REGISTRY1_USERNAME="${{ secrets.IRON_BANK_ROBOT_USERNAME }}" \
+            --set REGISTRY1_PASSWORD="${{ secrets.IRON_BANK_ROBOT_PASSWORD }}" \
+            --set GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            --set CHAINGUARD_IDENTITY="${{ secrets.CHAINGUARD_IDENTITY }}"
+        shell: bash
+
+      - name: Publish Packages/Bundles
+        run: uds run publish-release --set BUNDLE_PATH=bundles/${{ matrix.bundle }} --no-progress
+
+      - name: Save logs
+        if: ${{ always() }}
+        run: uds run actions:save-logs
+        shell: bash
+
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        if: ${{ always() }}
+        with:
+          name: debug-log-${{ matrix.bundle }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ runner.arch }}
+          path: |
+            /tmp/zarf-*.log
+            /tmp/uds-*.log
+            /tmp/maru-*.log
+            /tmp/debug-*.log
+            /tmp/uds-containerd-logs
+            /tmp/k3d-uds-*.log

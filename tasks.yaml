@@ -67,7 +67,9 @@ tasks:
     actions:
       - task: actions:determine-arch
       - task: setup:k3d-test-cluster
+        if: ${{ ne .variables.ARCH "arm64" }}
       - task: create-deploy-test-bundle
+        if: ${{ ne .variables.ARCH "arm64" }}
       - description: Publish the bundle
       - task: publish:test-bundle
         with:
