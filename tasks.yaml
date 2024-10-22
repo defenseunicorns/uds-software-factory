@@ -32,9 +32,11 @@ tasks:
       - task: create:test-bundle
         with:
           path: ${BUNDLE_PATH}
+          config: ${BUNDLE_PATH}/uds-config.yaml
       - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
+          config: ${BUNDLE_PATH}/uds-config.yaml
       - task: setup:create-doug-user
       - task: test:all
 
@@ -50,14 +52,15 @@ tasks:
   - name: test-upgrade
     description: Test an upgrade from the latest released bundle to the current branch
     actions:
-      - task: upgrade:create-latest-tag-bundle
+      - task: pull:latest-bundle-release
         with:
-          dep_commands: ./uds run dependencies:create
-          bundle_path: ${BUNDLE_PATH}
+          spoof_release: "true"
+          path: ${BUNDLE_PATH}
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
+          config: ${BUNDLE_PATH}/uds-config.yaml
       - task: setup:create-doug-user
       - task: compliance:validate
       - task: create-deploy-test-bundle
