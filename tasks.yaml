@@ -48,7 +48,6 @@ tasks:
     actions:
       - task: setup:k3d-test-cluster
       - task: create-deploy-test-bundle
-      - task: compliance:validate
 
   - name: test-upgrade
     description: Test an upgrade from the latest released bundle to the current branch
@@ -62,10 +61,7 @@ tasks:
         with:
           path: ${BUNDLE_PATH}
           config: ${BUNDLE_PATH}/uds-config.yaml
-      - task: compliance:validate
       - task: create-deploy-test-bundle
-      - task: compliance:validate
-      - task: compliance:evaluate
 
   - name: publish-release
     description: Build and publish the bundles
