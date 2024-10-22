@@ -43,12 +43,9 @@ jobs:
       matrix:
         flavor: [k3d-demo, dev]
         type: [install, upgrade]
-        exclude:
-          - flavor: k3d-demo
-            type: upgrade
     uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@c52077c870a576d01f169f96d74d1b393c6488ba # v1.1.2
     with:
-      upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
+      upgrade-flavors: "dev"
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
       runsOn: uds-swf-ubuntu-big-boy-16-core
