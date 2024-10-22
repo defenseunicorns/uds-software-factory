@@ -1,13 +1,13 @@
-name: Metadata
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+name: PR Title Check
 
 on:
-  # This workflow is triggered on pull requests to the main branch.
   pull_request:
     branches: [main]
     types: [milestoned, opened, edited, synchronize]
 
-
 jobs:
   validate:
-    name: Validate
-    uses: defenseunicorns/uds-common/.github/workflows/commitlint.yaml@e3008473beab00b12a94f9fcc7340124338d5c08 # v0.13.1
+    uses: defenseunicorns/uds-common/.github/workflows/callable-commitlint.yaml@c52077c870a576d01f169f96d74d1b393c6488ba # v1.1.2

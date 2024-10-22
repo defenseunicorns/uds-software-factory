@@ -1,11 +1,18 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 includes:
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/create.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.13.1/tasks/setup.yaml
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/create.yaml
+  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/publish.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/lint.yaml
+  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/pull.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/setup.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/actions.yaml
+  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/badge.yaml
+  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/upgrade.yaml
 
 variables:
   - name: BUNDLE_PATH
@@ -15,50 +22,58 @@ tasks:
   - name: default
     description: Build and deploy SWF on UDS k3d-slim-dev
     actions:
-      - task: create-test-bundle
       - task: setup:k3d-test-cluster
-      - task: deploy:test-bundle
-        with:
-          path: ${BUNDLE_PATH}
+      - task: create-deploy-test-bundle
 
-  - name: create-test-bundle
-    description: Create UDS SWF bundle with dependencies
+  - name: create-deploy-test-bundle
+    description: Test and validate cluster is deployed with the SWF Bundle
     actions:
       - task: dependencies:create
       - task: create:test-bundle
         with:
           path: ${BUNDLE_PATH}
+          config: ${BUNDLE_PATH}/uds-config.yaml
+      - task: deploy:test-bundle
+        with:
+          path: ${BUNDLE_PATH}
+          config: ${BUNDLE_PATH}/uds-config.yaml
+      - task: setup:create-doug-user
+      - task: test:all
 
-  - name: create-swf-latest-release-bundle
-    description: Create UDS bundle with dependencies based on the latest release
+# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
+
+  - name: test-install
+    description: Test the SWF bundle from the current branch
+    actions:
+      - task: setup:k3d-test-cluster
+      - task: create-deploy-test-bundle
+
+  - name: test-upgrade
+    description: Test an upgrade from the latest released bundle to the current branch
     actions:
       - task: pull:latest-bundle-release
         with:
           spoof_release: "true"
           path: ${BUNDLE_PATH}
-
-# CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
-
-  - name: test-package
-    description: Test the SWF bundle from the current branch
-    actions:
-      - task: create-test-bundle
       - task: setup:k3d-test-cluster
       - task: deploy:test-bundle
         with:
           path: ${BUNDLE_PATH}
-      - task: test:test-swf-bundle
+          config: ${BUNDLE_PATH}/uds-config.yaml
+      - task: create-deploy-test-bundle
 
-  - name: test-upgrade
-    description: Test an upgrade from the latest released bundle to the current branch
+  - name: publish-release
+    description: Build and publish the bundles
     actions:
-      - task: create-swf-latest-release-bundle
+      - task: actions:determine-arch
       - task: setup:k3d-test-cluster
-      - task: deploy:test-bundle
+        if: ${{ ne .variables.ARCH "arm64" }}
+      - task: create-deploy-test-bundle
+        if: ${{ ne .variables.ARCH "arm64" }}
+      - description: Publish the bundle
+      - task: publish:test-bundle
         with:
           path: ${BUNDLE_PATH}
-      - task: create-test-bundle
-      - task: deploy:test-bundle
-        with:
-          path: ${BUNDLE_PATH}
-      - task: test:test-swf-bundle
+          # x-release-please-start-version
+          version: "0.2.7"
+          # x-release-please-end

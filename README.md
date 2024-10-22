@@ -1,5 +1,9 @@
 # 🏭 UDS Software Factory
 
+[![Latest Release](https://img.shields.io/github/v/release/defenseunicorns/uds-software-factory)](https://github.com/defenseunicorns/uds-software-factory/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/defenseunicorns/uds-software-factory/release.yaml)](https://github.com/defenseunicorns/uds-software-factory/release.yaml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-software-factory/badge)](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-software-factory)
+
 This is the integration / wayfinding repository for the Unicorn Delivery Service (UDS) Software Factory created and offered by Defense Unicorns.  In its current state it is made up of the following UDS packages that are bundled together:
 
 - [GitLab](https://github.com/defenseunicorns/uds-package-gitlab) - a DevOps software package that can develop, secure, and operate software
@@ -96,7 +100,7 @@ Run the below command to deploy the `k3d-core-slim-dev` bundle:
 > You can append `--set INSECURE_ADMIN_PASSWORD_GENERATION=true` to the below command to enable a default keycloak admin. This is useful for development and testing of the SWF stack and enables the ability to run `uds run setup:create-doug-user` to create a user to test with using the username `doug` and the password `unicorn123!@#UN`.
 
 ```bash
-uds deploy k3d-core-slim-dev:0.27.3
+uds deploy k3d-core-slim-dev:0.29.1
 ```
 
 Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
