@@ -1,5 +1,9 @@
 # 🏭 UDS Software Factory
 
+[![Latest Release](https://img.shields.io/github/v/release/defenseunicorns/uds-software-factory)](https://github.com/defenseunicorns/uds-software-factory/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/defenseunicorns/uds-software-factory/release.yaml)](https://github.com/defenseunicorns/uds-software-factory/release.yaml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-software-factory/badge)](https://api.securityscorecards.dev/projects/github.com/defenseunicorns/uds-software-factory)
+
 This is the integration / wayfinding repository for the Unicorn Delivery Service (UDS) Software Factory created and offered by Defense Unicorns.  In its current state it is made up of the following UDS packages that are bundled together:
 
 - [GitLab](https://github.com/defenseunicorns/uds-package-gitlab) - a DevOps software package that can develop, secure, and operate software

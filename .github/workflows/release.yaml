@@ -1,0 +1,49 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+# Permissions for the GITHUB_TOKEN used by the workflow.
+permissions:
+  contents: read # Allows reading the content of the repository.
+  packages: read # Allows reading the content of the repository's packages.
+  id-token: write
+
+jobs:
+  tag-new-version:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-flag.outputs.release_created }}
+    steps:
+      - name: Create Release Tag
+        id: tag
+        uses: googleapis/release-please-action@7987652d64b4581673a76e33ad5e98e3dd56832f # v4.1.3
+      - id: release-flag
+        run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> "$GITHUB_OUTPUT"
+
+  publish:
+    permissions:
+      contents: read # Allows reading the content of the repository.
+      packages: write # Allows reading the content of the repository's packages.
+      id-token: write
+    needs: tag-new-version
+    if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
+    strategy:
+      matrix:
+        flavor: [k3d-demo, dev]
+        architecture: [amd64, arm64]
+        exclude:
+          - flavor: k3d-demo
+            type: upgrade
+    uses: defenseunicorns/uds-common/.github/workflows/callable-publish.yaml@c52077c870a576d01f169f96d74d1b393c6488ba # v1.1.2
+    with:
+      flavor: ${{ matrix.flavor }}
+      runsOn: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-16-core' }}
+      options: --set BUNDLE_PATH=bundles/${{ matrix.flavor }}
+    secrets: inherit # Inherits all secrets from the parent workflow.

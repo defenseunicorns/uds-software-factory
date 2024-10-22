@@ -14,7 +14,7 @@
           "README.md",
           "bundles/dev/uds-bundle.yaml",
           "bundles/k3d-demo/uds-bundle.yaml",
-          "tasks/publish.yaml"
+          "tasks.yaml"
         ]
       }
     }

@@ -1,35 +1,15 @@
-name: Scan
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+name: Lint
 
 on:
   # This workflow is triggered on pull requests to the main branch.
   pull_request:
-    branches: [main]
-    types: [milestoned, opened, synchronize]
+    # milestoned is added here as a workaround for release-please not triggering PR workflows (PRs should be added to a milestone to trigger the workflow).
+    types: [milestoned, opened, reopened, synchronize]
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
-    name: Lint
-    permissions:
-      contents: read # Allows reading the repo contents
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
-        with:
-          fetch-depth: 0
-
-      - name: Environment setup
-        uses: defenseunicorns/uds-common/.github/actions/setup@97fc3a00fb2b9897316131cd210026691e160d5a # v1.1.1
-        with:
-          registry1Username: ${{ secrets.IRON_BANK_ROBOT_USERNAME }}
-          registry1Password: ${{ secrets.IRON_BANK_ROBOT_PASSWORD }}
-          ghToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install lint deps
-        run: |
-          uds run lint:deps
-
-      - name: Lint the repository
-        run: |
-          uds run lint:yaml
+    uses: defenseunicorns/uds-common/.github/workflows/callable-lint.yaml@c52077c870a576d01f169f96d74d1b393c6488ba # v1.1.2
+    secrets: inherit

@@ -1,3 +1,6 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 includes:
   - mm: https://raw.githubusercontent.com/defenseunicorns/uds-package-mattermost/v10.0.0-uds.1/tasks/test.yaml
   - gl: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab/v17.2.9-uds.0/tasks/test.yaml
@@ -5,7 +8,7 @@ includes:
   - glr: https://raw.githubusercontent.com/defenseunicorns/uds-package-gitlab-runner/v17.2.1-uds.3/tasks/test.yaml
 
 tasks:
-  - name: test-swf-bundle
+  - name: all
     description: Run ingress tests
     actions:
       - task: mm:ingress
