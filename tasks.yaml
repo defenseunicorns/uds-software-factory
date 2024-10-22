@@ -29,6 +29,7 @@ tasks:
   - name: create-deploy-test-bundle
     description: Test and validate cluster is deployed with the SWF Bundle
     actions:
+      - task: dependencies:create
       - task: create:test-bundle
         with:
           path: ${BUNDLE_PATH}
@@ -61,7 +62,6 @@ tasks:
         with:
           path: ${BUNDLE_PATH}
           config: ${BUNDLE_PATH}/uds-config.yaml
-      - task: setup:create-doug-user
       - task: compliance:validate
       - task: create-deploy-test-bundle
       - task: compliance:validate
