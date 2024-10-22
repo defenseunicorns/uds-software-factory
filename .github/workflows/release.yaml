@@ -46,4 +46,5 @@ jobs:
       flavor: ${{ matrix.flavor }}
       runsOn: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-16-core' }}
       options: --set BUNDLE_PATH=bundles/${{ matrix.flavor }}
+      timeout: 80
     secrets: inherit # Inherits all secrets from the parent workflow.
