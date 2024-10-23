@@ -43,7 +43,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        bundle: [k3d-demo, dev, lab]
+        bundle: [k3d-demo, dev]
         type: [install, upgrade]
 
     steps:

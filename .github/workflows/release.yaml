@@ -36,7 +36,7 @@ jobs:
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
     strategy:
       matrix:
-        bundle: [k3d-demo, dev, lab]
+        bundle: [k3d-demo, dev]
         architecture: [amd64, arm64]
     runs-on: ${{ matrix.architecture == 'arm64' && 'uds-swf-ubuntu-arm64-4-core' || 'uds-swf-ubuntu-big-boy-16-core' }}
     timeout-minutes: 80
