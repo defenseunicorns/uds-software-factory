@@ -8,6 +8,10 @@ on:
     branches: [main]
     types: [milestoned, opened, edited, synchronize]
 
+# Permissions for the GITHUB_TOKEN used by the workflow.
+permissions:
+  contents: read # Allows reading the content of the repository.
+
 jobs:
   validate:
     uses: defenseunicorns/uds-common/.github/workflows/callable-commitlint.yaml@c52077c870a576d01f169f96d74d1b393c6488ba # v1.1.2
