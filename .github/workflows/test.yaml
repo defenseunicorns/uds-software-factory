@@ -41,7 +41,7 @@ jobs:
     runs-on: uds-swf-ubuntu-big-boy-16-core
     timeout-minutes: 40
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         bundle: [k3d-demo, dev]
         type: [install, upgrade]
