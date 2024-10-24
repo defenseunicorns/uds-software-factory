@@ -11,6 +11,7 @@ on:
 # Permissions for the GITHUB_TOKEN used by the workflow.
 permissions:
   contents: read # Allows reading the content of the repository.
+  pull-requests: read # Allows reading pull requests
 
 jobs:
   validate:
