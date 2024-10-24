@@ -212,10 +212,56 @@ packages:
               description: "Gitlab Shell Min Replicas"
               path: "gitlab.gitlab-shell.minReplicas"
               default: 1
+        uds-gitlab-settings:
+          values:
+            - path: "botAccounts"
+              value:
+                enabled: true
+                accounts:
+                  - username: renovatebot
+                    scopes:
+                      - api
+                      - read_repository
+                      - write_repository
+                    secret:
+                      name: gitlab-renovatebot
+                      namespace: renovate
+                      keyName: TOKEN
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
     ref: 17.2.1-uds.3-upstream
+
+  - name: valkey
+    repository: ghcr.io/defenseunicorns/packages/uds/valkey
+    ref: 7.2.6-uds.0-upstream
+    overrides:
+      valkey:
+        valkey:
+          # use a custom namespace here in the test bundle
+          # to deconflict with valkey deployed by gitlab dependency
+          namespace: "valkey-renovate"
+        uds-valkey-config:
+          namespace: "valkey-renovate"
+          values:
+            - path: custom
+              value:
+                - direction: Ingress
+                  selector:
+                    app.kubernetes.io/name: valkey
+                  remoteNamespace: renovate
+                  port: 6379
+                  description: "Ingress from Renovate"
+            - path: copyPassword
+              value:
+                enabled: true
+                namespace: renovate
+                secretName: valkey-password
+                secretKey: password
+
+  - name: renovate
+    repository: ghcr.io/defenseunicorns/packages/uds/renovate
+    ref: 38.107.0-uds.1-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube

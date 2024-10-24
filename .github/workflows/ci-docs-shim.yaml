@@ -8,6 +8,10 @@ on:
     branches: [main]
     types: [milestoned, opened, synchronize]
 
+# Permissions for the GITHUB_TOKEN used by the workflow.
+permissions:
+  contents: read # Allows reading the content of the repository.
+
 jobs:
   validate:
     strategy:
