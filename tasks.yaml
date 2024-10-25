@@ -7,7 +7,7 @@ includes:
   - create-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/create.yaml
   - deploy-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/deploy.yaml
   - publish-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/publish.yaml
-  - pull-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/pull.yaml
+  - pull-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/bugfix-pull-version/tasks/pull.yaml
   - setup-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/setup.yaml
   - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/lint.yaml
   - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/actions.yaml
