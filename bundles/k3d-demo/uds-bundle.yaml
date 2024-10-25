@@ -95,7 +95,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 7.2.6-uds.0-upstream
+    ref: 7.2.7-uds.0-upstream
     overrides:
       valkey:
         uds-valkey-config:
@@ -135,7 +135,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.2.9-uds.0-upstream
+    ref: 17.3.6-uds.0-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -252,11 +252,11 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.2.1-uds.3-upstream
+    ref: 17.2.1-uds.4-upstream
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 7.2.6-uds.0-upstream
+    ref: 7.2.7-uds.0-upstream
     overrides:
       valkey:
         valkey:
@@ -311,7 +311,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 10.0.0-uds.1-upstream
+    ref: 10.1.1-uds.0-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets

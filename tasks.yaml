@@ -4,15 +4,13 @@
 includes:
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/create.yaml
-  - publish: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/publish.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/lint.yaml
-  - pull: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/pull.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/setup.yaml
-  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/actions.yaml
-  - badge: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/badge.yaml
-  - upgrade: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.1.2/tasks/upgrade.yaml
+  - create-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/create.yaml
+  - deploy-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/deploy.yaml
+  - publish-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/publish.yaml
+  - pull-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/pull.yaml
+  - setup-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/setup.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/lint.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/actions.yaml
 
 variables:
   - name: BUNDLE_PATH
@@ -22,22 +20,22 @@ tasks:
   - name: default
     description: Build and deploy SWF on UDS k3d-slim-dev
     actions:
-      - task: setup:k3d-test-cluster
+      - task: setup-bundle:k3d-test-cluster
       - task: create-deploy-test-bundle
 
   - name: create-deploy-test-bundle
     description: Test and validate cluster is deployed with the SWF Bundle
     actions:
       - task: dependencies:create
-      - task: create:test-bundle
+      - task: create-bundle:test-bundle
         with:
           path: ${BUNDLE_PATH}
           config: ${BUNDLE_PATH}/uds-config.yaml
-      - task: deploy:test-bundle
+      - task: deploy-bundle:test-bundle
         with:
           path: ${BUNDLE_PATH}
           config: ${BUNDLE_PATH}/uds-config.yaml
-      - task: setup:create-doug-user
+      - task: setup-bundle:create-doug-user
       - task: test:all
 
 # CI will execute the following (via uds-common/.github/actions/test) so they need to be here with these names
@@ -45,18 +43,18 @@ tasks:
   - name: test-install
     description: Test the SWF bundle from the current branch
     actions:
-      - task: setup:k3d-test-cluster
+      - task: setup-bundle:k3d-test-cluster
       - task: create-deploy-test-bundle
 
   - name: test-upgrade
     description: Test an upgrade from the latest released bundle to the current branch
     actions:
-      - task: pull:latest-bundle-release
+      - task: pull-bundle:latest-bundle-release
         with:
           spoof_release: "true"
           path: ${BUNDLE_PATH}
-      - task: setup:k3d-test-cluster
-      - task: deploy:test-bundle
+      - task: setup-bundle:k3d-test-cluster
+      - task: deploy-bundle:test-bundle
         with:
           path: ${BUNDLE_PATH}
           config: ${BUNDLE_PATH}/uds-config.yaml
@@ -66,12 +64,12 @@ tasks:
     description: Build and publish the bundles
     actions:
       - task: actions:determine-arch
-      - task: setup:k3d-test-cluster
+      - task: setup-bundle:k3d-test-cluster
         if: ${{ ne .variables.ARCH "arm64" }}
       - task: create-deploy-test-bundle
         if: ${{ ne .variables.ARCH "arm64" }}
       - description: Publish the bundle
-      - task: publish:test-bundle
+      - task: publish-bundle:test-bundle
         with:
           path: ${BUNDLE_PATH}
           # x-release-please-start-version
