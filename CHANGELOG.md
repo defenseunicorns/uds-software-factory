@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.0](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.7...v0.3.0) (2024-10-25)
+
+
+### Bug Fixes
+
+* increase gitlab webservice mem limit to recommended min ([#102](https://github.com/defenseunicorns/uds-software-factory/issues/102)) ([17e1ad4](https://github.com/defenseunicorns/uds-software-factory/commit/17e1ad46e8061a5a135c18155e44315caf90726c))
+
+
+### Miscellaneous
+
+* badge, add renovate, update READMEs/workflow permissions ([#110](https://github.com/defenseunicorns/uds-software-factory/issues/110)) ([258dbca](https://github.com/defenseunicorns/uds-software-factory/commit/258dbcac1a96268378908f736e3f9c580ebc1216))
+* **deps:** update swf bundle dependencies ([#100](https://github.com/defenseunicorns/uds-software-factory/issues/100)) ([5f6dbc7](https://github.com/defenseunicorns/uds-software-factory/commit/5f6dbc7c4a5fd942e3c73a5019ecbb66f2c82983))
+* **deps:** update swf bundle dependencies ([#103](https://github.com/defenseunicorns/uds-software-factory/issues/103)) ([f2e9b16](https://github.com/defenseunicorns/uds-software-factory/commit/f2e9b166fa99461a9a977c072427b5112a12f73c))
+* **deps:** update swf bundle dependencies ([#109](https://github.com/defenseunicorns/uds-software-factory/issues/109)) ([03b33dc](https://github.com/defenseunicorns/uds-software-factory/commit/03b33dc4bfd730eba8a22e5a0deabce9dcc665a0))
+* set fail-fast to true on test matrix ([#111](https://github.com/defenseunicorns/uds-software-factory/issues/111)) ([13c3b6e](https://github.com/defenseunicorns/uds-software-factory/commit/13c3b6eb892048adfa0ba602d7fc5a56608b56fc))
+
 ## [0.2.7](https://github.com/defenseunicorns/uds-software-factory/compare/v0.2.6...v0.2.7) (2024-09-20)
 
 

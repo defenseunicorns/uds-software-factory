@@ -4,13 +4,13 @@
 includes:
   - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
-  - create-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/create.yaml
-  - deploy-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/deploy.yaml
-  - publish-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/publish.yaml
-  - pull-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/pull.yaml
-  - setup-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/setup.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/lint.yaml
-  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.0/tasks/actions.yaml
+  - create-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.1/tasks/create.yaml
+  - deploy-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.1/tasks/deploy.yaml
+  - publish-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.1/tasks/publish.yaml
+  - pull-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.1/tasks/pull.yaml
+  - setup-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.1/tasks/setup.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.1/tasks/lint.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.2.1/tasks/actions.yaml
 
 variables:
   - name: BUNDLE_PATH
@@ -73,5 +73,5 @@ tasks:
         with:
           path: ${BUNDLE_PATH}
           # x-release-please-start-version
-          version: "0.2.7"
+          version: "0.3.0"
           # x-release-please-end
