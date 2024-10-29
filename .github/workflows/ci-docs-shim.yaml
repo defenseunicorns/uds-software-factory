@@ -13,13 +13,14 @@ permissions:
   contents: read # Allows reading the content of the repository.
 
 jobs:
-  validate:
+  run:
     strategy:
       matrix:
         type: [install, upgrade]
-        flavor: [upstream]
-    uses: defenseunicorns/uds-common/.github/workflows/callable-ci-docs-shim.yaml@5a59ac893e45f6844d6b82eebebda31cf7da8600 # v1.2.1
-    with:
-      flavor: ${{ matrix.flavor }}
-      type: ${{ matrix.type }}
-    secrets: inherit # Inherits all secrets from the parent workflow.
+        bundle: [k3d-demo, dev]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Shim for ${{ matrix.type }} ${{ matrix.bundle }}
+        run: |
+          echo "Documentation-only change detected; marking ${{ matrix.type }} ${{ matrix.bundle }} as successful."
