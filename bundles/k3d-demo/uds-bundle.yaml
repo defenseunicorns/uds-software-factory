@@ -23,7 +23,6 @@ packages:
     ref: "0.30.0-upstream"
     optionalComponents:
       - metrics-server
-      - uds-runtime
     overrides:
       keycloak:
         keycloak:
