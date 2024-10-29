@@ -16,8 +16,8 @@ jobs:
   run:
     strategy:
       matrix:
-        type: [install, upgrade]
         bundle: [k3d-demo, dev]
+        type: [install, upgrade]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
