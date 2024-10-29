@@ -14,6 +14,7 @@
 * **deps:** update swf bundle dependencies ([#100](https://github.com/defenseunicorns/uds-software-factory/issues/100)) ([5f6dbc7](https://github.com/defenseunicorns/uds-software-factory/commit/5f6dbc7c4a5fd942e3c73a5019ecbb66f2c82983))
 * **deps:** update swf bundle dependencies ([#103](https://github.com/defenseunicorns/uds-software-factory/issues/103)) ([f2e9b16](https://github.com/defenseunicorns/uds-software-factory/commit/f2e9b166fa99461a9a977c072427b5112a12f73c))
 * **deps:** update swf bundle dependencies ([#109](https://github.com/defenseunicorns/uds-software-factory/issues/109)) ([03b33dc](https://github.com/defenseunicorns/uds-software-factory/commit/03b33dc4bfd730eba8a22e5a0deabce9dcc665a0))
+* **deps:** update swf bundle dependencies ([#115](https://github.com/defenseunicorns/uds-software-factory/issues/115)) ([ac4e1bd](https://github.com/defenseunicorns/uds-software-factory/commit/ac4e1bdab4c877898cadf5918e0e6218961877cf))
 * fix the arm64 publish task ([#113](https://github.com/defenseunicorns/uds-software-factory/issues/113)) ([58a4d7e](https://github.com/defenseunicorns/uds-software-factory/commit/58a4d7ec2449d6ed5a08ea923c611281e1f4486d))
 * set fail-fast to true on test matrix ([#111](https://github.com/defenseunicorns/uds-software-factory/issues/111)) ([13c3b6e](https://github.com/defenseunicorns/uds-software-factory/commit/13c3b6eb892048adfa0ba602d7fc5a56608b56fc))
 
