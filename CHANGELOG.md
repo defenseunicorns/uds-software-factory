@@ -6,6 +6,7 @@
 ### Bug Fixes
 
 * increase gitlab webservice mem limit to recommended min ([#102](https://github.com/defenseunicorns/uds-software-factory/issues/102)) ([17e1ad4](https://github.com/defenseunicorns/uds-software-factory/commit/17e1ad46e8061a5a135c18155e44315caf90726c))
+* remove uds-runtime from bundle ([#117](https://github.com/defenseunicorns/uds-software-factory/issues/117)) ([563928e](https://github.com/defenseunicorns/uds-software-factory/commit/563928ebc2a05643111b7e512383d61dd049ab27))
 
 
 ### Miscellaneous
