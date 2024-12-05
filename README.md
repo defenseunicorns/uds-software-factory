@@ -71,7 +71,7 @@ To deploy this bundle run the following command:
 <!-- x-release-please-start-version -->
 
 ```bash
-uds deploy k3d-swf-demo:0.3.0
+uds deploy k3d-swf-demo:0.4.0
 ```
 
 <!-- x-release-please-end -->
@@ -120,7 +120,7 @@ Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
 
 <!-- x-release-please-start-version -->
 ```bash
-uds deploy swf-dev:0.3.0
+uds deploy swf-dev:0.4.0
 ```
 <!-- x-release-please-end -->
 
