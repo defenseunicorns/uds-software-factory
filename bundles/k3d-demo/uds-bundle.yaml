@@ -32,35 +32,47 @@ packages:
               path: insecureAdminPasswordGeneration.enabled
               default: true
 
-  - name: dev-minio
-    repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
-    ref: 0.0.2
+  - name: minio-operator
+    repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
+    ref: 6.0.4-uds.2-upstream
     overrides:
-      minio:
-        minio:
-          variables:
-            - name: MINIO
-              description: "Configure minio buckets"
-              path: buckets
-              default:
-                - name: uds-gitlab-artifacts
-                - name: uds-gitlab-backups
-                - name: uds-gitlab-ci-secure-files
-                - name: uds-gitlab-dependency-proxy
-                - name: uds-gitlab-lfs
-                - name: uds-gitlab-mr-diffs
-                - name: uds-gitlab-packages
-                - name: uds-gitlab-pages
-                - name: uds-gitlab-terraform-state
-                - name: uds-gitlab-uploads
-                - name: uds-gitlab-registry
-                - name: uds-gitlab-tmp
-                - name: uds-mattermost-dev
-
-  # Namespaces are deployed prior to the packages to facilitate use of the postgres-operator cross namespace secret creation
-  - name: dev-namespaces
-    path: ../../
-    ref: 0.1.0
+      minio-operator:
+        uds-minio-config:
+          values:
+            # Test helm overrides to provision app specific buckets, policies and creds
+            - path: apps
+              value:
+                - name: gitlab
+                  namespace: gitlab
+                  bucketNames:
+                    - uds-gitlab-artifacts
+                    - uds-gitlab-backups
+                    - uds-gitlab-ci-secure-files
+                    - uds-gitlab-dependency-proxy
+                    - uds-gitlab-lfs
+                    - uds-gitlab-mr-diffs
+                    - uds-gitlab-packages
+                    - uds-gitlab-pages
+                    - uds-gitlab-terraform-state
+                    - uds-gitlab-uploads
+                    - uds-gitlab-registry
+                    - uds-gitlab-tmp
+                  policy: ""
+                  copyPassword:
+                    enabled: true
+                    secretName: "gitlab-minio"
+                    secretIDKey: "access_key"
+                    secretPasswordKey: "secret_key"
+                - name: mattermost
+                  namespace: mattermost
+                  bucketNames:
+                    - uds-mattermost-dev
+                  policy: ""
+                  copyPassword:
+                    enabled: true
+                    secretName: "mattermost-minio"
+                    secretIDKey: "access_key"
+                    secretPasswordKey: "secret_key"
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
@@ -124,13 +136,6 @@ packages:
                 requests:
                   cpu: 100m
                   memory: 300Mi
-
-  - name: dev-secrets
-    path: ../../
-    ref: 0.1.0
-    exports:
-      - name: ACCESS_KEY
-      - name: SECRET_KEY
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
@@ -311,11 +316,6 @@ packages:
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
     ref: 10.2.0-uds.1-upstream
-    imports:
-      - name: ACCESS_KEY
-        package: dev-secrets
-      - name: SECRET_KEY
-        package: dev-secrets
     overrides:
       mattermost:
         uds-mattermost-config:
@@ -323,7 +323,7 @@ packages:
             - path: "objectStorage.secure"
               value: "false"
             - path: "objectStorage.endpoint"
-              value: "minio.dev-minio.svc.cluster.local:9000"
+              value: "uds-minio-hl.minio.svc.cluster.local:9000"
             - path: "objectStorage.bucket"
               value: "uds-mattermost-dev"
             - path: "postgres.host"

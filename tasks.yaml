@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
 includes:
-  - dependencies: ./tasks/dependencies.yaml
   - test: ./tasks/test.yaml
   - create-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.4.0/tasks/create.yaml
   - deploy-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.4.0/tasks/deploy.yaml
@@ -26,7 +25,6 @@ tasks:
   - name: create-deploy-test-bundle
     description: Test and validate cluster is deployed with the SWF Bundle
     actions:
-      - task: dependencies:create
       - task: create-bundle:test-bundle
         with:
           path: ${BUNDLE_PATH}
@@ -68,8 +66,6 @@ tasks:
         if: ${{ ne .variables.ARCH "arm64" }}
       - task: create-deploy-test-bundle
         if: ${{ ne .variables.ARCH "arm64" }}
-      - task: dependencies:create
-        if: ${{ eq .variables.ARCH "arm64" }}
       - task: create-bundle:test-bundle
         with:
           path: ${BUNDLE_PATH}
