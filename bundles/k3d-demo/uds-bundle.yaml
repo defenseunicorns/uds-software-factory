@@ -12,7 +12,7 @@ metadata:
 packages:
   - name: uds-k3d-dev
     repository: ghcr.io/defenseunicorns/packages/uds-k3d
-    ref: 0.9.0
+    ref: 0.10.1
 
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
@@ -20,7 +20,7 @@ packages:
 
   - name: uds-core
     repository: ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.30.0-upstream"
+    ref: "0.32.0-upstream"
     optionalComponents:
       - metrics-server
     overrides:
@@ -64,7 +64,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.13.0-uds.3-upstream
+    ref: 1.13.0-uds.5-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -94,7 +94,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.0.1-uds.0-upstream
+    ref: 8.0.1-uds.2-upstream
     overrides:
       valkey:
         uds-valkey-config:
@@ -134,7 +134,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.3.6-uds.1-upstream
+    ref: 17.6.1-uds.0-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -251,11 +251,11 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.2.1-uds.5-upstream
+    ref: 17.2.1-uds.6-upstream
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.0.1-uds.0-upstream
+    ref: 8.0.1-uds.2-upstream
     overrides:
       valkey:
         valkey:
@@ -282,11 +282,11 @@ packages:
 
   - name: renovate
     repository: ghcr.io/defenseunicorns/packages/uds/renovate
-    ref: 38.133.0-uds.0-upstream
+    ref: 39.0.3-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 10.7.0-uds.0-upstream
+    ref: 10.7.0-uds.3-upstream
     overrides:
       sonarqube:
         sonarqube:
@@ -310,7 +310,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 10.1.1-uds.0-upstream
+    ref: 10.2.0-uds.1-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
