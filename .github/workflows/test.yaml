@@ -53,10 +53,10 @@ jobs:
           fetch-depth: 0
 
       - name: Install UDS CLI
-        uses: defenseunicorns/setup-uds@b987a32bac3baeb67bfb08f5e1544e2f9076ee8a # v1.0.0
+        uses: defenseunicorns/setup-uds@ab842abcad1f7a3305c2538e3dd1950d0daacfa5 # v1.0.1
         with:
           # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
-          version: v0.19.2
+          version: v0.20.0
 
       - name: Environment setup
         run: |
@@ -81,7 +81,7 @@ jobs:
         run: uds run actions:save-logs
         shell: bash
 
-      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+      - uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         if: ${{ always() }}
         with:
           name: debug-log-${{ matrix.type }}-${{ matrix.bundle }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ runner.arch }}
