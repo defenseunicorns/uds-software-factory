@@ -29,8 +29,8 @@ jobs:
 
   publish:
     permissions:
-      contents: read # Allows reading the content of the repository.
-      packages: write # Allows reading the content of the repository's packages.
+      contents: write # Allows writing the content of the repository.
+      packages: write # Allows writing the content of the repository's packages.
       id-token: write
     needs: tag-new-version
     if: ${{ needs.tag-new-version.outputs.release_created == 'true' }}
