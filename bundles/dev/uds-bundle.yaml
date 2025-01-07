@@ -295,7 +295,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 10.2.0-uds.1-upstream
+    ref: 10.3.0-uds.0-upstream
     overrides:
       mattermost:
         uds-mattermost-config:
