@@ -13,7 +13,7 @@ packages:
 
   - name: minio-operator
     repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
-    ref: 6.0.4-uds.2-upstream
+    ref: 6.0.4-uds.4-upstream
     overrides:
       minio-operator:
         uds-minio-config:
@@ -56,7 +56,7 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.13.0-uds.5-upstream
+    ref: 1.14.0-uds.0-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -86,7 +86,7 @@ packages:
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.0.1-uds.2-upstream
+    ref: 8.0.1-uds.3-upstream
     overrides:
       valkey:
         uds-valkey-config:
@@ -119,7 +119,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.6.1-uds.0-upstream
+    ref: 17.6.2-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -236,11 +236,11 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.2.1-uds.6-upstream
+    ref: 17.7.0-uds.0-upstream
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
-    ref: 8.0.1-uds.2-upstream
+    ref: 8.0.1-uds.3-upstream
     overrides:
       valkey:
         valkey:
@@ -267,11 +267,11 @@ packages:
 
   - name: renovate
     repository: ghcr.io/defenseunicorns/packages/uds/renovate
-    ref: 39.0.3-uds.0-upstream
+    ref: 39.91.2-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 10.7.0-uds.3-upstream
+    ref: 10.7.0-uds.5-upstream
     overrides:
       sonarqube:
         sonarqube:

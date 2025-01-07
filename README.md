@@ -113,7 +113,7 @@ To easily create a K3d cluster with [UDS Core Base](https://github.com/defenseun
 > You can install this bundle on nearly any Kubernetes cluster as long as you install the Base and Identity and Authorization layers from UDS Core.  You may need to make some changes to your node configuration which you can see in the [development documentation](./docs/development.md#linux-users).
 
 ```bash
-uds deploy k3d-core-slim-dev:0.32.0
+uds deploy k3d-core-slim-dev:0.33.1
 ```
 
 Run the below command to deploy the `swf-dev` bundle on top of the dev cluster:
