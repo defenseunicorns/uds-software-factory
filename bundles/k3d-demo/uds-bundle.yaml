@@ -291,7 +291,7 @@ packages:
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 10.7.0-uds.5-upstream
+    ref: 24.12.0.100206-uds.0-upstream
     overrides:
       sonarqube:
         sonarqube:
@@ -315,7 +315,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 10.2.0-uds.1-upstream
+    ref: 10.3.0-uds.0-upstream
     overrides:
       mattermost:
         uds-mattermost-config:
