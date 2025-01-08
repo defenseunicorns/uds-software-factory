@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1](https://github.com/defenseunicorns/uds-software-factory/compare/v0.4.0...v0.4.1) (2025-01-08)
+
+
+### Miscellaneous
+
+* **deps:** update bundle-deps for mattermost and sonarqube ([#133](https://github.com/defenseunicorns/uds-software-factory/issues/133)) ([a1890f7](https://github.com/defenseunicorns/uds-software-factory/commit/a1890f7d631da0b993bed3050f129762545b748e))
+* **deps:** update swf bundle dependencies ([#127](https://github.com/defenseunicorns/uds-software-factory/issues/127)) ([2aa64af](https://github.com/defenseunicorns/uds-software-factory/commit/2aa64af1e125832ac1a482d1a9a1979f1e4fc361))
+
 ## [0.4.0](https://github.com/defenseunicorns/uds-software-factory/compare/v0.3.0...v0.4.0) (2024-12-05)
 
 
