@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/defenseunicorns/uds-software-factory/compare/v0.4.1...v0.4.2) (2025-01-10)
+
+
+### Miscellaneous
+
+* **deps:** update swf bundle dependencies ([#134](https://github.com/defenseunicorns/uds-software-factory/issues/134)) ([863ef55](https://github.com/defenseunicorns/uds-software-factory/commit/863ef55ec2cfbc9c66a280c48c7729793d6a5de9))
+
 ## [0.4.1](https://github.com/defenseunicorns/uds-software-factory/compare/v0.4.0...v0.4.1) (2025-01-08)
 
 
