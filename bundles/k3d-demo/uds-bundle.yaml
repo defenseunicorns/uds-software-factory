@@ -291,7 +291,7 @@ packages:
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 25.1.0.102122-uds.0-registry1
+    ref: 25.1.0.102122-uds.0-upstream
     overrides:
       sonarqube:
         sonarqube:
