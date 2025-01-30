@@ -3,13 +3,13 @@
 
 includes:
   - test: ./tasks/test.yaml
-  - create-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.2/tasks/create.yaml
-  - deploy-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.2/tasks/deploy.yaml
-  - publish-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.2/tasks/publish.yaml
-  - pull-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.2/tasks/pull.yaml
-  - setup-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.2/tasks/setup.yaml
-  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.2/tasks/lint.yaml
-  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.2/tasks/actions.yaml
+  - create-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.7.3/tasks/create.yaml
+  - deploy-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.7.3/tasks/deploy.yaml
+  - publish-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.7.3/tasks/publish.yaml
+  - pull-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.7.3/tasks/pull.yaml
+  - setup-bundle: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.7.3/tasks/setup.yaml
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.7.3/tasks/lint.yaml
+  - actions: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.7.3/tasks/actions.yaml
 
 variables:
   - name: BUNDLE_PATH
