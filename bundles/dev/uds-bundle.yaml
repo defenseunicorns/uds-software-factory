@@ -13,7 +13,7 @@ packages:
 
   - name: minio-operator
     repository: ghcr.io/defenseunicorns/packages/uds/minio-operator
-    ref: 6.0.4-uds.4-upstream
+    ref: 7.0.0-uds.1-upstream
     overrides:
       minio-operator:
         uds-minio-config:
@@ -119,7 +119,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.6.2-uds.1-upstream
+    ref: 17.8.1-uds.0-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -236,7 +236,7 @@ packages:
 
   - name: gitlab-runner
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab-runner
-    ref: 17.7.0-uds.0-upstream
+    ref: 17.8.3-uds.0-upstream
 
   - name: valkey
     repository: ghcr.io/defenseunicorns/packages/uds/valkey
@@ -267,11 +267,11 @@ packages:
 
   - name: renovate
     repository: ghcr.io/defenseunicorns/packages/uds/renovate
-    ref: 39.91.2-uds.0-upstream
+    ref: 39.140.2-uds.0-upstream
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 24.12.0.100206-uds.0-upstream
+    ref: 25.1.0.102122-uds.0-registry1
     overrides:
       sonarqube:
         sonarqube:
@@ -295,7 +295,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 10.3.0-uds.0-upstream
+    ref: 10.4.2-uds.0-upstream
     overrides:
       mattermost:
         uds-mattermost-config:

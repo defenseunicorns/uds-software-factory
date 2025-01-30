@@ -15,4 +15,4 @@ permissions:
 
 jobs:
   validate:
-    uses: defenseunicorns/uds-common/.github/workflows/callable-commitlint.yaml@664946ed5f6a5fe6a19f4ba6fcdc909981aefbe4 # v1.6.2
+    uses: defenseunicorns/uds-common/.github/workflows/callable-commitlint.yaml@f922776396f05f743055f2751fe19ec0160968ae # v1.7.3
