@@ -20,7 +20,7 @@ packages:
 
   - name: uds-core
     repository: ghcr.io/defenseunicorns/packages/uds/core
-    ref: "0.35.0-upstream"
+    ref: "0.36.2-upstream"
     optionalComponents:
       - metrics-server
     overrides:
@@ -139,7 +139,7 @@ packages:
 
   - name: gitlab
     repository: ghcr.io/defenseunicorns/packages/uds/gitlab
-    ref: 17.8.1-uds.0-upstream
+    ref: 17.8.2-uds.1-upstream
     overrides:
       gitlab:
         uds-gitlab-config:
@@ -291,7 +291,7 @@ packages:
 
   - name: sonarqube
     repository: ghcr.io/defenseunicorns/packages/uds/sonarqube
-    ref: 25.1.0.102122-uds.0-upstream
+    ref: 25.2.0.102705-uds.1-registry1
     overrides:
       sonarqube:
         sonarqube:
@@ -315,7 +315,7 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 10.4.2-uds.0-upstream
+    ref: 10.4.3-uds.0-upstream
     overrides:
       mattermost:
         uds-mattermost-config:
