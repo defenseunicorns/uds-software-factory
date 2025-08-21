@@ -39,8 +39,8 @@
     {
       "customType": "regex",
       "depNameTemplate": "defenseunicorns/uds-core",
-      "fileMatch": [
-        "README\\.md"
+      "managerFilePatterns": [
+        "/README\\.md/"
       ],
       "matchStrings": [
         "k3d-core-slim-dev:(?<currentValue>.*)"
@@ -51,8 +51,8 @@
     {
       "customType": "regex",
       "depNameTemplate": "defenseunicorns/uds-cli",
-      "fileMatch": [
-        "README\\.md"
+      "managerFilePatterns": [
+        "/README\\.md/"
       ],
       "matchStrings": [
         "UDS CLI[^\\s]*(?<currentValue>[^\\s]*)"
@@ -62,8 +62,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        ".*(\\.ya?ml|\\.json)$"
+      "managerFilePatterns": [
+        "/.*(\\.ya?ml|\\.json)$/"
       ],
       "matchStrings": [
         "https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/(?<currentValue>[^\\/]+)"
