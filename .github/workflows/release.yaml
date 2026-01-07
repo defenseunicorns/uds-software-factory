@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Create Release Tag
         id: tag
-        uses: googleapis/release-please-action@7987652d64b4581673a76e33ad5e98e3dd56832f # v4.1.3
+        uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4.4.0
       - id: release-flag
         run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> "$GITHUB_OUTPUT"
 
@@ -42,13 +42,13 @@ jobs:
     timeout-minutes: 80
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Install UDS CLI
         uses: defenseunicorns/setup-uds@ab842abcad1f7a3305c2538e3dd1950d0daacfa5 # v1.0.1
         with:
           # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
-          version: v0.21.0
+          version: v0.27.21
 
       - name: Environment setup
         run: |
@@ -67,7 +67,7 @@ jobs:
         run: uds run actions:save-logs
         shell: bash
 
-      - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: ${{ always() }}
         with:
           name: debug-log-${{ matrix.bundle }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ runner.arch }}
